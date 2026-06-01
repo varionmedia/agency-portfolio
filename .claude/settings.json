@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/agency-portfolio && git add -A && git diff --cached --quiet || git commit -m 'auto: save session changes' && git push -u origin claude/hopeful-euler-Sudih 2>/dev/null || true",
+            "statusMessage": "Saving changes to git..."
+          }
+        ]
+      }
+    ]
+  }
+}
