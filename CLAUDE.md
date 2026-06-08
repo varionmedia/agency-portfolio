@@ -150,28 +150,28 @@ Dark, editorial, classy, type-forward. Cyan used like purple was on the referenc
 
 ---
 
+## Locked Decisions (as of build kickoff)
+
+- **Public contact email:** `hello@varionmedia.com` (owner email `admin@varionhq.com` remains for internal/admin only)
+- **Site scope (v1):** Home page only. No dedicated About page — Story + Team live inside Home V5. No service sub-pages for now.
+- **Animation stack:** Framer Motion + Lenis — go premium, benchmark against `roilabs.link`
+- **Contact form backend:** Deferred. Keep mailto / simple endpoint for now, migrate to Supabase later.
+
 ## Assets & Info Still Needed
 
-### Blockers (cannot build without these)
+### Awaiting from client (uploading)
 - [ ] **Logo file** (PNG/SVG)
-- [ ] **"Book a call" link** (Calendly / Cal.com / WhatsApp URL)
-- [ ] **Contact email** (likely admin@varionhq.com or hello@varionmedia.com — confirm)
-- [ ] **Social media links** (Instagram, LinkedIn, X, etc.)
+- [ ] **Team photos** (Umang, Mann)
+- [ ] **Client logos** (6–10 for the strip)
+- [ ] **YouTube URL** for Dr. Harel testimonial
+- [ ] **Case study visuals** (Dr. Harel, CA Amol Jain, Megha Kapoor, VSI Jaipur)
 
-### Nice-to-haves (build with placeholders, swap in later)
-- [ ] Team photos (Umang, Mann)
-- [ ] 6-10 client logos for the strip
-- [ ] YouTube video URL for Dr. Harel testimonial
-- [ ] Case study client photos / visuals
+### Pending creation by client
+- [ ] **"Book a Call" link** (Calendly / Cal.com / WhatsApp) — will be wired into every CTA
+- [ ] **Social media handles** (Instagram, LinkedIn, X, etc.) — accounts being created
 
-### Content still to write
-- [ ] About page (dedicated or fold into Home)
-- [ ] Services main page
-- [ ] SEO sub-page
-- [ ] Social Media sub-page
-- [ ] Meta Ads sub-page
-- [ ] AI Automation sub-page
-- [ ] Contact page email / phone / location
+### Optional / nice-to-have
+- [ ] Office location / phone (if wanted on Contact section)
 
 ---
 

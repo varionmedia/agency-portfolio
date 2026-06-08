@@ -31,7 +31,7 @@ export default function ContactCTA() {
 
         <form
           className="mt-14 grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto"
-          action="mailto:admin@varionhq.com"
+          action="mailto:hello@varionmedia.com"
           method="post"
           encType="text/plain"
         >
@@ -76,7 +76,7 @@ export default function ContactCTA() {
           </div>
         </form>
         <p className="mt-6 text-center text-xs text-white/40">
-          Form posts directly to admin@varionhq.com — Supabase backend coming next.
+          Form posts directly to hello@varionmedia.com — Supabase backend coming next.
         </p>
       </div>
     </section>

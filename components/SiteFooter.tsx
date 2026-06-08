@@ -16,10 +16,10 @@ export default function SiteFooter() {
           </div>
           <div>
             <a
-              href="mailto:admin@varionhq.com"
+              href="mailto:hello@varionmedia.com"
               className="hover:text-cyan transition-colors"
             >
-              admin@varionhq.com
+              hello@varionmedia.com
             </a>
           </div>
           <div className="text-white/40 italic">Social links coming soon</div>
