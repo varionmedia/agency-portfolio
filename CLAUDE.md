@@ -69,6 +69,7 @@ This is the single source of truth for project context. Always read this before 
 ### Client's reference websites (liked)
 - **sahelichatterjee.com** — dark theme, type-forward, personal-brand-meets-premium feel
 - **sahelichatterjee.com/freelance-101-academy** — black background with purple accent (we use cyan in the same role)
+- **roilabs.link** — ⭐ very important reference, "amazing build". Study the structure, animations, type hierarchy, motion polish, section transitions, and overall craft. Use as the gold-standard benchmark for execution quality.
 
 ### Vibe
 Dark, editorial, classy, type-forward. Cyan used like purple was on the reference — sparingly but boldly. Confident but human, not cold/corporate.
