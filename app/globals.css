@@ -6,6 +6,9 @@
   --color-cyan: #00c8e8;
   --color-blue: #0154a0;
   --color-white: #ffffff;
+  --color-cream: #f2f0ea;
+  --color-cream-soft: #e9e6dd;
+  --color-ink: #0a0d1f;
   --color-mute: #8b8fa3;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -26,11 +29,21 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Hide native cursor only when the custom one is active (fine pointers) */
+@media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor a,
+  .has-custom-cursor button {
+    cursor: none;
+  }
+}
+
 /* Subtle film grain overlay used on dark sections */
 .grain::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   opacity: 0.05;
   mix-blend-mode: overlay;
@@ -38,26 +51,15 @@ body {
   background-size: 160px 160px;
 }
 
-/* Rotating headline */
-@keyframes rotate-up {
-  0%, 28%   { transform: translateY(0%); }
-  33%, 61%  { transform: translateY(-100%); }
-  66%, 94%  { transform: translateY(-200%); }
-  100%      { transform: translateY(-300%); }
+/* Outline display type for ticker / oversized numerals */
+.text-stroke-cream {
+  -webkit-text-stroke: 1.5px rgba(242, 240, 234, 0.25);
+  color: transparent;
 }
 
-.rotator {
-  display: inline-flex;
-  flex-direction: column;
-  overflow: hidden;
-  vertical-align: bottom;
-  line-height: 1.05;
-  height: 1.05em;
-}
-
-.rotator > span {
-  display: block;
-  animation: rotate-up 9s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+.text-stroke-navy {
+  -webkit-text-stroke: 1.5px rgba(2, 5, 22, 0.2);
+  color: transparent;
 }
 
 /* Marquee */
@@ -70,9 +72,13 @@ body {
   animation: marquee 40s linear infinite;
 }
 
+.marquee-track-fast {
+  animation: marquee 22s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .rotator > span,
-  .marquee-track {
+  .marquee-track,
+  .marquee-track-fast {
     animation: none;
   }
 }

@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import TickerMarquee from "@/components/TickerMarquee";
 import VideoTestimonial from "@/components/VideoTestimonial";
 import Services from "@/components/Services";
 import CaseStudies from "@/components/CaseStudies";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <TickerMarquee />
       <VideoTestimonial />
       <Services />
       <CaseStudies />

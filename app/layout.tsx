@@ -3,6 +3,8 @@ import { Raleway, Inter, Caveat } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SmoothScroll from "@/components/providers/SmoothScroll";
+import Cursor from "@/components/ui/Cursor";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -57,10 +59,13 @@ export default function RootLayout({
       lang="en"
       className={`${raleway.variable} ${inter.variable} ${caveat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-navy text-white font-sans selection:bg-cyan/30 selection:text-white">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+      <body className="has-custom-cursor min-h-full flex flex-col bg-navy text-white font-sans selection:bg-cyan/30 selection:text-white">
+        <SmoothScroll>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </SmoothScroll>
+        <Cursor />
       </body>
     </html>
   );
