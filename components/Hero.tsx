@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Magnetic from "@/components/ui/Magnetic";
 import Counter from "@/components/ui/Counter";
+import AuroraBackground from "@/components/ui/AuroraBackground";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -32,10 +33,7 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden grain">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_70%_10%,rgba(1,84,160,0.35),transparent_65%),radial-gradient(40%_40%_at_15%_85%,rgba(0,200,232,0.12),transparent_70%)]"
-      />
+      <AuroraBackground />
       {/* Rising bars — brand motif from the logo */}
       <div
         aria-hidden
@@ -53,7 +51,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 md:pt-36 md:pb-24">
+      <div className="relative z-[2] mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 md:pt-36 md:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

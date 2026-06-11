@@ -2,6 +2,7 @@
 
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Magnetic from "@/components/ui/Magnetic";
+import AuroraBackground from "@/components/ui/AuroraBackground";
 
 const businessTypes = [
   "Coaching",
@@ -15,6 +16,7 @@ const businessTypes = [
 export default function ContactCTA() {
   return (
     <section id="contact" className="relative bg-navy grain overflow-hidden">
+      <AuroraBackground className="opacity-60" />
       <div
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(55%_55%_at_50%_110%,rgba(0,200,232,0.18),transparent_70%)]"

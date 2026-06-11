@@ -68,6 +68,34 @@ body {
   to   { transform: translateX(-50%); }
 }
 
+/* Aurora orbs — slow drifting background texture for dark sections */
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(10%, -8%) scale(1.2); }
+  66%      { transform: translate(-8%, 6%) scale(0.9); }
+}
+
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%      { transform: translate(-12%, 10%) scale(1.15); }
+  70%      { transform: translate(6%, -8%) scale(0.95); }
+}
+
+@keyframes drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(8%, 12%) scale(1.25); }
+}
+
+.aurora-a { animation: drift-a 22s ease-in-out infinite; }
+.aurora-b { animation: drift-b 28s ease-in-out infinite; }
+.aurora-c { animation: drift-c 34s ease-in-out infinite; }
+
+/* Faint dot grid for depth on dark sections */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
 .marquee-track {
   animation: marquee 40s linear infinite;
 }
@@ -78,7 +106,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
-  .marquee-track-fast {
+  .marquee-track-fast,
+  .aurora-a,
+  .aurora-b,
+  .aurora-c {
     animation: none;
   }
 }
