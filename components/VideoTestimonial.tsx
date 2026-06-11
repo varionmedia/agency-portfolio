@@ -1,10 +1,12 @@
 "use client";
 
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
+import Spotlight from "@/components/ui/Spotlight";
 
 export default function VideoTestimonial() {
   return (
-    <section id="testimonial" className="relative bg-navy-soft grain">
+    <section id="testimonial" className="relative bg-navy-warm grain">
+      <Spotlight />
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32 relative z-[2]">
         <FadeUp>
           <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-6">

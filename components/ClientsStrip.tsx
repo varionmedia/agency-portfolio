@@ -16,7 +16,7 @@ const placeholders = [
 export default function ClientsStrip() {
   const track = [...placeholders, ...placeholders];
   return (
-    <section id="clients" className="relative bg-navy overflow-hidden border-t border-white/5">
+    <section id="clients" className="relative bg-navy-warm overflow-hidden border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-4">
         <FadeUp>
           <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-4">

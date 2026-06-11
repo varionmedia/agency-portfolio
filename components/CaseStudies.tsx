@@ -2,6 +2,7 @@
 
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Counter from "@/components/ui/Counter";
+import Spotlight from "@/components/ui/Spotlight";
 
 type Metric = {
   value: number;
@@ -79,7 +80,9 @@ const cases: CaseStudy[] = [
 export default function CaseStudies() {
   return (
     <section id="case-studies" className="relative bg-navy grain">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-32 pb-12">
+      <div aria-hidden className="v-lines absolute inset-0 pointer-events-none" />
+      <Spotlight size={800} strength={0.05} />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-32 pb-12">
         <FadeUp>
           <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-6">
             <span className="h-px w-10 bg-cyan/60" />

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Magnetic from "@/components/ui/Magnetic";
 import Counter from "@/components/ui/Counter";
-import AuroraBackground from "@/components/ui/AuroraBackground";
+import Constellation from "@/components/ui/Constellation";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -33,11 +33,17 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden grain">
-      <AuroraBackground />
+      {/* Living network — the agency's medium, made visible */}
+      <Constellation />
+      {/* Vignette keeps the headline legible over the network */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(85%_70%_at_30%_40%,rgba(2,5,22,0.85),transparent_75%)]"
+      />
       {/* Rising bars — brand motif from the logo */}
       <div
         aria-hidden
-        className="absolute right-[-4rem] bottom-0 hidden lg:flex items-end gap-6 opacity-40 pointer-events-none"
+        className="absolute right-[-4rem] bottom-0 hidden lg:flex items-end gap-6 opacity-25 pointer-events-none"
       >
         {[0.45, 0.7, 1].map((h, i) => (
           <motion.div

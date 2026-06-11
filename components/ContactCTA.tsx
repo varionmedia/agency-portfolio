@@ -2,7 +2,7 @@
 
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Magnetic from "@/components/ui/Magnetic";
-import AuroraBackground from "@/components/ui/AuroraBackground";
+import Spotlight from "@/components/ui/Spotlight";
 
 const businessTypes = [
   "Coaching",
@@ -16,11 +16,12 @@ const businessTypes = [
 export default function ContactCTA() {
   return (
     <section id="contact" className="relative bg-navy grain overflow-hidden">
-      <AuroraBackground className="opacity-60" />
+      <div aria-hidden className="v-lines absolute inset-0 pointer-events-none" />
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(55%_55%_at_50%_110%,rgba(0,200,232,0.18),transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(55%_55%_at_50%_110%,rgba(0,200,232,0.14),transparent_70%)]"
       />
+      <Spotlight />
       <div className="mx-auto max-w-5xl px-6 lg:px-10 py-24 md:py-32 relative z-[2]">
         <div className="text-center">
           <FadeUp>
