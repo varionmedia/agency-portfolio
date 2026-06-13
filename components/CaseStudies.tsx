@@ -25,6 +25,7 @@ type CaseStudy = {
   accent: string;
   proof: string;
   proofLabel: string;
+  proofLabels: string[];
 };
 
 const cases: CaseStudy[] = [
@@ -42,6 +43,7 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/dr-harel.jpg",
     proofLabel: "Dr. Harel Papikian Instagram profile",
+    proofLabels: ["Reel", "Insights", "DMs"],
   },
   {
     client: "CA Amol Jain",
@@ -57,6 +59,7 @@ const cases: CaseStudy[] = [
     accent: "from-blue/30",
     proof: "/images/instagram/amol-jain.jpg",
     proofLabel: "CA Amol Jain Instagram profile",
+    proofLabels: ["Growth", "Reach", "Reels"],
   },
   {
     client: "CA Ravi Taori",
@@ -72,6 +75,7 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/ravi-taori.jpg",
     proofLabel: "CA Ravi Taori Instagram profile",
+    proofLabels: ["Reels", "YouTube", "Reviews"],
   },
   {
     client: "Megha Kapoor",
@@ -87,6 +91,7 @@ const cases: CaseStudy[] = [
     accent: "from-blue/30",
     proof: "/images/instagram/megha-kapoor.jpg",
     proofLabel: "Megha Kapoor Instagram profile",
+    proofLabels: ["Meta Ads", "Leads", "ROAS"],
   },
   {
     client: "VSI Jaipur",
@@ -102,33 +107,77 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/vsi-jaipur.jpg",
     proofLabel: "VSI Jaipur Instagram profile",
+    proofLabels: ["Search Console", "Keywords", "Traffic"],
   },
 ];
 
 function PhoneFrame({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative mx-auto w-[270px] sm:w-[300px] lg:w-[320px]">
+    <div className="relative mx-auto w-[210px] sm:w-[230px] lg:w-[248px]">
       {/* Glow behind the device */}
       <div
         aria-hidden
         className="absolute -inset-6 rounded-[3rem] bg-cyan/10 blur-3xl"
       />
-      <div className="relative rounded-[2.8rem] bg-gradient-to-b from-[#1a1c2e] to-[#070811] p-[10px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)] ring-1 ring-white/10">
+      <div className="relative rounded-[2.4rem] bg-gradient-to-b from-[#1a1c2e] to-[#070811] p-[8px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)] ring-1 ring-white/10">
         {/* Side buttons */}
-        <div aria-hidden className="absolute -left-[3px] top-28 h-12 w-[3px] rounded-l bg-white/15" />
-        <div aria-hidden className="absolute -left-[3px] top-44 h-12 w-[3px] rounded-l bg-white/15" />
-        <div aria-hidden className="absolute -right-[3px] top-36 h-16 w-[3px] rounded-r bg-white/15" />
-        <div className="overflow-hidden rounded-[2.2rem] bg-black">
+        <div aria-hidden className="absolute -left-[3px] top-24 h-10 w-[3px] rounded-l bg-white/15" />
+        <div aria-hidden className="absolute -left-[3px] top-36 h-10 w-[3px] rounded-l bg-white/15" />
+        <div aria-hidden className="absolute -right-[3px] top-32 h-14 w-[3px] rounded-r bg-white/15" />
+        <div className="overflow-hidden rounded-[1.9rem] bg-black">
           <Image
             src={src}
             alt={alt}
             width={1080}
             height={2120}
             quality={90}
-            sizes="(max-width: 640px) 270px, 320px"
+            sizes="(max-width: 640px) 210px, 248px"
             className="w-full h-auto"
           />
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ImagePlaceholderIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <path d="M21 15l-5-5L5 21" />
+    </svg>
+  );
+}
+
+function ProofGallery({ labels }: { labels: string[] }) {
+  return (
+    <div className="mt-5 max-w-xl">
+      <div className="font-display uppercase tracking-[0.2em] text-[0.65rem] text-white/40 mb-3">
+        More proof — coming soon
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        {labels.map((label, n) => (
+          <div
+            key={n}
+            className="group/proof aspect-[4/3] rounded-xl border border-dashed border-white/15 bg-white/[0.03] flex flex-col items-center justify-center gap-1.5 text-white/35 transition-colors hover:border-cyan/40 hover:text-cyan/70"
+            title={`${label} screenshot placeholder`}
+          >
+            <ImagePlaceholderIcon className="w-5 h-5" />
+            <span className="text-[0.6rem] uppercase tracking-[0.15em] font-display">
+              {label}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -163,7 +212,7 @@ function CaseCard({
     >
       <motion.article
         style={{ scale }}
-        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-10 md:px-12 md:py-14 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
+        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-8 md:px-12 md:py-10 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
       >
         <div
           aria-hidden
@@ -172,7 +221,7 @@ function CaseCard({
           {String(i + 1).padStart(2, "0")}
         </div>
 
-        <div className="relative grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="relative grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Phone */}
           <div
             className={`lg:col-span-5 ${
@@ -191,20 +240,22 @@ function CaseCard({
             <div className="font-display text-xs uppercase tracking-[0.25em] text-cyan/80">
               Case {String(i + 1).padStart(2, "0")}
             </div>
-            <h3 className="mt-3 font-display font-bold text-3xl md:text-4xl">
+            <h3 className="mt-2 font-display font-bold text-2xl md:text-3xl">
               {c.client}
             </h3>
-            <div className="mt-2 text-sm text-white/50">{c.role}</div>
-            <p className="mt-6 font-display font-semibold text-xl md:text-2xl leading-snug max-w-xl">
+            <div className="mt-1 text-sm text-white/50">{c.role}</div>
+            <p className="mt-4 font-display font-semibold text-lg md:text-xl leading-snug max-w-xl">
               {c.headline}
             </p>
-            <p className="mt-4 text-white/65 max-w-xl">{c.summary}</p>
+            <p className="mt-3 text-sm md:text-base text-white/65 max-w-xl">
+              {c.summary}
+            </p>
 
-            <div className="mt-8 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10 max-w-xl">
+            <div className="mt-5 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10 max-w-xl">
               {c.metrics.map((m) => (
-                <div key={m.label} className="bg-navy/90 p-4 md:p-5">
+                <div key={m.label} className="bg-navy/90 p-3 md:p-4">
                   {m.display ? (
-                    <div className="font-display font-extrabold text-xl md:text-2xl text-cyan">
+                    <div className="font-display font-extrabold text-lg md:text-2xl text-cyan">
                       {m.display}
                     </div>
                   ) : (
@@ -213,15 +264,17 @@ function CaseCard({
                       prefix={m.prefix}
                       suffix={m.suffix}
                       decimals={m.decimals ?? 0}
-                      className="font-display font-extrabold text-xl md:text-2xl text-cyan"
+                      className="font-display font-extrabold text-lg md:text-2xl text-cyan"
                     />
                   )}
-                  <div className="mt-2 text-[0.65rem] md:text-xs uppercase tracking-[0.15em] text-white/50 leading-tight">
+                  <div className="mt-1.5 text-[0.6rem] md:text-xs uppercase tracking-[0.14em] text-white/50 leading-tight">
                     {m.label}
                   </div>
                 </div>
               ))}
             </div>
+
+            <ProofGallery labels={c.proofLabels} />
           </div>
         </div>
       </motion.article>
