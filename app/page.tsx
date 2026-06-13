@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import TickerMarquee from "@/components/TickerMarquee";
 import VideoTestimonial from "@/components/VideoTestimonial";
 import Services from "@/components/Services";
 import CaseStudies from "@/components/CaseStudies";
@@ -16,7 +15,6 @@ export default function Home() {
       <Services />
       <CaseStudies />
       <StoryTeam />
-      <TickerMarquee />
       <ContactCTA />
     </>
   );
