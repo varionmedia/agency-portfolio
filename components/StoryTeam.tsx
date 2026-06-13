@@ -128,26 +128,26 @@ export default function StoryTeam() {
           ))}
         </div>
 
-        {/* Desktop: staggered portraits with overlapping bio cards */}
+        {/* Desktop: level portraits, each bio card overlapping its own photo */}
         <div className="hidden lg:block relative mt-12">
-          <div className="grid grid-cols-2 items-start">
-            {/* Umang — left, top-aligned */}
-            <div className="pr-20">
+          <div className="grid grid-cols-2 items-start gap-10">
+            {/* Umang — left */}
+            <div>
               <TeamPhoto name={umang.name} />
             </div>
-            {/* Mann — right, pushed down */}
-            <div className="pl-20 mt-28">
+            {/* Mann — right */}
+            <div>
               <TeamPhoto name={mann.name} />
             </div>
           </div>
 
-          {/* Mann card — high, overlapping the right photo's left edge */}
-          <div className="absolute z-20 top-[18%] left-[31%] w-[40%] max-w-md">
+          {/* Mann card — right side, higher, overlapping Mann's (right) photo */}
+          <div className="absolute z-20 top-[22%] left-1/2 w-[37%] max-w-md">
             <TeamCard member={mann} />
           </div>
 
-          {/* Umang card — lower, overlapping the left photo's right edge */}
-          <div className="absolute z-20 top-[55%] left-[28%] w-[40%] max-w-md">
+          {/* Umang card — left side, lower, overlapping Umang's (left) photo */}
+          <div className="absolute z-20 top-[52%] right-1/2 w-[37%] max-w-md">
             <TeamCard member={umang} />
           </div>
         </div>
