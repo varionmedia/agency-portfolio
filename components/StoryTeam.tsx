@@ -2,83 +2,153 @@
 
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 
-const team = [
+type Member = {
+  name: string;
+  role: string;
+  bio: string;
+};
+
+const team: Member[] = [
   {
     name: "Umang Rawat",
     role: "Co-Founder · Strategy & SEO",
     bio: "Leads client strategy and search growth. Ensures every campaign is built around measurable outcomes.",
-    initials: "UR",
   },
   {
     name: "Mann Desai",
     role: "Co-Founder · Social & Content",
     bio: "Leads content strategy, video production, and social growth across all accounts.",
-    initials: "MD",
   },
 ];
 
+function PhotoIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <path d="M21 15l-5-5L5 21" />
+    </svg>
+  );
+}
+
+function TeamPhoto({ name }: { name: string }) {
+  // TODO: Swap this placeholder for the real team photo when provided.
+  return (
+    <div className="relative aspect-[4/5] w-full rounded-2xl border border-ink/15 bg-ink/[0.04] overflow-hidden flex flex-col items-center justify-center gap-2 text-ink/35">
+      <PhotoIcon className="w-9 h-9" />
+      <span className="font-display uppercase tracking-[0.2em] text-xs">
+        {name}
+      </span>
+      <span className="text-[0.65rem] tracking-wide text-ink/30">
+        Photo coming soon
+      </span>
+    </div>
+  );
+}
+
+function TeamCard({ member }: { member: Member }) {
+  return (
+    <article className="rounded-2xl border border-ink/10 bg-white p-6 md:p-7 shadow-[0_14px_50px_rgba(2,5,22,0.12)]">
+      <h3 className="font-display font-bold text-xl md:text-2xl">
+        {member.name}
+      </h3>
+      <div className="mt-1.5 text-xs uppercase tracking-[0.18em] text-blue">
+        {member.role}
+      </div>
+      <p className="mt-3 text-sm md:text-base text-ink/65 leading-relaxed">
+        {member.bio}
+      </p>
+    </article>
+  );
+}
+
 export default function StoryTeam() {
+  const [umang, mann] = team;
   return (
     <section id="story" className="relative bg-cream text-ink">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32">
-        <div className="grid lg:grid-cols-12 gap-14 lg:gap-20">
-          <div className="lg:col-span-7">
-            <FadeUp>
-              <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-blue mb-8">
-                <span className="h-px w-10 bg-blue/60" />
-                Our Story
-              </div>
-            </FadeUp>
-            <WordReveal
-              as="h2"
-              text="Most service professionals are exceptional at what they do — but invisible online."
-              className="font-display font-bold text-3xl md:text-5xl leading-[1.12] tracking-tight"
-            />
-            <FadeUp delay={0.2}>
-              <p className="mt-10 text-ink/70 max-w-2xl text-lg leading-relaxed">
-                We started with a simple belief:{" "}
-                <span className="text-blue font-medium">
-                  great expertise deserves to be found.
-                </span>{" "}
-                Today we work with service professionals and coaches to build
-                their online presence, generate consistent leads, and grow
-                their business through strategies that are built around real
-                results — not vanity metrics.
-              </p>
-            </FadeUp>
-            <FadeUp delay={0.3}>
-              <div className="mt-10 font-accent text-blue text-3xl -rotate-2 inline-block">
-                Momentum. Variation. Reliable.
-              </div>
-            </FadeUp>
+        {/* Story */}
+        <div className="max-w-3xl">
+          <FadeUp>
+            <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-blue mb-8">
+              <span className="h-px w-10 bg-blue/60" />
+              Our Story
+            </div>
+          </FadeUp>
+          <WordReveal
+            as="h2"
+            text="Most service professionals are exceptional at what they do — but invisible online."
+            className="font-display font-bold text-3xl md:text-5xl leading-[1.12] tracking-tight"
+          />
+          <FadeUp delay={0.2}>
+            <p className="mt-10 text-ink/70 text-lg leading-relaxed">
+              We started with a simple belief:{" "}
+              <span className="text-blue font-medium">
+                great expertise deserves to be found.
+              </span>{" "}
+              Today we work with service professionals and coaches to build
+              their online presence, generate consistent leads, and grow their
+              business through strategies that are built around real results —
+              not vanity metrics.
+            </p>
+          </FadeUp>
+          <FadeUp delay={0.3}>
+            <div className="mt-8 font-accent text-blue text-3xl -rotate-2 inline-block">
+              Momentum. Variation. Reliable.
+            </div>
+          </FadeUp>
+        </div>
+
+        {/* Team */}
+        <FadeUp>
+          <div className="mt-24 lg:mt-28 flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-blue">
+            <span className="h-px w-10 bg-blue/60" />
+            The Team
           </div>
-          <div className="lg:col-span-5 space-y-6">
-            <FadeUp>
-              <div className="font-display uppercase tracking-[0.25em] text-xs text-ink/40">
-                The Team
+        </FadeUp>
+
+        {/* Mobile / tablet: stacked */}
+        <div className="lg:hidden mt-8 space-y-12">
+          {team.map((member) => (
+            <div key={member.name}>
+              <TeamPhoto name={member.name} />
+              <div className="relative z-10 -mt-10 mx-4">
+                <TeamCard member={member} />
               </div>
-            </FadeUp>
-            {team.map((member, i) => (
-              <FadeUp key={member.name} delay={0.1 + i * 0.12}>
-                <article className="rounded-2xl border border-ink/10 bg-white p-6 flex gap-5 items-start shadow-[0_2px_20px_rgba(2,5,22,0.05)] transition-transform duration-300 hover:-translate-y-1">
-                  {/* TODO: Swap initials for team photos when provided */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue to-cyan text-white font-display font-bold flex items-center justify-center shrink-0 text-lg">
-                    {member.initials}
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-xl">
-                      {member.name}
-                    </h3>
-                    <div className="text-xs uppercase tracking-[0.18em] text-blue mt-1">
-                      {member.role}
-                    </div>
-                    <p className="mt-3 text-sm text-ink/65 leading-relaxed">
-                      {member.bio}
-                    </p>
-                  </div>
-                </article>
-              </FadeUp>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: staggered portraits with overlapping bio cards */}
+        <div className="hidden lg:block relative mt-12">
+          <div className="grid grid-cols-2 items-start">
+            {/* Umang — left, top-aligned */}
+            <div className="pr-20">
+              <TeamPhoto name={umang.name} />
+            </div>
+            {/* Mann — right, pushed down */}
+            <div className="pl-20 mt-28">
+              <TeamPhoto name={mann.name} />
+            </div>
+          </div>
+
+          {/* Mann card — high, overlapping the right photo's left edge */}
+          <div className="absolute z-20 top-[18%] left-[31%] w-[40%] max-w-md">
+            <TeamCard member={mann} />
+          </div>
+
+          {/* Umang card — lower, overlapping the left photo's right edge */}
+          <div className="absolute z-20 top-[55%] left-[28%] w-[40%] max-w-md">
+            <TeamCard member={umang} />
           </div>
         </div>
       </div>
