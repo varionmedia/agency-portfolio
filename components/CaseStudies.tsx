@@ -113,7 +113,7 @@ const cases: CaseStudy[] = [
 
 function PhoneFrame({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative mx-auto w-[210px] sm:w-[230px] lg:w-[248px]">
+    <div className="relative mx-auto w-[205px] sm:w-[224px] lg:w-[240px]">
       {/* Glow behind the device */}
       <div
         aria-hidden
@@ -169,7 +169,7 @@ function ProofGallery({ labels }: { labels: string[] }) {
         {labels.map((label, n) => (
           <div
             key={n}
-            className="group/proof aspect-[4/3] rounded-xl border border-dashed border-white/15 bg-white/[0.03] flex flex-col items-center justify-center gap-1.5 text-white/35 transition-colors hover:border-cyan/40 hover:text-cyan/70"
+            className="group/proof aspect-[16/10] rounded-xl border border-dashed border-white/15 bg-white/[0.03] flex flex-col items-center justify-center gap-1.5 text-white/35 transition-colors hover:border-cyan/40 hover:text-cyan/70"
             title={`${label} screenshot placeholder`}
           >
             <ImagePlaceholderIcon className="w-5 h-5" />
@@ -208,11 +208,11 @@ function CaseCard({
     <div
       ref={ref}
       className="sticky"
-      style={{ top: `${5.5 + i * 1.6}rem` }}
+      style={{ top: `${4.5 + i * 1.1}rem` }}
     >
       <motion.article
         style={{ scale }}
-        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-8 md:px-12 md:py-10 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
+        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 pt-8 pb-10 md:px-12 md:pt-10 md:pb-12 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
       >
         <div
           aria-hidden
