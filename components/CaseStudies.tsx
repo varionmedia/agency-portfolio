@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "motion/react";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Counter from "@/components/ui/Counter";
 import Spotlight from "@/components/ui/Spotlight";
@@ -132,6 +134,101 @@ function PhoneFrame({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+function CaseCard({
+  c,
+  i,
+  total,
+}: {
+  c: CaseStudy;
+  i: number;
+  total: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const phoneRight = i % 2 === 1;
+
+  // As the card scrolls up and the next one slides over it, shrink it slightly
+  // so the stack visibly collapses (last card stays full size).
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const targetScale = i === total - 1 ? 1 : 0.88;
+  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+
+  return (
+    <div
+      ref={ref}
+      className="sticky"
+      style={{ top: `${5.5 + i * 1.6}rem` }}
+    >
+      <motion.article
+        style={{ scale }}
+        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-10 md:px-12 md:py-14 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
+      >
+        <div
+          aria-hidden
+          className="absolute -right-6 -top-12 font-display font-extrabold text-stroke-cream text-[11rem] leading-none select-none hidden md:block pointer-events-none"
+        >
+          {String(i + 1).padStart(2, "0")}
+        </div>
+
+        <div className="relative grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Phone */}
+          <div
+            className={`lg:col-span-5 ${
+              phoneRight ? "lg:order-2" : "lg:order-1"
+            }`}
+          >
+            <PhoneFrame src={c.proof} alt={c.proofLabel} />
+          </div>
+
+          {/* Content */}
+          <div
+            className={`lg:col-span-7 ${
+              phoneRight ? "lg:order-1" : "lg:order-2"
+            }`}
+          >
+            <div className="font-display text-xs uppercase tracking-[0.25em] text-cyan/80">
+              Case {String(i + 1).padStart(2, "0")}
+            </div>
+            <h3 className="mt-3 font-display font-bold text-3xl md:text-4xl">
+              {c.client}
+            </h3>
+            <div className="mt-2 text-sm text-white/50">{c.role}</div>
+            <p className="mt-6 font-display font-semibold text-xl md:text-2xl leading-snug max-w-xl">
+              {c.headline}
+            </p>
+            <p className="mt-4 text-white/65 max-w-xl">{c.summary}</p>
+
+            <div className="mt-8 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10 max-w-xl">
+              {c.metrics.map((m) => (
+                <div key={m.label} className="bg-navy/90 p-4 md:p-5">
+                  {m.display ? (
+                    <div className="font-display font-extrabold text-xl md:text-2xl text-cyan">
+                      {m.display}
+                    </div>
+                  ) : (
+                    <Counter
+                      value={m.value}
+                      prefix={m.prefix}
+                      suffix={m.suffix}
+                      decimals={m.decimals ?? 0}
+                      className="font-display font-extrabold text-xl md:text-2xl text-cyan"
+                    />
+                  )}
+                  <div className="mt-2 text-[0.65rem] md:text-xs uppercase tracking-[0.15em] text-white/50 leading-tight">
+                    {m.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.article>
+    </div>
+  );
+}
+
 export default function CaseStudies() {
   return (
     <section id="case-studies" className="relative bg-navy grain">
@@ -152,80 +249,9 @@ export default function CaseStudies() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pb-24 md:pb-32">
-        {cases.map((c, i) => {
-          const phoneRight = i % 2 === 1;
-          return (
-            <div
-              key={c.client}
-              className="sticky"
-              style={{ top: `${5.5 + i * 1.75}rem` }}
-            >
-              <article
-                className={`relative rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-10 md:px-12 md:py-14 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
-              >
-                <div
-                  aria-hidden
-                  className="absolute -right-6 -top-12 font-display font-extrabold text-stroke-cream text-[11rem] leading-none select-none hidden md:block pointer-events-none"
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-
-                <div className="relative grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                  {/* Phone */}
-                  <div
-                    className={`lg:col-span-5 ${
-                      phoneRight ? "lg:order-2" : "lg:order-1"
-                    }`}
-                  >
-                    <PhoneFrame src={c.proof} alt={c.proofLabel} />
-                  </div>
-
-                  {/* Content */}
-                  <div
-                    className={`lg:col-span-7 ${
-                      phoneRight ? "lg:order-1" : "lg:order-2"
-                    }`}
-                  >
-                    <div className="font-display text-xs uppercase tracking-[0.25em] text-cyan/80">
-                      Case {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <h3 className="mt-3 font-display font-bold text-3xl md:text-4xl">
-                      {c.client}
-                    </h3>
-                    <div className="mt-2 text-sm text-white/50">{c.role}</div>
-                    <p className="mt-6 font-display font-semibold text-xl md:text-2xl leading-snug max-w-xl">
-                      {c.headline}
-                    </p>
-                    <p className="mt-4 text-white/65 max-w-xl">{c.summary}</p>
-
-                    <div className="mt-8 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10 max-w-xl">
-                      {c.metrics.map((m) => (
-                        <div key={m.label} className="bg-navy/90 p-4 md:p-5">
-                          {m.display ? (
-                            <div className="font-display font-extrabold text-xl md:text-2xl text-cyan">
-                              {m.display}
-                            </div>
-                          ) : (
-                            <Counter
-                              value={m.value}
-                              prefix={m.prefix}
-                              suffix={m.suffix}
-                              decimals={m.decimals ?? 0}
-                              className="font-display font-extrabold text-xl md:text-2xl text-cyan"
-                            />
-                          )}
-                          <div className="mt-2 text-[0.65rem] md:text-xs uppercase tracking-[0.15em] text-white/50 leading-tight">
-                            {m.label}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
-          );
-        })}
+        {cases.map((c, i) => (
+          <CaseCard key={c.client} c={c} i={i} total={cases.length} />
+        ))}
       </div>
     </section>
   );
