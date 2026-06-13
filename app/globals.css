@@ -30,15 +30,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Hide native cursor only when the custom one is active (fine pointers) */
-@media (pointer: fine) {
-  .has-custom-cursor,
-  .has-custom-cursor a,
-  .has-custom-cursor button {
-    cursor: none;
-  }
-}
-
 /* Subtle film grain overlay used on dark sections */
 .grain::before {
   content: "";
