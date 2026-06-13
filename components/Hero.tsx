@@ -68,7 +68,7 @@ export default function Hero() {
           Digital Marketing Agency
         </motion.div>
 
-        <h1 className="font-display font-extrabold leading-[1.04] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-[4.6rem] max-w-5xl">
+        <h1 className="font-display font-extrabold leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] max-w-6xl">
           <motion.span
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,15 +77,15 @@ export default function Hero() {
           >
             An Agency That
           </motion.span>
-          <span className="block h-[1.15em] overflow-hidden text-cyan">
+          <span className="relative block min-h-[2.4em] md:min-h-[2.4em] lg:min-h-[1.2em] text-cyan">
             <AnimatePresence mode="wait">
               <motion.span
                 key={index}
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-100%" }}
-                transition={{ duration: 0.55, ease: EASE }}
-                className="block"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -24 }}
+                transition={{ duration: 0.5, ease: EASE }}
+                className="absolute inset-x-0 top-0 block"
               >
                 {phrases[index]}
               </motion.span>
