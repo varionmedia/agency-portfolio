@@ -151,13 +151,17 @@ export default function CaseStudies() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pb-24 md:pb-32 space-y-8">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pb-24 md:pb-32">
         {cases.map((c, i) => {
           const phoneRight = i % 2 === 1;
           return (
-            <FadeUp key={c.client}>
+            <div
+              key={c.client}
+              className="sticky"
+              style={{ top: `${5.5 + i * 1.75}rem` }}
+            >
               <article
-                className={`relative rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-10 md:px-12 md:py-14 overflow-hidden`}
+                className={`relative rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 py-10 md:px-12 md:py-14 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
               >
                 <div
                   aria-hidden
@@ -219,7 +223,7 @@ export default function CaseStudies() {
                   </div>
                 </div>
               </article>
-            </FadeUp>
+            </div>
           );
         })}
       </div>
