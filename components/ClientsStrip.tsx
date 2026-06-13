@@ -1,20 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { FadeUp } from "@/components/ui/Reveal";
 
-const placeholders = [
-  "Dr. Harel Papikian",
-  "V'smart Academy",
-  "Megha Kapoor",
-  "VSI Jaipur",
-  "Client Logo",
-  "Client Logo",
-  "Client Logo",
-  "Client Logo",
+type Client = {
+  name: string;
+  logo: string;
+};
+
+const clients: Client[] = [
+  { name: "V'smart Academy",        logo: "/images/clients/vsmart-academy.svg" },
+  { name: "VSI Jaipur",             logo: "/images/clients/vsi-jaipur.svg" },
+  { name: "Auditguru",              logo: "/images/clients/auditguru.svg" },
+  { name: "My Prepzone",            logo: "/images/clients/my-prepzone.svg" },
+  { name: "Grras",                  logo: "/images/clients/grras.svg" },
+  { name: "Quibus Technosys",       logo: "/images/clients/quibus-technosys.svg" },
+  { name: "Manglam Pinkwest",       logo: "/images/clients/manglam-pinkwest.svg" },
 ];
 
 export default function ClientsStrip() {
-  const track = [...placeholders, ...placeholders];
+  const track = [...clients, ...clients];
   return (
     <section id="clients" className="relative bg-navy-warm overflow-hidden border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-4">
@@ -26,15 +31,20 @@ export default function ClientsStrip() {
         </FadeUp>
       </div>
       <div className="relative py-10 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-        <div className="marquee-track flex gap-6 w-max">
-          {track.map((name, i) => (
+        <div className="marquee-track flex gap-6 w-max items-center">
+          {track.map((client, i) => (
             <div
-              key={`${name}-${i}`}
-              className="h-16 px-8 min-w-[13rem] flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03]"
+              key={`${client.name}-${i}`}
+              className="h-24 w-48 shrink-0 rounded-2xl bg-white flex items-center justify-center p-5 shadow-[0_2px_30px_rgba(0,200,232,0.06)] transition-transform duration-300 hover:-translate-y-1"
+              title={client.name}
             >
-              <span className="font-display font-bold uppercase tracking-[0.18em] text-white/50 text-sm whitespace-nowrap">
-                {name}
-              </span>
+              <Image
+                src={client.logo}
+                alt={client.name}
+                width={150}
+                height={60}
+                className="max-h-14 w-auto object-contain"
+              />
             </div>
           ))}
         </div>

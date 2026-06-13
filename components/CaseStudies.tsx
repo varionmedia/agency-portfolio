@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Counter from "@/components/ui/Counter";
 import Spotlight from "@/components/ui/Spotlight";
@@ -20,6 +21,8 @@ type CaseStudy = {
   metrics: Metric[];
   summary: string;
   accent: string;
+  proof: string;
+  proofLabel: string;
 };
 
 const cases: CaseStudy[] = [
@@ -35,6 +38,8 @@ const cases: CaseStudy[] = [
     summary:
       "Transformed a brand-new Instagram account into a high-trust pipeline for prospective clients — without paid promotion.",
     accent: "from-cyan/20",
+    proof: "/images/instagram/dr-harel.png",
+    proofLabel: "Dr. Harel Papikian Instagram",
   },
   {
     client: "CA Amol Jain",
@@ -48,6 +53,8 @@ const cases: CaseStudy[] = [
     summary:
       "Built a content engine that compounded month over month, turning a respected educator into a recognised online authority.",
     accent: "from-blue/30",
+    proof: "/images/instagram/amol-jain.png",
+    proofLabel: "CA Amol Jain Instagram",
   },
   {
     client: "Megha Kapoor",
@@ -61,6 +68,8 @@ const cases: CaseStudy[] = [
     summary:
       "Dialed in audience targeting and creative until every rupee of ad spend was tracked back to revenue.",
     accent: "from-cyan/20",
+    proof: "/images/instagram/megha-kapoor.png",
+    proofLabel: "Megha Kapoor Instagram",
   },
   {
     client: "VSI Jaipur",
@@ -74,6 +83,8 @@ const cases: CaseStudy[] = [
     summary:
       "An SEO program built on technical fundamentals, topical authority and disciplined content velocity.",
     accent: "from-blue/30",
+    proof: "/images/instagram/vsi-jaipur.png",
+    proofLabel: "VSI Jaipur Instagram",
   },
 ];
 
@@ -113,8 +124,8 @@ export default function CaseStudies() {
               >
                 {String(i + 1).padStart(2, "0")}
               </div>
-              <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 relative">
-                <div className="lg:col-span-5">
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 relative items-start">
+                <div className="lg:col-span-4 relative">
                   <div className="font-display text-xs uppercase tracking-[0.25em] text-cyan/80">
                     Case {String(i + 1).padStart(2, "0")}
                   </div>
@@ -127,9 +138,25 @@ export default function CaseStudies() {
                   </p>
                   <p className="mt-4 text-white/65 max-w-md">{c.summary}</p>
                 </div>
-                <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden self-start border border-white/10">
+
+                <div className="lg:col-span-4 flex justify-center order-last lg:order-none">
+                  <div className="relative w-[200px] md:w-[230px] rounded-[2.2rem] border border-white/10 bg-navy p-2 shadow-[0_25px_60px_-12px_rgba(0,0,0,0.7)] rotate-[-2deg] transition-transform duration-500 hover:rotate-0">
+                    <div className="absolute inset-x-0 top-0 mx-auto h-5 w-24 bg-navy border-b border-white/10 rounded-b-2xl z-10" />
+                    <div className="overflow-hidden rounded-[1.8rem] bg-white">
+                      <Image
+                        src={c.proof}
+                        alt={c.proofLabel}
+                        width={460}
+                        height={920}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 grid grid-cols-1 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10 self-start">
                   {c.metrics.map((m) => (
-                    <div key={m.label} className="bg-navy/90 p-6">
+                    <div key={m.label} className="bg-navy/90 p-5">
                       {m.display ? (
                         <div className="font-display font-extrabold text-2xl md:text-3xl text-cyan">
                           {m.display}
