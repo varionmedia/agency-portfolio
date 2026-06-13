@@ -128,26 +128,26 @@ export default function StoryTeam() {
           ))}
         </div>
 
-        {/* Desktop: level portraits, each bio card overlapping its own photo */}
+        {/* Desktop: two photos with bio cards in the centre gap */}
         <div className="hidden lg:block relative mt-12">
-          <div className="grid grid-cols-2 items-start gap-10">
+          <div className="flex justify-between items-start">
             {/* Umang — left */}
-            <div>
+            <div className="w-[32%]">
               <TeamPhoto name={umang.name} />
             </div>
             {/* Mann — right */}
-            <div>
+            <div className="w-[32%]">
               <TeamPhoto name={mann.name} />
             </div>
           </div>
 
-          {/* Mann card — right side, higher, overlapping Mann's (right) photo */}
-          <div className="absolute z-20 top-[22%] left-1/2 w-[37%] max-w-md">
+          {/* Mann card — upper, touching Mann's (right) photo left edge */}
+          <div className="absolute z-20 top-[5%] right-[31%] w-[28%]">
             <TeamCard member={mann} />
           </div>
 
-          {/* Umang card — left side, lower, overlapping Umang's (left) photo */}
-          <div className="absolute z-20 top-[52%] right-1/2 w-[37%] max-w-md">
+          {/* Umang card — lower, touching Umang's (left) photo right edge */}
+          <div className="absolute z-20 top-[52%] left-[31%] w-[28%]">
             <TeamCard member={umang} />
           </div>
         </div>
