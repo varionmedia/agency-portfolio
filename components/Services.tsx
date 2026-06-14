@@ -348,11 +348,11 @@ function MetaAdsGraphic() {
 
           {/* Right: three stacked stat rows */}
           <div className="flex-1 flex flex-col gap-2 min-w-0">
-            {/* ROAS — horizontal meter */}
-            <div className="flex-1 rounded-lg bg-white/[0.02] border border-white/[0.06] px-2.5 py-2 flex flex-col justify-center gap-1.5">
+            {/* ROAS — horizontal meter (compact) */}
+            <div className="shrink-0 rounded-lg bg-white/[0.02] border border-white/[0.06] px-2.5 py-2 flex flex-col justify-center gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[7px] uppercase tracking-[0.16em] text-white/40">
-                  Return on spend
+                <span className="text-[7px] uppercase tracking-[0.18em] text-white/40">
+                  ROAS
                 </span>
                 <span className="flex items-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[9px] leading-none">
                   <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="currentColor" strokeWidth="3.5">

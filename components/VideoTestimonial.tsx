@@ -35,14 +35,14 @@ export default function VideoTestimonial() {
               </div>
             </div>
           </FadeUp>
-          <div className="space-y-10">
+          <div className="space-y-8">
             <WordReveal
               as="p"
               text="“My Instagram account had only 2,000 followers and we got 700,000 views on a single video — I was mind blown.”"
-              className="font-display font-semibold text-2xl md:text-[2rem] leading-snug block"
+              className="text-white/80 text-xl md:text-2xl leading-relaxed border-l-2 border-cyan/60 pl-5 block"
             />
             <FadeUp delay={0.15}>
-              <p className="text-white/60 text-lg leading-relaxed border-l-2 border-cyan/60 pl-5">
+              <p className="text-white/80 text-xl md:text-2xl leading-relaxed border-l-2 border-cyan/60 pl-5">
                 &ldquo;The pattern I noticed with other agencies was
                 overpromising and underdelivering. With Umang, I was always
                 impressed by how professional and dedicated he was.&rdquo;

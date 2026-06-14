@@ -47,18 +47,18 @@ export default function ClientsStrip() {
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>
-          <div className="flex flex-wrap items-center gap-5 md:gap-7">
+          <div className="grid grid-cols-3 md:flex md:items-center md:gap-7">
             {stats.map((s, i) => (
               <div
                 key={s.label}
                 className={`flex flex-col ${
-                  i > 0 ? "pl-5 md:pl-7 border-l border-ink/10" : ""
+                  i > 0 ? "pl-4 md:pl-7 border-l border-ink/10" : ""
                 }`}
               >
                 <span className="font-display font-extrabold text-xl md:text-2xl text-ink leading-none">
                   {s.value}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.14em] text-ink/45 mt-1.5 whitespace-nowrap">
+                <span className="text-[10px] uppercase tracking-[0.14em] text-ink/45 mt-1.5">
                   {s.label}
                 </span>
               </div>
