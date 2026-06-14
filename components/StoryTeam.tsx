@@ -15,13 +15,13 @@ const team: Member[] = [
     name: "Mann Desai",
     role: "Co-Founder · Social & Content",
     bio: "Leads content strategy, video production, and social growth across all accounts.",
-    // photo: "/images/team/mann.png", // pending: lighter version in Drive
+    photo: "/images/team/mann.png",
   },
   {
     name: "Umang Rawat",
     role: "Co-Founder · Strategy & SEO",
     bio: "Leads client strategy and search growth. Ensures every campaign is built around measurable outcomes.",
-    // photo: "/images/team/umang.png", // pending: lighter version in Drive
+    photo: "/images/team/umang.png",
   },
 ];
 
