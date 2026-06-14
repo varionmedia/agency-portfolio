@@ -481,7 +481,6 @@ function NodeBlock({
  * ────────────────────────────────────────────────────────── */
 const services = [
   {
-    number: "01",
     title: "SEO",
     bullets: ["Technical SEO", "Topical authority", "Content velocity"],
     copy: "Show up when your ideal clients are searching. We build your organic presence to generate consistent, high-intent leads.",
@@ -490,7 +489,6 @@ const services = [
     Graphic: SeoGraphic,
   },
   {
-    number: "02",
     title: "Social Media",
     bullets: ["Personal brand", "Viral reels", "Authority content"],
     copy: "Turn your social profile into a trust-building machine. Content that grows your audience and keeps them engaged until they're ready to buy.",
@@ -499,7 +497,6 @@ const services = [
     Graphic: SocialGraphic,
   },
   {
-    number: "03",
     title: "Meta Ads",
     bullets: ["Lead-gen funnels", "Retargeting", "Creative testing"],
     copy: "Stop wasting spend on the wrong audience. Targeted campaigns that bring you qualified leads and maximize ROI.",
@@ -508,7 +505,6 @@ const services = [
     Graphic: MetaAdsGraphic,
   },
   {
-    number: "04",
     title: "AI Automation",
     bullets: ["CRM dashboards", "Email agents", "Custom workflows"],
     copy: "Work smarter, not harder. Custom AI tools that save your team's time, cut costs, and improve output — without hiring more people.",
@@ -532,23 +528,22 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
       transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
-      className={`group relative rounded-3xl border border-white/10 bg-navy-soft bg-gradient-to-br ${s.accent} to-navy-soft overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:border-cyan/35 hover:shadow-[0_24px_60px_-20px_rgba(0,200,232,0.35)]`}
+      className="group relative rounded-3xl bg-white border border-ink/[0.08] overflow-hidden shadow-[0_12px_40px_-18px_rgba(2,5,22,0.28)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-20px_rgba(2,5,22,0.4)]"
     >
-      {/* Top: animated graphic */}
-      <div className="relative h-44 md:h-48 bg-[#040519]/70 border-b border-white/8 overflow-hidden">
+      {/* Top: animated graphic — dark */}
+      <div
+        className={`relative h-44 md:h-48 bg-[#040519] bg-gradient-to-br ${s.accent} to-[#040519] overflow-hidden text-white`}
+      >
         <div
           aria-hidden
           className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,200,232,0.1),transparent_60%)]"
         />
         <Graphic />
-        <div className="absolute top-2.5 left-3.5 font-display font-extrabold text-[1.4rem] text-stroke-cream leading-none pointer-events-none">
-          {s.number}
-        </div>
       </div>
 
-      {/* Bottom: content */}
+      {/* Bottom: content — light */}
       <div className="relative p-6 md:p-7">
-        <h3 className="font-display font-bold text-2xl md:text-[1.75rem] tracking-tight">
+        <h3 className="font-display font-bold text-2xl md:text-[1.75rem] tracking-tight text-blue">
           {s.title}
         </h3>
 
@@ -556,7 +551,7 @@ function ServiceCard({
           {s.bullets.map((b) => (
             <li
               key={b}
-              className="flex items-center gap-2 text-sm text-white/80"
+              className="flex items-center gap-2 text-sm text-ink/85"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -567,7 +562,7 @@ function ServiceCard({
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-cyan flex-shrink-0"
+                className="text-blue flex-shrink-0"
               >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
@@ -576,13 +571,13 @@ function ServiceCard({
           ))}
         </ul>
 
-        <p className="mt-4 text-sm text-white/60 leading-relaxed">{s.copy}</p>
+        <p className="mt-4 text-sm text-ink/60 leading-relaxed">{s.copy}</p>
 
         <div className="mt-5 flex flex-wrap gap-2">
           {s.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[0.65rem] uppercase tracking-[0.18em] font-display font-semibold text-white/55 border border-white/15 rounded-full px-2.5 py-1"
+              className="text-[0.65rem] uppercase tracking-[0.18em] font-display font-semibold text-ink/55 border border-ink/15 rounded-full px-2.5 py-1"
             >
               {tag}
             </span>
@@ -590,7 +585,7 @@ function ServiceCard({
         </div>
 
         {/* Hover hint */}
-        <div className="mt-5 flex items-center gap-1.5 text-[0.7rem] uppercase tracking-[0.2em] font-display text-cyan opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+        <div className="mt-5 flex items-center gap-1.5 text-[0.7rem] uppercase tracking-[0.2em] font-display text-blue opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
           Learn more
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M5 12h14M13 5l7 7-7 7" />
@@ -630,7 +625,7 @@ export default function Services() {
           </FadeUp>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6 text-white">
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
           {services.map((s, i) => (
             <ServiceCard key={s.title} s={s} i={i} />
           ))}
