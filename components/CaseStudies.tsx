@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
@@ -195,24 +195,34 @@ function CaseCard({
   const ref = useRef<HTMLDivElement>(null);
   const phoneRight = i % 2 === 1;
 
-  // As the card scrolls up and the next one slides over it, shrink it slightly
-  // so the stack visibly collapses (last card stays full size).
+  // Sticky-stack + scale collapse only applies on lg+ (desktop). On mobile the
+  // card is full-width and taller than the viewport — pinning it clips the
+  // bottom under the next card.
+  const [isLg, setIsLg] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsLg(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const targetScale = i === total - 1 ? 1 : 0.88;
+  const targetScale = !isLg || i === total - 1 ? 1 : 0.88;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
   return (
     <div
       ref={ref}
-      className="sticky"
+      className="lg:sticky"
       style={{ top: `${4.5 + i * 1.1}rem` }}
     >
       <motion.article
         style={{ scale }}
-        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-6 pt-8 pb-10 md:px-12 md:pt-10 md:pb-12 mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
+        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-5 pt-7 pb-9 sm:px-6 sm:pt-8 sm:pb-10 md:px-12 md:pt-10 md:pb-12 mb-6 sm:mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
       >
         <div
           aria-hidden
