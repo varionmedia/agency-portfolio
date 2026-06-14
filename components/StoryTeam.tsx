@@ -128,7 +128,7 @@ export default function StoryTeam() {
         <FadeUp>
           <div className="mt-24 lg:mt-28 flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-blue">
             <span className="h-px w-10 bg-blue/60" />
-            The Team
+            The Founders
           </div>
         </FadeUp>
 

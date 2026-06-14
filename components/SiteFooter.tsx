@@ -23,8 +23,12 @@ const socials = [
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-white/5 bg-navy">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-12 grid gap-10 md:grid-cols-3">
+    <footer className="relative border-t border-white/10 bg-navy-soft">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+      />
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-14 grid gap-10 md:grid-cols-3">
         <div>
           <div className="font-display font-extrabold tracking-[0.18em] uppercase text-sm">
             Varion<span className="text-cyan">.</span>Media

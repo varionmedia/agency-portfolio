@@ -53,6 +53,20 @@ const BriefcaseIcon = (
 );
 
 export default function ContactCTA() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const name = String(fd.get("name") || "");
+    const email = String(fd.get("email") || "");
+    const businessType = String(fd.get("businessType") || "");
+    const message = String(fd.get("message") || "");
+    const subject = encodeURIComponent(`Strategy call request — ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nBusiness type: ${businessType}\n\nMessage:\n${message}`
+    );
+    window.location.href = `mailto:hello@varionmedia.com?subject=${subject}&body=${body}`;
+  }
+
   return (
     <section id="contact" className="relative bg-navy grain overflow-hidden">
       <div aria-hidden className="v-lines absolute inset-0 pointer-events-none" />
@@ -175,9 +189,7 @@ export default function ContactCTA() {
 
                 <form
                   className="grid sm:grid-cols-2 gap-5"
-                  action="mailto:hello@varionmedia.com"
-                  method="post"
-                  encType="text/plain"
+                  onSubmit={handleSubmit}
                 >
                   <Field label="Your name" name="name" placeholder="Jane Doe" icon={UserIcon} />
                   <Field
@@ -265,32 +277,6 @@ export default function ContactCTA() {
             </div>
           </FadeUp>
         </div>
-
-        {/* Trust row */}
-        <FadeUp delay={0.3}>
-          <div className="mt-12 flex flex-wrap justify-center gap-x-7 gap-y-3 text-sm text-white/55">
-            <span className="inline-flex items-center gap-2">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#00c8e8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" />
-              </svg>
-              Reply within 1 business day
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#00c8e8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="4" y="10" width="16" height="11" rx="2" />
-                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-              </svg>
-              No spam, ever
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#00c8e8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m9 12 2 2 4-4" />
-                <circle cx="12" cy="12" r="9" />
-              </svg>
-              Free &amp; no obligation
-            </span>
-          </div>
-        </FadeUp>
       </div>
     </section>
   );
