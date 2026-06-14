@@ -28,7 +28,7 @@ const steps = [
   {
     n: "3",
     title: "30-min strategy call",
-    desc: "With a founder, not a sales rep.",
+    desc: "With the founders, not a sales rep.",
   },
 ];
 
@@ -97,7 +97,7 @@ export default function ContactCTA() {
             <FadeUp>
               <div className="inline-flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-7">
                 <span className="h-px w-10 bg-cyan/60" />
-                Let&apos;s Build Your Trajectory
+                Build Your Trajectory
               </div>
             </FadeUp>
             <WordReveal
