@@ -371,17 +371,17 @@ function MetaAdsGraphic() {
               </div>
             </div>
 
-            {/* CPL — sparkline trending down */}
+            {/* CPL — sparkline trending down (label right, line on left) */}
             <div className="flex-1 relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
-              <div className="absolute top-1.5 left-2.5 flex items-center gap-0.5 text-[7px] uppercase tracking-[0.16em] text-white/40 z-10">
-                Cost per lead
-                <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="#22c55e" strokeWidth="3.5">
+              <div className="absolute top-1.5 right-2.5 flex items-center gap-0.5 text-[8px] uppercase tracking-[0.18em] text-white/45 z-10">
+                CPL
+                <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="#22c55e" strokeWidth="3.5">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </div>
-              <svg viewBox="0 0 120 30" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 w-full h-1/2">
+              <svg viewBox="0 0 120 30" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
                 <motion.path
-                  d="M2,6 L26,9 L50,8 L74,15 L98,20 L118,25"
+                  d="M2,4 L22,7 L42,8 L62,14 L82,20 L102,24 L118,27"
                   fill="none"
                   stroke="#00c8e8"
                   strokeWidth="1.4"
@@ -389,7 +389,14 @@ function MetaAdsGraphic() {
                   strokeLinejoin="round"
                   initial={{ pathLength: 0 }}
                   animate={inView ? { pathLength: 1 } : {}}
-                  transition={{ duration: 1.4, ease: "easeInOut", delay: 0.3 }}
+                  transition={{ duration: 1.6, ease: "easeInOut", delay: 0.3 }}
+                />
+                <motion.circle
+                  r="1.8"
+                  fill="#00c8e8"
+                  initial={{ cx: 2, cy: 4, opacity: 0 }}
+                  animate={inView ? { cx: [2, 22, 42, 62, 82, 102, 118], cy: [4, 7, 8, 14, 20, 24, 27], opacity: [0, 1, 1, 1, 1, 1, 1] } : {}}
+                  transition={{ duration: 1.6, ease: "easeInOut", delay: 0.3, times: [0, 0.15, 0.3, 0.5, 0.7, 0.85, 1] }}
                 />
               </svg>
             </div>

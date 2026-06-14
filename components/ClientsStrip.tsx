@@ -18,17 +18,11 @@ const clients: Client[] = [
   { name: "Manglam Pinkwest",       logo: "/images/clients/manglam-pinkwest.svg" },
 ];
 
-const stats = [
-  { value: "7+", label: "Brands" },
-  { value: "Millions", label: "Views generated" },
-  { value: "4", label: "Industries" },
-];
-
 export default function ClientsStrip() {
   const track = [...clients, ...clients];
   return (
     <section id="clients" className="relative bg-white text-ink overflow-hidden">
-      {/* Faint texture so the white isn't flat (sits behind the opaque chips) */}
+      {/* Faint texture so the white isn't flat */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 [background-image:radial-gradient(circle,rgba(2,5,22,0.04)_1px,transparent_1px)] [background-size:24px_24px]"
@@ -38,31 +32,12 @@ export default function ClientsStrip() {
         className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(70%_100%_at_50%_0%,rgba(1,84,160,0.05),transparent)]"
       />
 
-      {/* Header + stats */}
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-12 md:pt-16 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      {/* Header */}
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-12 md:pt-16">
         <FadeUp>
           <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-blue">
             <span className="h-px w-10 bg-blue/50" />
             Brands We&apos;ve Worked With
-          </div>
-        </FadeUp>
-        <FadeUp delay={0.1}>
-          <div className="grid grid-cols-3 md:flex md:items-center md:gap-7">
-            {stats.map((s, i) => (
-              <div
-                key={s.label}
-                className={`flex flex-col ${
-                  i > 0 ? "pl-4 md:pl-7 border-l border-ink/10" : ""
-                }`}
-              >
-                <span className="font-display font-extrabold text-xl md:text-2xl text-ink leading-none">
-                  {s.value}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.14em] text-ink/45 mt-1.5">
-                  {s.label}
-                </span>
-              </div>
-            ))}
           </div>
         </FadeUp>
       </div>

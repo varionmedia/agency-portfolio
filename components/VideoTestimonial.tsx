@@ -1,6 +1,6 @@
 "use client";
 
-import { FadeUp, WordReveal } from "@/components/ui/Reveal";
+import { FadeUp } from "@/components/ui/Reveal";
 import Spotlight from "@/components/ui/Spotlight";
 
 export default function VideoTestimonial() {
@@ -35,18 +35,47 @@ export default function VideoTestimonial() {
               </div>
             </div>
           </FadeUp>
-          <div className="space-y-8">
-            <WordReveal
-              as="p"
-              text="“My Instagram account had only 2,000 followers and we got 700,000 views on a single video — I was mind blown.”"
-              className="text-white/80 text-xl md:text-2xl leading-relaxed border-l-2 border-cyan/60 pl-5 block"
-            />
+          <div className="space-y-6">
+            {/* Headline quote — featured card with big cyan mark */}
+            <FadeUp>
+              <div className="relative rounded-2xl bg-gradient-to-br from-cyan/[0.08] to-blue/[0.06] border border-cyan/20 px-7 py-7 md:px-9 md:py-9 overflow-hidden">
+                <div
+                  aria-hidden
+                  className="absolute -top-4 -left-2 font-display font-extrabold text-cyan/20 text-[7rem] leading-none select-none pointer-events-none"
+                >
+                  &ldquo;
+                </div>
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,200,232,0.06),transparent_60%)]"
+                />
+                <p className="relative font-display font-semibold text-xl md:text-[1.7rem] leading-snug text-white">
+                  My Instagram had only 2,000 followers and we got{" "}
+                  <span className="text-cyan">700,000 views</span> on a single
+                  video — I was mind blown.
+                </p>
+              </div>
+            </FadeUp>
+
+            {/* Supporting quote — smaller, lighter card */}
             <FadeUp delay={0.15}>
-              <p className="text-white/80 text-xl md:text-2xl leading-relaxed border-l-2 border-cyan/60 pl-5">
-                &ldquo;The pattern I noticed with other agencies was
-                overpromising and underdelivering. With Umang, I was always
-                impressed by how professional and dedicated he was.&rdquo;
-              </p>
+              <div className="relative rounded-2xl bg-white/[0.03] border border-white/10 px-6 py-5 md:px-7 md:py-6">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  className="text-cyan/70 mb-2"
+                  aria-hidden
+                >
+                  <path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V7zm12 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V7z" />
+                </svg>
+                <p className="text-white/75 text-base md:text-lg leading-relaxed">
+                  The pattern I noticed with other agencies was overpromising
+                  and underdelivering. With Umang, I was always impressed by
+                  how professional and dedicated he was.
+                </p>
+              </div>
             </FadeUp>
             <FadeUp delay={0.25}>
               <div className="flex items-center gap-4">
