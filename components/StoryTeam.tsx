@@ -1,23 +1,27 @@
 "use client";
 
+import Image from "next/image";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 
 type Member = {
   name: string;
   role: string;
   bio: string;
+  photo?: string;
 };
 
 const team: Member[] = [
   {
-    name: "Umang Rawat",
-    role: "Co-Founder · Strategy & SEO",
-    bio: "Leads client strategy and search growth. Ensures every campaign is built around measurable outcomes.",
-  },
-  {
     name: "Mann Desai",
     role: "Co-Founder · Social & Content",
     bio: "Leads content strategy, video production, and social growth across all accounts.",
+    // photo: "/images/team/mann.png", // pending: lighter version in Drive
+  },
+  {
+    name: "Umang Rawat",
+    role: "Co-Founder · Strategy & SEO",
+    bio: "Leads client strategy and search growth. Ensures every campaign is built around measurable outcomes.",
+    // photo: "/images/team/umang.png", // pending: lighter version in Drive
   },
 ];
 
@@ -40,13 +44,25 @@ function PhotoIcon({ className }: { className?: string }) {
   );
 }
 
-function TeamPhoto({ name }: { name: string }) {
-  // TODO: Swap this placeholder for the real team photo when provided.
+function TeamPhoto({ member }: { member: Member }) {
+  if (member.photo) {
+    return (
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-ink/15 bg-ink/[0.04]">
+        <Image
+          src={member.photo}
+          alt={member.name}
+          fill
+          sizes="(max-width: 1024px) 100vw, 32vw"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
   return (
     <div className="relative aspect-[4/5] w-full rounded-2xl border border-ink/15 bg-ink/[0.04] overflow-hidden flex flex-col items-center justify-center gap-2 text-ink/35">
       <PhotoIcon className="w-9 h-9" />
       <span className="font-display uppercase tracking-[0.2em] text-xs">
-        {name}
+        {member.name}
       </span>
       <span className="text-[0.65rem] tracking-wide text-ink/30">
         Photo coming soon
@@ -72,7 +88,7 @@ function TeamCard({ member }: { member: Member }) {
 }
 
 export default function StoryTeam() {
-  const [umang, mann] = team;
+  const [mann, umang] = team;
   return (
     <section id="story" className="relative bg-cream text-ink">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32">
@@ -120,7 +136,7 @@ export default function StoryTeam() {
         <div className="lg:hidden mt-8 space-y-12">
           {team.map((member) => (
             <div key={member.name}>
-              <TeamPhoto name={member.name} />
+              <TeamPhoto member={member} />
               <div className="relative z-10 -mt-10 mx-4">
                 <TeamCard member={member} />
               </div>
@@ -131,24 +147,24 @@ export default function StoryTeam() {
         {/* Desktop: two photos with bio cards in the centre gap */}
         <div className="hidden lg:block relative mt-12">
           <div className="flex justify-between items-start">
-            {/* Umang — left */}
+            {/* Mann — left */}
             <div className="w-[32%]">
-              <TeamPhoto name={umang.name} />
+              <TeamPhoto member={mann} />
             </div>
-            {/* Mann — right */}
+            {/* Umang — right */}
             <div className="w-[32%]">
-              <TeamPhoto name={mann.name} />
+              <TeamPhoto member={umang} />
             </div>
           </div>
 
-          {/* Mann card — upper, touching Mann's (right) photo left edge */}
+          {/* Umang card — upper, touching Umang's (right) photo left edge */}
           <div className="absolute z-20 top-[5%] right-[31%] w-[28%]">
-            <TeamCard member={mann} />
+            <TeamCard member={umang} />
           </div>
 
-          {/* Umang card — lower, touching Umang's (left) photo right edge */}
+          {/* Mann card — lower, touching Mann's (left) photo right edge */}
           <div className="absolute z-20 top-[52%] left-[31%] w-[28%]">
-            <TeamCard member={umang} />
+            <TeamCard member={mann} />
           </div>
         </div>
       </div>
