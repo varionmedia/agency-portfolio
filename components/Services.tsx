@@ -346,75 +346,69 @@ function MetaAdsGraphic() {
             ))}
           </div>
 
-          {/* Right: gauge + stats */}
+          {/* Right: three stacked stat rows */}
           <div className="flex-1 flex flex-col gap-2 min-w-0">
-            {/* ROAS gauge */}
-            <div className="relative h-[52%] rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden p-1.5 flex flex-col">
-              <div className="text-[7px] uppercase tracking-[0.16em] text-white/40">
-                Return on spend
+            {/* ROAS — horizontal meter */}
+            <div className="flex-1 rounded-lg bg-white/[0.02] border border-white/[0.06] px-2.5 py-2 flex flex-col justify-center gap-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[7px] uppercase tracking-[0.16em] text-white/40">
+                  Return on spend
+                </span>
+                <span className="flex items-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[9px] leading-none">
+                  <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="currentColor" strokeWidth="3.5">
+                    <polyline points="18 15 12 9 6 15" />
+                  </svg>
+                  High
+                </span>
               </div>
-              <div className="flex-1 flex items-end justify-center min-h-0">
-                <svg
-                  viewBox="0 0 100 50"
-                  preserveAspectRatio="xMidYMax meet"
-                  className="w-[88%] h-full"
-                >
-                  <path d="M8,45 A42,42 0 0 1 92,45" fill="none" stroke="white" strokeOpacity="0.1" strokeWidth="6" strokeLinecap="round" />
-                  <motion.path
-                    d="M8,45 A42,42 0 0 1 92,45"
-                    fill="none"
-                    stroke="#22c55e"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={inView ? { pathLength: 0.78 } : {}}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                  />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[10px] leading-none">
-                <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
-                  <polyline points="18 15 12 9 6 15" />
-                </svg>
-                High ROAS
+              <div className="relative h-2 rounded-full bg-white/[0.06] overflow-hidden">
+                <motion.div
+                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#16a34a] to-[#4ade80] shadow-[0_0_8px_rgba(74,222,128,0.6)]"
+                  initial={{ width: "0%" }}
+                  animate={inView ? { width: "78%" } : {}}
+                  transition={{ duration: 1.4, ease: "easeOut" }}
+                />
               </div>
             </div>
 
-            {/* CPL + conversions */}
-            <div className="flex-1 grid grid-cols-2 gap-2">
-              <div className="relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
-                <div className="absolute top-1 left-1.5 flex items-center gap-0.5 text-[7px] uppercase tracking-[0.12em] text-white/40">
-                  CPL
-                  <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="#22c55e" strokeWidth="3">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </div>
-                <svg viewBox="0 0 60 30" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-                  <motion.path
-                    d="M2,8 L16,12 L30,11 L44,18 L58,24"
-                    fill="none"
-                    stroke="#00c8e8"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={inView ? { pathLength: 1 } : {}}
-                    transition={{ duration: 1.4, ease: "easeInOut", delay: 0.3 }}
-                  />
+            {/* CPL — sparkline trending down */}
+            <div className="flex-1 relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
+              <div className="absolute top-1.5 left-2.5 flex items-center gap-0.5 text-[7px] uppercase tracking-[0.16em] text-white/40 z-10">
+                Cost per lead
+                <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="#22c55e" strokeWidth="3.5">
+                  <polyline points="6 9 12 15 18 9" />
                 </svg>
               </div>
-              <div className="relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end justify-center gap-1 px-1.5 pb-1.5 pt-3">
-                <span className="absolute top-1 left-1.5 right-1.5 text-[6.5px] uppercase tracking-[0.08em] text-white/40 truncate">Conversions</span>
-                {[0.45, 0.6, 0.5, 0.8, 1].map((h, i) => (
-                  <motion.span
-                    key={i}
-                    className="flex-1 rounded-sm origin-bottom bg-gradient-to-t from-[#facc15] to-[#22c55e]"
-                    style={{ height: `${h * 100}%` }}
-                    initial={{ scaleY: 0 }}
-                    animate={inView ? { scaleY: 1 } : {}}
-                    transition={{ duration: 0.6, delay: 0.4 + i * 0.12, ease: "easeOut" }}
-                  />
-                ))}
-              </div>
+              <svg viewBox="0 0 120 30" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 w-full h-1/2">
+                <motion.path
+                  d="M2,6 L26,9 L50,8 L74,15 L98,20 L118,25"
+                  fill="none"
+                  stroke="#00c8e8"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={inView ? { pathLength: 1 } : {}}
+                  transition={{ duration: 1.4, ease: "easeInOut", delay: 0.3 }}
+                />
+              </svg>
+            </div>
+
+            {/* Conversions — rising bars */}
+            <div className="flex-1 relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end gap-1 px-2.5 pb-1.5 pt-5">
+              <span className="absolute top-1.5 left-2.5 text-[7px] uppercase tracking-[0.16em] text-white/40">
+                Conversions
+              </span>
+              {[0.4, 0.55, 0.45, 0.7, 0.85, 1].map((h, i) => (
+                <motion.span
+                  key={i}
+                  className="flex-1 rounded-sm origin-bottom bg-gradient-to-t from-[#facc15] to-[#22c55e]"
+                  style={{ height: `${h * 100}%` }}
+                  initial={{ scaleY: 0 }}
+                  animate={inView ? { scaleY: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 + i * 0.1, ease: "easeOut" }}
+                />
+              ))}
             </div>
           </div>
         </div>
