@@ -348,8 +348,8 @@ function MetaAdsGraphic() {
 
           {/* Right: three stacked stat rows */}
           <div className="flex-1 flex flex-col gap-2 min-w-0">
-            {/* ROAS — horizontal meter (compact) */}
-            <div className="shrink-0 rounded-lg bg-white/[0.02] border border-white/[0.06] px-2.5 py-2 flex flex-col justify-center gap-1.5">
+            {/* ROAS — horizontal meter (compact on desktop, balanced on mobile) */}
+            <div className="flex-1 lg:flex-none rounded-lg bg-white/[0.02] border border-white/[0.06] px-2.5 py-2 flex flex-col justify-center gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[7px] uppercase tracking-[0.18em] text-white/40">
                   ROAS
@@ -371,8 +371,8 @@ function MetaAdsGraphic() {
               </div>
             </div>
 
-            {/* CPL — sparkline trending down (label right, line on left) */}
-            <div className="flex-1 relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
+            {/* CPL — sparkline trending down (desktop only, hidden on mobile) */}
+            <div className="flex-1 hidden lg:block relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
               <div className="absolute top-1.5 right-2.5 flex items-center gap-0.5 text-[8px] uppercase tracking-[0.18em] text-white/45 z-10">
                 CPL
                 <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="#22c55e" strokeWidth="3.5">
