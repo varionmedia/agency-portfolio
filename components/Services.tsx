@@ -162,12 +162,6 @@ function SeoGraphic() {
             <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40">
               Organic traffic
             </div>
-            <div className="absolute top-1.5 right-2 flex items-center gap-0.5 text-[8px] font-bold text-[#34d399]">
-              <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
-                <polyline points="18 15 12 9 6 15" />
-              </svg>
-              Up
-            </div>
           </div>
 
           {/* Keyword rows */}
@@ -285,12 +279,6 @@ function SocialGraphic() {
               <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40">
                 Audience
               </div>
-              <div className="absolute top-1.5 right-2 flex items-center gap-0.5 text-[8px] font-bold text-[#f472b6]">
-                <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
-                  <polyline points="18 15 12 9 6 15" />
-                </svg>
-                Growing
-              </div>
             </div>
 
             {/* Content grid populating */}
@@ -361,28 +349,34 @@ function MetaAdsGraphic() {
           {/* Right: gauge + stats */}
           <div className="flex-1 flex flex-col gap-2 min-w-0">
             {/* ROAS gauge */}
-            <div className="relative h-[52%] rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end justify-center">
-              <svg viewBox="0 0 100 56" className="w-[78%] mb-1">
-                <path d="M8,50 A42,42 0 0 1 92,50" fill="none" stroke="white" strokeOpacity="0.1" strokeWidth="7" strokeLinecap="round" />
-                <motion.path
-                  d="M8,50 A42,42 0 0 1 92,50"
-                  fill="none"
-                  stroke="#22c55e"
-                  strokeWidth="7"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={inView ? { pathLength: 0.78 } : {}}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
-                />
-              </svg>
-              <div className="absolute inset-x-0 bottom-1.5 flex flex-col items-center">
-                <span className="text-[7.5px] uppercase tracking-[0.18em] text-white/45">Return on spend</span>
-                <span className="flex items-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[13px] leading-none">
-                  <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" strokeWidth="3">
-                    <polyline points="18 15 12 9 6 15" />
-                  </svg>
-                  High ROAS
-                </span>
+            <div className="relative h-[52%] rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden p-1.5 flex flex-col">
+              <div className="text-[7px] uppercase tracking-[0.16em] text-white/40">
+                Return on spend
+              </div>
+              <div className="flex-1 flex items-end justify-center min-h-0">
+                <svg
+                  viewBox="0 0 100 50"
+                  preserveAspectRatio="xMidYMax meet"
+                  className="w-[88%] h-full"
+                >
+                  <path d="M8,45 A42,42 0 0 1 92,45" fill="none" stroke="white" strokeOpacity="0.1" strokeWidth="6" strokeLinecap="round" />
+                  <motion.path
+                    d="M8,45 A42,42 0 0 1 92,45"
+                    fill="none"
+                    stroke="#22c55e"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={inView ? { pathLength: 0.78 } : {}}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                  />
+                </svg>
+              </div>
+              <div className="flex items-center justify-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[10px] leading-none">
+                <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
+                  <polyline points="18 15 12 9 6 15" />
+                </svg>
+                High ROAS
               </div>
             </div>
 
@@ -409,7 +403,7 @@ function MetaAdsGraphic() {
                 </svg>
               </div>
               <div className="relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end justify-center gap-1 px-1.5 pb-1.5 pt-3">
-                <span className="absolute top-1 left-1.5 text-[7px] uppercase tracking-[0.12em] text-white/40">Conversions</span>
+                <span className="absolute top-1 left-1.5 right-1.5 text-[6.5px] uppercase tracking-[0.08em] text-white/40 truncate">Conversions</span>
                 {[0.45, 0.6, 0.5, 0.8, 1].map((h, i) => (
                   <motion.span
                     key={i}
