@@ -13,13 +13,13 @@ type Member = {
 const team: Member[] = [
   {
     name: "Umang Rawat",
-    role: "Co-Founder · Strategy & SEO",
+    role: "Strategy & SEO",
     bio: "Leads client strategy and search growth. Ensures every campaign is built around measurable outcomes.",
     photo: "/images/team/umang.png",
   },
   {
     name: "Mann Desai",
-    role: "Co-Founder · Social & Content",
+    role: "Social & Content",
     bio: "Leads content strategy, video production, and social growth across all accounts.",
     photo: "/images/team/mann.png",
   },
