@@ -7,471 +7,553 @@ import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /* ──────────────────────────────────────────────────────────
- * 01 · SEO — Live SERP ranking climb
+ * Shared window frame ("chrome") that wraps every graphic so
+ * each one reads as a live product screen.
  * ────────────────────────────────────────────────────────── */
-const RANKS = [8, 5, 3, 1];
-
-function SeoGraphic() {
-  const [idx, setIdx] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px" });
-
-  useEffect(() => {
-    if (!inView) return;
-    const t = setInterval(
-      () => setIdx((i) => (i + 1) % RANKS.length),
-      1700
-    );
-    return () => clearInterval(t);
-  }, [inView]);
-
+function ScreenFrame({
+  label,
+  status,
+  statusColor = "#22c55e",
+  children,
+}: {
+  label: string;
+  status: string;
+  statusColor?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div ref={ref} className="relative h-full p-4 flex flex-col gap-2">
-      {/* Search bar */}
-      <div className="flex items-center gap-2 bg-white/[0.05] border border-white/10 rounded-full px-3 py-1.5 text-[10px] text-white/65">
-        <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4-4" />
-        </svg>
-        <span>varion media agency</span>
-        <span className="ml-auto text-[8.5px] uppercase tracking-[0.18em] text-white/35">google</span>
-      </div>
-
-      {/* Top result — Varion, climbing */}
-      <div className="relative rounded-lg p-2.5 border border-[#10b981]/35 bg-[#10b981]/[0.08]">
-        <div className="flex items-center gap-2">
-          <motion.span
-            key={RANKS[idx]}
-            initial={{ y: 8, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.45, ease: EASE }}
-            className="font-display font-extrabold text-[#34d399] text-sm tabular-nums"
-          >
-            #{RANKS[idx]}
-          </motion.span>
-          <span className="text-[8.5px] uppercase tracking-[0.16em] text-[#34d399]/85 inline-flex items-center gap-1">
-            <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" strokeWidth="3">
-              <polyline points="18 15 12 9 6 15" />
-            </svg>
-            +7 in 12 weeks
+    <div className="absolute inset-3.5 rounded-xl bg-[#0a0c20]/85 border border-white/10 overflow-hidden flex flex-col shadow-[0_14px_34px_-14px_rgba(0,0,0,0.8)]">
+      {/* Chrome bar */}
+      <div className="flex items-center gap-1.5 px-3 h-6 border-b border-white/[0.07] bg-white/[0.03] flex-shrink-0">
+        <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+        <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
+        <span className="w-2 h-2 rounded-full bg-[#28c840]" />
+        <span className="ml-2 text-[8px] uppercase tracking-[0.18em] text-white/45 font-display">
+          {label}
+        </span>
+        <span className="ml-auto flex items-center gap-1 text-[7.5px] uppercase tracking-[0.16em] text-white/55">
+          <span className="relative flex h-1.5 w-1.5">
+            <span
+              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+              style={{ backgroundColor: statusColor }}
+            />
+            <span
+              className="relative inline-flex h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: statusColor }}
+            />
           </span>
-        </div>
-        <div className="text-[10px] text-white/95 mt-1 leading-tight font-semibold">
-          Varion Media — Digital Marketing Agency
-        </div>
-        <div className="text-[8.5px] text-[#34d399]/80 mt-0.5">
-          www.varionmedia.com
-        </div>
-      </div>
-
-      {/* Other results — static */}
-      <div className="rounded-lg px-2.5 py-1.5 border border-white/8 bg-white/[0.02]">
-        <div className="flex items-center gap-1.5">
-          <span className="text-[9px] text-white/35 font-display font-bold">#2</span>
-          <span className="text-[8.5px] text-white/55">top-agencies.com</span>
-        </div>
-      </div>
-      <div className="rounded-lg px-2.5 py-1.5 border border-white/8 bg-white/[0.02]">
-        <div className="flex items-center gap-1.5">
-          <span className="text-[9px] text-white/35 font-display font-bold">#3</span>
-          <span className="text-[8.5px] text-white/55">leadgen-reviews.io</span>
-        </div>
-      </div>
-
-      {/* Live indicator */}
-      <div className="absolute top-3 right-3 flex items-center gap-1.5">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#10b981] opacity-75" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#10b981]" />
+          {status}
         </span>
       </div>
+      {/* Screen */}
+      <div className="relative flex-1 min-h-0">{children}</div>
     </div>
   );
 }
 
 /* ──────────────────────────────────────────────────────────
- * 02 · Social Media — Reel views multiplier
+ * 01 · SEO — rank-tracker
+ * Organic-traffic chart drawing up + keywords climbing the SERP.
  * ────────────────────────────────────────────────────────── */
-function format(n: number) {
-  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + "M";
-  if (n >= 1000) return (n / 1000).toFixed(1) + "K";
-  return String(n);
-}
+const SEO_KEYWORDS = [
+  { term: "“service” near me", from: 18, to: 3 },
+  { term: "best in your city", from: 11, to: 2 },
+  { term: "top rated expert", from: 24, to: 5 },
+];
 
-function SocialGraphic() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px" });
-  const [count, setCount] = useState(0);
-
+function KeywordRow({
+  term,
+  from,
+  to,
+  index,
+  inView,
+}: {
+  term: string;
+  from: number;
+  to: number;
+  index: number;
+  inView: boolean;
+}) {
+  const [pos, setPos] = useState(from);
   useEffect(() => {
     if (!inView) return;
-    let raf = 0;
-    let cancelled = false;
-    const target = 2_100_000;
-    const duration = 2200;
-    const loop = () => {
-      const start = performance.now();
-      const step = (now: number) => {
-        if (cancelled) return;
-        const t = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - t, 3);
-        setCount(Math.floor(eased * target));
-        if (t < 1) raf = requestAnimationFrame(step);
-        else
-          setTimeout(() => {
-            if (cancelled) return;
-            setCount(0);
-            loop();
-          }, 1100);
-      };
-      raf = requestAnimationFrame(step);
+    let current = from;
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      if (current > to) {
+        current -= 1;
+        setPos(current);
+        timer = setTimeout(tick, 95);
+      } else {
+        timer = setTimeout(() => {
+          current = from;
+          setPos(from);
+          timer = setTimeout(tick, 500);
+        }, 2400);
+      }
     };
-    loop();
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(raf);
-    };
-  }, [inView]);
+    timer = setTimeout(tick, 400 + index * 450);
+    return () => clearTimeout(timer);
+  }, [inView, from, to, index]);
 
+  const reached = pos <= to;
   return (
-    <div
-      ref={ref}
-      className="relative h-full flex items-center justify-center gap-4 px-5"
-    >
-      {/* Phone + emojis container */}
-      <div className="relative">
-        <FloatEmoji icon="heart" color="#ec4899" delay={0} x={-14} />
-        <FloatEmoji icon="comment" color="#facc15" delay={0.7} x={10} />
-        <FloatEmoji icon="heart" color="#ef4444" delay={1.4} x={-4} />
-        <FloatEmoji icon="share" color="#a855f7" delay={2.1} x={18} />
-
-        <div className="relative w-[78px] aspect-[9/16] rounded-xl overflow-hidden bg-gradient-to-br from-[#ec4899] via-[#a855f7] to-[#3b82f6] ring-1 ring-white/15 shadow-[0_8px_24px_rgba(168,85,247,0.35)]">
-          {/* Play */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 rounded-full bg-white/85 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" width="9" height="9" fill="#0a0d1f">
-                <path d="M8 5v14l11-7L8 5z" />
-              </svg>
-            </div>
-          </div>
-          {/* View count overlay */}
-          <div className="absolute bottom-1 left-1 right-1 flex items-center gap-1 text-[8.5px] font-bold text-white drop-shadow">
-            <svg viewBox="0 0 24 24" width="8" height="8" fill="currentColor">
-              <path d="M8 5v14l11-7L8 5z" />
-            </svg>
-            <span className="tabular-nums">{format(count)}</span>
-          </div>
-          {/* LIVE */}
-          <div className="absolute top-1 left-1 bg-[#ef4444] text-white text-[6.5px] font-bold px-1 py-px rounded-sm uppercase tracking-wide flex items-center gap-1">
-            <span className="w-1 h-1 rounded-full bg-white animate-pulse" />
-            LIVE
-          </div>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="flex flex-col items-start gap-1 max-w-[110px]">
-        <div className="text-[8.5px] uppercase tracking-[0.22em] text-cyan/85">Views</div>
-        <div className="font-display font-extrabold text-2xl text-cyan tabular-nums leading-none">
-          {format(count)}
-        </div>
-        <div className="text-[8.5px] text-white/50 leading-tight mt-0.5">
-          on a 2K-follower account
-        </div>
-        <div className="mt-1.5 inline-flex items-center gap-1 text-[8px] uppercase tracking-[0.16em] text-[#facc15]">
-          <svg viewBox="0 0 24 24" width="9" height="9" fill="currentColor">
-            <path d="M12 2l2.4 7.4H22l-6.2 4.5L18.2 22 12 17.5 5.8 22l2.4-8.1L2 9.4h7.6L12 2z" />
-          </svg>
-          Viral
-        </div>
-      </div>
+    <div className="flex items-center gap-2 rounded-md bg-white/[0.03] border border-white/[0.06] px-2 py-1">
+      <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-white/30 flex-shrink-0">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4-4" />
+      </svg>
+      <span className="text-[8.5px] text-white/65 truncate flex-1">{term}</span>
+      <span
+        className={`text-[8px] font-display font-bold tabular-nums px-1.5 py-0.5 rounded transition-colors duration-200 ${
+          reached
+            ? "text-[#34d399] bg-[#34d399]/15"
+            : "text-white/55 bg-white/[0.06]"
+        }`}
+      >
+        #{pos}
+      </span>
     </div>
   );
 }
 
-function FloatEmoji({
+function SeoGraphic() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  return (
+    <div ref={ref} className="absolute inset-0">
+      <ScreenFrame label="rank-tracker" status="Tracking" statusColor="#34d399">
+        <div className="absolute inset-0 p-2.5 flex flex-col gap-2">
+          {/* Traffic chart */}
+          <div className="relative h-[44%] rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
+            <svg
+              viewBox="0 0 100 40"
+              preserveAspectRatio="none"
+              className="absolute inset-0 w-full h-full"
+            >
+              <defs>
+                <linearGradient id="seoFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#34d399" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              {[10, 20, 30].map((y) => (
+                <line key={y} x1="0" y1={y} x2="100" y2={y} stroke="white" strokeOpacity="0.05" strokeWidth="0.5" />
+              ))}
+              <motion.path
+                d="M0,34 L16,30 L32,32 L48,23 L64,18 L80,11 L100,5 L100,40 L0,40 Z"
+                fill="url(#seoFill)"
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ duration: 1, delay: 0.6 }}
+              />
+              <motion.path
+                d="M0,34 L16,30 L32,32 L48,23 L64,18 L80,11 L100,5"
+                fill="none"
+                stroke="#34d399"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ pathLength: 0 }}
+                animate={inView ? { pathLength: 1 } : {}}
+                transition={{ duration: 1.6, ease: "easeInOut" }}
+              />
+            </svg>
+            <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40">
+              Organic traffic
+            </div>
+            <div className="absolute top-1.5 right-2 flex items-center gap-0.5 text-[8px] font-bold text-[#34d399]">
+              <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
+                <polyline points="18 15 12 9 6 15" />
+              </svg>
+              Up
+            </div>
+          </div>
+
+          {/* Keyword rows */}
+          <div className="flex-1 flex flex-col justify-between">
+            {SEO_KEYWORDS.map((k, i) => (
+              <KeywordRow key={k.term} {...k} index={i} inView={inView} />
+            ))}
+          </div>
+        </div>
+      </ScreenFrame>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+ * 02 · Social Media — content-studio
+ * Reel playing + audience trend + content grid populating.
+ * ────────────────────────────────────────────────────────── */
+function FloatBubble({
   icon,
   color,
   delay,
-  x,
+  left,
 }: {
-  icon: "heart" | "comment" | "share";
+  icon: "heart" | "comment" | "star";
   color: string;
   delay: number;
-  x: number;
+  left: string;
 }) {
   const paths: Record<string, React.ReactNode> = {
-    heart: (
-      <path d="M12 21s-7-4.5-9-9.5a5.5 5.5 0 0 1 9-4.5 5.5 5.5 0 0 1 9 4.5c-2 5-9 9.5-9 9.5z" />
-    ),
-    comment: (
-      <path d="M21 11.5a8.38 8.38 0 0 1-15 5L3 21l4.5-3a8.5 8.5 0 1 1 13.5-6.5z" />
-    ),
-    share: (
-      <path d="M4 12v7h16v-7M16 6l-4-4-4 4M12 2v13" />
-    ),
+    heart: <path d="M12 21s-7-4.5-9-9.5a5.5 5.5 0 0 1 9-4.5 5.5 5.5 0 0 1 9 4.5c-2 5-9 9.5-9 9.5z" />,
+    comment: <path d="M21 11.5a8.38 8.38 0 0 1-15 5L3 21l4.5-3a8.5 8.5 0 1 1 13.5-6.5z" />,
+    star: <path d="M12 2l2.4 7.4H22l-6.2 4.5L18.2 22 12 17.5 5.8 22l2.4-8.1L2 9.4h7.6L12 2z" />,
   };
   return (
     <motion.svg
       viewBox="0 0 24 24"
-      width="13"
-      height="13"
-      fill={icon === "share" ? "none" : color}
-      stroke={icon === "share" ? color : "none"}
-      strokeWidth={icon === "share" ? 2 : 0}
+      width="10"
+      height="10"
+      fill={color}
       className="absolute pointer-events-none z-20"
-      style={{ bottom: 6, left: `calc(50% + ${x}px - 6.5px)` }}
+      style={{ bottom: 4, left }}
       initial={{ y: 0, opacity: 0, scale: 0.6 }}
-      animate={{
-        y: -78,
-        opacity: [0, 1, 1, 0],
-        scale: [0.6, 1.1, 1, 0.9],
-      }}
-      transition={{
-        duration: 2.6,
-        delay,
-        repeat: Infinity,
-        repeatDelay: 0.4,
-        ease: "easeOut",
-      }}
+      animate={{ y: -48, opacity: [0, 1, 1, 0], scale: [0.6, 1.1, 1, 0.9] }}
+      transition={{ duration: 2.4, delay, repeat: Infinity, repeatDelay: 0.5, ease: "easeOut" }}
     >
       {paths[icon]}
     </motion.svg>
   );
 }
 
+const SOCIAL_TILES = [
+  "from-[#ec4899] to-[#a855f7]",
+  "from-[#3b82f6] to-[#06b6d4]",
+  "from-[#f59e0b] to-[#ef4444]",
+  "from-[#a855f7] to-[#6366f1]",
+  "from-[#10b981] to-[#06b6d4]",
+  "from-[#ef4444] to-[#ec4899]",
+];
+
+function SocialGraphic() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  return (
+    <div ref={ref} className="absolute inset-0">
+      <ScreenFrame label="content-studio" status="Live" statusColor="#ec4899">
+        <div className="absolute inset-0 p-2.5 flex gap-2.5">
+          {/* Reel */}
+          <div className="relative w-[34%] flex-shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-[#ec4899] via-[#a855f7] to-[#3b82f6] ring-1 ring-white/15">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-6 h-6 rounded-full bg-white/85 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" width="9" height="9" fill="#0a0d1f">
+                  <path d="M8 5v14l11-7L8 5z" />
+                </svg>
+              </div>
+            </div>
+            <div className="absolute top-1.5 left-1.5 text-[6.5px] font-bold text-white/90 uppercase tracking-wide bg-black/25 rounded px-1 py-px">
+              Reel
+            </div>
+            <FloatBubble icon="heart" color="#ffffff" delay={0} left="22%" />
+            <FloatBubble icon="comment" color="#ffe5f1" delay={0.8} left="52%" />
+            <FloatBubble icon="star" color="#fff4cc" delay={1.6} left="36%" />
+          </div>
+
+          {/* Right column */}
+          <div className="flex-1 flex flex-col gap-2 min-w-0">
+            {/* Audience trend */}
+            <div className="relative h-[44%] rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+                <defs>
+                  <linearGradient id="socFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#ec4899" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#ec4899" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <motion.path
+                  d="M2,33 L22,29 L40,31 L58,21 L76,15 L98,6 L98,40 L2,40 Z"
+                  fill="url(#socFill)"
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ duration: 1, delay: 0.5 }}
+                />
+                <motion.path
+                  d="M2,33 L22,29 L40,31 L58,21 L76,15 L98,6"
+                  fill="none"
+                  stroke="#ec4899"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={inView ? { pathLength: 1 } : {}}
+                  transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatType: "loop", repeatDelay: 1.4 }}
+                />
+              </svg>
+              <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40">
+                Audience
+              </div>
+              <div className="absolute top-1.5 right-2 flex items-center gap-0.5 text-[8px] font-bold text-[#f472b6]">
+                <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
+                  <polyline points="18 15 12 9 6 15" />
+                </svg>
+                Growing
+              </div>
+            </div>
+
+            {/* Content grid populating */}
+            <div className="flex-1 grid grid-cols-3 grid-rows-2 gap-1">
+              {SOCIAL_TILES.map((g, i) => (
+                <motion.div
+                  key={i}
+                  className={`rounded-[3px] bg-gradient-to-br ${g}`}
+                  initial={{ opacity: 0.12, scale: 0.85 }}
+                  animate={inView ? { opacity: [0.12, 1, 1, 0.12], scale: [0.85, 1, 1, 0.85] } : {}}
+                  transition={{ duration: 3.2, delay: i * 0.22, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </ScreenFrame>
+    </div>
+  );
+}
+
 /* ──────────────────────────────────────────────────────────
- * 03 · Meta Ads — Audience funnel + ROAS
+ * 03 · Meta Ads — campaign-manager
+ * Audience targeting converging + ROAS gauge + conversions.
  * ────────────────────────────────────────────────────────── */
+const TARGET_DOTS = [
+  { left: "92%", top: "50%", color: "#22c55e" },
+  { left: "71%", top: "86%", color: "#facc15" },
+  { left: "29%", top: "86%", color: "#ef4444" },
+  { left: "8%", top: "50%", color: "#a855f7" },
+  { left: "29%", top: "14%", color: "#3b82f6" },
+  { left: "71%", top: "14%", color: "#ec4899" },
+];
+
 function MetaAdsGraphic() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px" });
-  const colors = [
-    "#22c55e",
-    "#facc15",
-    "#ef4444",
-    "#a855f7",
-    "#3b82f6",
-    "#ec4899",
-    "#00c8e8",
-  ];
-
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   return (
-    <div ref={ref} className="relative h-full p-4 flex flex-col justify-between">
-      {/* Top badges */}
-      <div className="flex items-center justify-between">
-        <div className="bg-[#facc15]/15 text-[#facc15] text-[9px] font-bold px-2 py-0.5 rounded-full border border-[#facc15]/40 uppercase tracking-[0.16em]">
-          ₹48 CPL
-        </div>
-        <div className="flex items-center gap-1.5 text-[9px] text-white/55">
-          <span className="uppercase tracking-[0.16em]">ROAS</span>
-          <span className="font-display font-extrabold text-[#22c55e] text-lg leading-none">
-            4.2x
-          </span>
-        </div>
-      </div>
-
-      {/* Funnel */}
-      <div className="flex items-center gap-2 mt-2">
-        {/* Audience cloud */}
-        <div className="flex-1 grid grid-cols-7 gap-1.5">
-          {Array.from({ length: 28 }).map((_, n) => (
-            <motion.span
-              key={n}
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: colors[n % colors.length] }}
-              animate={
-                inView
-                  ? {
-                      x: [0, 18, 60],
-                      opacity: [1, 1, 0],
-                    }
-                  : { x: 0, opacity: 1 }
-              }
-              transition={{
-                duration: 2.8,
-                delay: n * 0.04,
-                repeat: Infinity,
-                repeatDelay: 0.5,
-                ease: "easeIn",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Funnel shape */}
-        <svg
-          viewBox="0 0 32 48"
-          width="28"
-          height="42"
-          aria-hidden
-          className="text-cyan/45"
-        >
-          <path
-            d="M0 4 L32 4 L20 22 L20 44 L12 44 L12 22 Z"
-            fill="currentColor"
-          />
-        </svg>
-
-        {/* Leads tally */}
-        <div className="flex flex-col items-center min-w-[42px]">
-          <div className="font-display font-extrabold text-2xl text-[#22c55e] tabular-nums leading-none">
-            314
+    <div ref={ref} className="absolute inset-0">
+      <ScreenFrame label="campaign-manager" status="Optimizing" statusColor="#facc15">
+        <div className="absolute inset-0 p-2.5 flex gap-2.5">
+          {/* Targeting */}
+          <div className="relative w-[46%] flex-shrink-0 rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
+            <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40 z-10">
+              Targeting
+            </div>
+            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
+              {[44, 31, 18].map((r) => (
+                <circle key={r} cx="50" cy="50" r={r} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.6" />
+              ))}
+              <circle cx="50" cy="50" r="3.5" fill="#00c8e8" />
+            </svg>
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-4 w-4">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan/40" />
+            </span>
+            {TARGET_DOTS.map((d, i) => (
+              <motion.span
+                key={i}
+                className="absolute w-1.5 h-1.5 rounded-full -translate-x-1/2 -translate-y-1/2"
+                style={{ backgroundColor: d.color }}
+                initial={{ left: d.left, top: d.top, opacity: 0 }}
+                animate={inView ? { left: [d.left, "50%"], top: [d.top, "50%"], opacity: [0, 1, 1, 0] } : {}}
+                transition={{ duration: 2.6, delay: i * 0.28, repeat: Infinity, repeatDelay: 0.6, ease: "easeIn" }}
+              />
+            ))}
           </div>
-          <div className="text-[8px] uppercase tracking-[0.16em] text-white/45 mt-0.5">
-            leads
+
+          {/* Right: gauge + stats */}
+          <div className="flex-1 flex flex-col gap-2 min-w-0">
+            {/* ROAS gauge */}
+            <div className="relative h-[52%] rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end justify-center">
+              <svg viewBox="0 0 100 56" className="w-[78%] mb-1">
+                <path d="M8,50 A42,42 0 0 1 92,50" fill="none" stroke="white" strokeOpacity="0.1" strokeWidth="7" strokeLinecap="round" />
+                <motion.path
+                  d="M8,50 A42,42 0 0 1 92,50"
+                  fill="none"
+                  stroke="#22c55e"
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={inView ? { pathLength: 0.78 } : {}}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                />
+              </svg>
+              <div className="absolute inset-x-0 bottom-1.5 flex flex-col items-center">
+                <span className="text-[7.5px] uppercase tracking-[0.18em] text-white/45">Return on spend</span>
+                <span className="flex items-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[13px] leading-none">
+                  <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" strokeWidth="3">
+                    <polyline points="18 15 12 9 6 15" />
+                  </svg>
+                  High ROAS
+                </span>
+              </div>
+            </div>
+
+            {/* CPL + conversions */}
+            <div className="flex-1 grid grid-cols-2 gap-2">
+              <div className="relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
+                <div className="absolute top-1 left-1.5 flex items-center gap-0.5 text-[7px] uppercase tracking-[0.12em] text-white/40">
+                  CPL
+                  <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="#22c55e" strokeWidth="3">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+                <svg viewBox="0 0 60 30" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+                  <motion.path
+                    d="M2,8 L16,12 L30,11 L44,18 L58,24"
+                    fill="none"
+                    stroke="#00c8e8"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={inView ? { pathLength: 1 } : {}}
+                    transition={{ duration: 1.4, ease: "easeInOut", delay: 0.3 }}
+                  />
+                </svg>
+              </div>
+              <div className="relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end justify-center gap-1 px-1.5 pb-1.5 pt-3">
+                <span className="absolute top-1 left-1.5 text-[7px] uppercase tracking-[0.12em] text-white/40">Conversions</span>
+                {[0.45, 0.6, 0.5, 0.8, 1].map((h, i) => (
+                  <motion.span
+                    key={i}
+                    className="flex-1 rounded-sm origin-bottom bg-gradient-to-t from-[#facc15] to-[#22c55e]"
+                    style={{ height: `${h * 100}%` }}
+                    initial={{ scaleY: 0 }}
+                    animate={inView ? { scaleY: 1 } : {}}
+                    transition={{ duration: 0.6, delay: 0.4 + i * 0.12, ease: "easeOut" }}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom: spend → revenue bar */}
-      <div className="mt-3">
-        <div className="flex items-center justify-between text-[9px] mb-1">
-          <span className="text-white/45">₹15K spend</span>
-          <span className="text-[#22c55e] font-semibold">₹64K revenue</span>
-        </div>
-        <div className="relative h-1.5 bg-white/8 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: "20%" }}
-            animate={inView ? { width: ["20%", "100%"] } : { width: "20%" }}
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              repeatDelay: 1,
-              ease: "easeOut",
-            }}
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#facc15] via-[#22c55e] to-cyan rounded-full"
-          />
-        </div>
-      </div>
+      </ScreenFrame>
     </div>
   );
 }
 
 /* ──────────────────────────────────────────────────────────
- * 04 · AI Automation — Workflow pipeline
+ * 04 · AI Automation — automation-flow
+ * A mini backend dashboard with a live streaming activity log.
  * ────────────────────────────────────────────────────────── */
-function AiAutomationGraphic() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px" });
+const AI_LOG = [
+  { label: "Lead captured", tag: "form", color: "#3b82f6" },
+  { label: "Scored · 87/100", tag: "ai", color: "#a855f7" },
+  { label: "Email drafted", tag: "agent", color: "#ec4899" },
+  { label: "Synced to CRM", tag: "crm", color: "#22c55e" },
+  { label: "Follow-up queued", tag: "task", color: "#facc15" },
+];
 
-  const nodes = [
-    { label: "Lead", color: "#3b82f6", icon: "form" as const },
-    { label: "Score", color: "#a855f7", icon: "ai" as const },
-    { label: "Agent", color: "#ec4899", icon: "bot" as const },
-    { label: "CRM", color: "#22c55e", icon: "check" as const },
-  ];
-
+function LogRow({
+  row,
+  done,
+  active,
+}: {
+  row: (typeof AI_LOG)[number];
+  done: boolean;
+  active: boolean;
+}) {
   return (
-    <div ref={ref} className="relative h-full px-4 flex items-center">
-      <div className="relative flex items-center justify-between w-full">
-        {/* Line */}
-        <div className="absolute left-[10%] right-[10%] top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-[#3b82f6]/40 via-[#ec4899]/40 to-[#22c55e]/40" />
-
-        {/* Particles */}
-        {inView &&
-          Array.from({ length: 3 }).map((_, n) => (
-            <motion.div
-              key={n}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-cyan shadow-[0_0_8px_rgba(0,200,232,0.9)]"
-              initial={{ left: "10%", opacity: 0 }}
-              animate={{
-                left: ["10%", "90%"],
-                opacity: [0, 1, 1, 1, 0],
-              }}
-              transition={{
-                duration: 2.8,
-                delay: n * 0.9,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          ))}
-
-        {nodes.map((node, n) => (
-          <NodeBlock key={node.label} {...node} index={n} inView={inView} />
-        ))}
-      </div>
+    <div
+      className={`flex items-center gap-1.5 rounded px-1.5 py-[3px] transition-colors duration-300 ${
+        active ? "bg-cyan/10" : ""
+      }`}
+      style={{ opacity: done || active ? 1 : 0.32 }}
+    >
+      <span className="flex-shrink-0 w-2.5 h-2.5 flex items-center justify-center">
+        {done ? (
+          <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="#22c55e" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        ) : active ? (
+          <span className="w-2 h-2 rounded-full border-[1.5px] border-cyan border-t-transparent animate-spin" />
+        ) : (
+          <span className="w-1 h-1 rounded-full bg-white/30" />
+        )}
+      </span>
+      <span
+        className={`text-[8px] flex-1 truncate ${
+          done ? "text-white/70" : active ? "text-white" : "text-white/45"
+        }`}
+      >
+        {row.label}
+      </span>
+      <span
+        className="text-[6.5px] uppercase tracking-[0.1em] px-1 py-px rounded font-display"
+        style={{ color: row.color, backgroundColor: `${row.color}22` }}
+      >
+        {row.tag}
+      </span>
     </div>
   );
 }
 
-function renderNodeIcon(icon: "form" | "ai" | "bot" | "check", color: string) {
-  switch (icon) {
-    case "form":
-      return (
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="4" y="3" width="16" height="18" rx="2" />
-          <path d="M8 8h8M8 12h8M8 16h5" />
-        </svg>
-      );
-    case "ai":
-      return (
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-          <circle cx="12" cy="12" r="3" fill={color} fillOpacity="0.3" />
-        </svg>
-      );
-    case "bot":
-      return (
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="4" y="8" width="16" height="12" rx="2" />
-          <path d="M12 4v4M9 13h.01M15 13h.01M9 17h6" />
-        </svg>
-      );
-    case "check":
-      return (
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
-      );
-  }
+function KpiTile({ label, value, accent }: { label: string; value: string; accent: string }) {
+  return (
+    <div className="rounded-md bg-white/[0.03] border border-white/[0.06] px-2 py-1 flex flex-col justify-center">
+      <span className="font-display font-extrabold text-[11px] leading-none" style={{ color: accent }}>
+        {value}
+      </span>
+      <span className="text-[6.5px] uppercase tracking-[0.12em] text-white/40 mt-0.5">{label}</span>
+    </div>
+  );
 }
 
-function NodeBlock({
-  label,
-  color,
-  icon,
-  index,
-  inView,
-}: {
-  label: string;
-  color: string;
-  icon: "form" | "ai" | "bot" | "check";
-  index: number;
-  inView: boolean;
-}) {
+function AiAutomationGraphic() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const id = setInterval(() => setStep((s) => (s + 1) % (AI_LOG.length + 2)), 850);
+    return () => clearInterval(id);
+  }, [inView]);
+
   return (
-    <div className="relative z-10 flex flex-col items-center gap-1.5">
-      <motion.div
-        className="w-9 h-9 rounded-xl flex items-center justify-center"
-        style={{
-          background: `linear-gradient(135deg, ${color}1f, ${color}08)`,
-          border: `1px solid ${color}55`,
-        }}
-        animate={
-          inView
-            ? {
-                boxShadow: [
-                  `0 0 0px ${color}00`,
-                  `0 0 14px ${color}aa`,
-                  `0 0 0px ${color}00`,
-                ],
-              }
-            : {}
-        }
-        transition={{
-          duration: 2.8,
-          delay: index * 0.7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        {renderNodeIcon(icon, color)}
-      </motion.div>
-      <span className="text-[8.5px] uppercase tracking-[0.18em] text-white/55 font-display">
-        {label}
-      </span>
+    <div ref={ref} className="absolute inset-0">
+      <ScreenFrame label="automation-flow" status="Running" statusColor="#22c55e">
+        <div className="absolute inset-0 flex">
+          {/* Sidebar */}
+          <div className="w-6 flex-shrink-0 border-r border-white/[0.07] bg-white/[0.02] flex flex-col items-center gap-1.5 py-2">
+            {[0, 1, 2, 3].map((n) => (
+              <span
+                key={n}
+                className={`w-3 h-3 rounded-[3px] ${
+                  n === 0 ? "bg-cyan/70" : "bg-white/10"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Main */}
+          <div className="flex-1 p-2 flex flex-col gap-1.5 min-w-0">
+            {/* KPI strip */}
+            <div className="grid grid-cols-3 gap-1.5">
+              <KpiTile label="Workflows" value="12" accent="#3b82f6" />
+              <KpiTile label="Hrs saved" value="40+" accent="#22c55e" />
+              <div className="relative rounded-md bg-white/[0.03] border border-white/[0.06] overflow-hidden">
+                <svg viewBox="0 0 60 30" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+                  <motion.path
+                    d="M2,24 L14,20 L26,22 L38,14 L50,10 L58,5"
+                    fill="none"
+                    stroke="#a855f7"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={inView ? { pathLength: 1 } : {}}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                  />
+                </svg>
+              </div>
+            </div>
+
+            {/* Activity log */}
+            <div className="flex-1 rounded-md bg-white/[0.02] border border-white/[0.06] p-1 flex flex-col justify-center gap-0.5 overflow-hidden">
+              {AI_LOG.map((row, i) => (
+                <LogRow key={row.label} row={row} done={i < step} active={i === step} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </ScreenFrame>
     </div>
   );
 }
@@ -514,13 +596,7 @@ const services = [
   },
 ];
 
-function ServiceCard({
-  s,
-  i,
-}: {
-  s: (typeof services)[number];
-  i: number;
-}) {
+function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
   const Graphic = s.Graphic;
   return (
     <motion.article
@@ -532,11 +608,11 @@ function ServiceCard({
     >
       {/* Top: animated graphic — dark */}
       <div
-        className={`relative h-44 md:h-48 bg-[#040519] bg-gradient-to-br ${s.accent} to-[#040519] overflow-hidden text-white`}
+        className={`relative h-52 md:h-56 bg-[#040519] bg-gradient-to-br ${s.accent} to-[#040519] overflow-hidden text-white`}
       >
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,200,232,0.1),transparent_60%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,200,232,0.12),transparent_60%)]"
         />
         <Graphic />
       </div>
@@ -549,10 +625,7 @@ function ServiceCard({
 
         <ul className="mt-4 space-y-1.5">
           {s.bullets.map((b) => (
-            <li
-              key={b}
-              className="flex items-center gap-2 text-sm text-ink/85"
-            >
+            <li key={b} className="flex items-center gap-2 text-sm text-ink/85">
               <svg
                 viewBox="0 0 24 24"
                 width="12"
@@ -584,7 +657,6 @@ function ServiceCard({
           ))}
         </div>
 
-        {/* Hover hint */}
         <div className="mt-5 flex items-center gap-1.5 text-[0.7rem] uppercase tracking-[0.2em] font-display text-blue opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
           Learn more
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5">
