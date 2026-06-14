@@ -12,16 +12,16 @@ type Member = {
 
 const team: Member[] = [
   {
-    name: "Mann Desai",
-    role: "Co-Founder · Social & Content",
-    bio: "Leads content strategy, video production, and social growth across all accounts.",
-    photo: "/images/team/mann.png",
-  },
-  {
     name: "Umang Rawat",
     role: "Co-Founder · Strategy & SEO",
     bio: "Leads client strategy and search growth. Ensures every campaign is built around measurable outcomes.",
     photo: "/images/team/umang.png",
+  },
+  {
+    name: "Mann Desai",
+    role: "Co-Founder · Social & Content",
+    bio: "Leads content strategy, video production, and social growth across all accounts.",
+    photo: "/images/team/mann.png",
   },
 ];
 
@@ -88,7 +88,7 @@ function TeamCard({ member }: { member: Member }) {
 }
 
 export default function StoryTeam() {
-  const [mann, umang] = team;
+  const [umang, mann] = team;
   return (
     <section id="story" className="relative bg-cream text-ink">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32">
@@ -147,24 +147,24 @@ export default function StoryTeam() {
         {/* Desktop: two photos with bio cards in the centre gap */}
         <div className="hidden lg:block relative mt-12">
           <div className="flex justify-between items-start">
-            {/* Mann — left */}
-            <div className="w-[32%]">
-              <TeamPhoto member={mann} />
-            </div>
-            {/* Umang — right */}
+            {/* Umang — left */}
             <div className="w-[32%]">
               <TeamPhoto member={umang} />
             </div>
+            {/* Mann — right */}
+            <div className="w-[32%]">
+              <TeamPhoto member={mann} />
+            </div>
           </div>
 
-          {/* Umang card — upper, touching Umang's (right) photo left edge */}
+          {/* Mann card — upper, touching Mann's (right) photo left edge */}
           <div className="absolute z-20 top-[5%] right-[31%] w-[28%]">
-            <TeamCard member={umang} />
+            <TeamCard member={mann} />
           </div>
 
-          {/* Mann card — lower, touching Mann's (left) photo right edge */}
+          {/* Umang card — lower, touching Umang's (left) photo right edge */}
           <div className="absolute z-20 top-[52%] left-[31%] w-[28%]">
-            <TeamCard member={mann} />
+            <TeamCard member={umang} />
           </div>
         </div>
       </div>
