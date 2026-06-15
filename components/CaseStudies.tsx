@@ -27,6 +27,7 @@ type CaseStudy = {
   proof: string;
   proofLabel: string;
   beforeAfter?: { before: string; after: string; alt: string };
+  proofStack?: { src: string; label: string; alt: string }[];
 };
 
 const cases: CaseStudy[] = [
@@ -97,6 +98,23 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/vsi-jaipur.jpg",
     proofLabel: "VSI Jaipur Instagram profile",
+    proofStack: [
+      {
+        src: "/images/case-proof/vsi-jaipur/traffic.jpg",
+        label: "Search Console — clicks & impressions YoY",
+        alt: "Google Search Console — 1.01M clicks, 23.9M impressions",
+      },
+      {
+        src: "/images/case-proof/vsi-jaipur/organic.jpg",
+        label: "Organic keywords ranking — 5-year trajectory",
+        alt: "Ahrefs — 73,335 organic keywords ranking over time",
+      },
+      {
+        src: "/images/case-proof/vsi-jaipur/cities.jpg",
+        label: "Keyword ranking distribution",
+        alt: "Pie chart — 47.1% in positions 1–5, 32.4% in positions 6–10",
+      },
+    ],
   },
   {
     client: "Megha Kapoor",
@@ -245,6 +263,38 @@ function BeforeAfterStack({
   );
 }
 
+function ProofStack({
+  items,
+}: {
+  items: { src: string; label: string; alt: string }[];
+}) {
+  return (
+    <div className="relative mx-auto w-[240px] sm:w-[260px] lg:w-[280px]">
+      {/* Soft cyan glow behind */}
+      <div
+        aria-hidden
+        className="absolute -inset-6 rounded-[3rem] bg-cyan/10 blur-3xl"
+      />
+      <div className="relative flex flex-col gap-3">
+        {items.map((item, i) => (
+          <figure
+            key={i}
+            className="relative aspect-[4/3] rounded-xl overflow-hidden border border-white/15 bg-white shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)]"
+          >
+            <Image
+              src={item.src}
+              alt={item.alt}
+              fill
+              sizes="280px"
+              className="object-contain"
+            />
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function CaseCard({
   c,
   i,
@@ -306,6 +356,8 @@ function CaseCard({
                 after={c.beforeAfter.after}
                 alt={c.beforeAfter.alt}
               />
+            ) : c.proofStack ? (
+              <ProofStack items={c.proofStack} />
             ) : (
               <PhoneFrame src={c.proof} alt={c.proofLabel} />
             )}
