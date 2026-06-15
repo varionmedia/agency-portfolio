@@ -22,6 +22,7 @@ type CaseStudy = {
   headline: string;
   metrics: Metric[];
   summary: string;
+  bullets: string[];
   accent: string;
   proof: string;
   proofLabel: string;
@@ -40,6 +41,12 @@ const cases: CaseStudy[] = [
     ],
     summary:
       "Transformed a brand-new Instagram account into a high-trust pipeline for prospective clients — without paid promotion.",
+    bullets: [
+      "Developed a deep content strategy tailored to his therapy & coaching niche",
+      "Identified and targeted high-intent audience segments",
+      "Capitalized on trending topics and platform algorithm changes",
+      "Continuously adapted strategy based on content performance data",
+    ],
     accent: "from-cyan/25",
     proof: "/images/instagram/dr-harel.jpg",
     proofLabel: "Dr. Harel Papikian Instagram profile",
@@ -49,12 +56,18 @@ const cases: CaseStudy[] = [
     role: "CA Educator · V'smart Academy",
     headline: "Doubled the audience in 4 months, monthly reach in the millions",
     metrics: [
-      { value: 17600, display: "8K → 17.6K", label: "followers in 4 months" },
+      { value: 17000, display: "8K → 17K", label: "followers in 4 months" },
       { value: 947, suffix: "K+", label: "views per month" },
       { value: 2, suffix: "x", label: "audience growth" },
     ],
     summary:
       "Built a content engine that compounded month over month, turning a respected educator into a recognised online authority.",
+    bullets: [
+      "Planned and edited high-quality, engagement-centric videos",
+      "Conducted detailed audience research to identify relevant content angles",
+      "Targeted trending topics within the education niche",
+      "Implemented comment automation to boost engagement and reach",
+    ],
     accent: "from-blue/30",
     proof: "/images/instagram/amol-jain.jpg",
     proofLabel: "CA Amol Jain Instagram profile",
@@ -75,6 +88,12 @@ const cases: CaseStudy[] = [
     ],
     summary:
       "An SEO program built on technical fundamentals, topical authority and disciplined content velocity.",
+    bullets: [
+      "Conducted a full SEO audit — technical fixes, content cleanup, backlink analysis",
+      "Removed thin pages, fixed keyword cannibalization, disavowed spammy backlinks",
+      "Published 34 city-targeting pages — 16 now ranking in top 5",
+      "Built high-authority guest-post backlinks and a long-term content calendar",
+    ],
     accent: "from-cyan/25",
     proof: "/images/instagram/vsi-jaipur.jpg",
     proofLabel: "VSI Jaipur Instagram profile",
@@ -90,6 +109,12 @@ const cases: CaseStudy[] = [
     ],
     summary:
       "Dialed in audience targeting and creative until every rupee of ad spend was tracked back to revenue.",
+    bullets: [
+      "Conducted detailed audience and market research for women aged 25–45",
+      "Built new Meta ad campaigns with fresh creatives and targeted copy",
+      "Strengthened the funnel with testimonials and social proof",
+      "Automated Instagram DM follow-ups to convert warm leads",
+    ],
     accent: "from-blue/30",
     proof: "/images/instagram/megha-kapoor.jpg",
     proofLabel: "Megha Kapoor Instagram profile",
@@ -105,6 +130,12 @@ const cases: CaseStudy[] = [
     ],
     summary:
       "Positioned a trusted CA mentor as a go-to voice for students — consistent, high-retention content that built genuine authority.",
+    bullets: [
+      "Repositioned his voice around high-intent student pain points",
+      "Built a weekly script + shoot rhythm for consistent output",
+      "Engineered hooks on every reel to lift watch time and retention",
+      "Built an engagement loop via comments and stories to retain followers",
+    ],
     accent: "from-cyan/25",
     proof: "/images/instagram/ravi-taori.jpg",
     proofLabel: "CA Ravi Taori Instagram profile",
@@ -321,6 +352,34 @@ function CaseCard({
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* What we did */}
+            <div className="mt-6">
+              <div className="font-display uppercase tracking-[0.22em] text-[0.65rem] text-cyan/80 mb-3">
+                What We Did
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-x-5 gap-y-2">
+                {c.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2 text-sm text-white/75 leading-snug">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="12"
+                      height="12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-cyan flex-shrink-0 mt-[5px]"
+                      aria-hidden
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
