@@ -170,14 +170,18 @@ export default function ContactCTA() {
 
           {/* RIGHT — form card */}
           <FadeUp delay={0.2}>
-            <div className="relative rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-sm shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)] overflow-hidden">
+            <div className="relative rounded-3xl bg-gradient-to-b from-white/[0.08] to-white/[0.04] border border-white/20 backdrop-blur-sm shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)] overflow-hidden">
               {/* Card top accent */}
               <div
                 aria-hidden
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/60 to-transparent"
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/80 to-transparent"
               />
-              <div className="p-6 md:p-8">
-                <div className="flex items-center gap-2 text-xs text-cyan/80 mb-6">
+              <div
+                aria-hidden
+                className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(80%_100%_at_50%_0%,rgba(0,200,232,0.1),transparent)] pointer-events-none"
+              />
+              <div className="relative p-6 md:p-8">
+                <div className="flex items-center gap-2 text-xs text-cyan/90 mb-6">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="9" />
                     <path d="M12 7v5l3 2" />
@@ -203,18 +207,18 @@ export default function ContactCTA() {
                   <div className="sm:col-span-2">
                     <label
                       htmlFor="businessType"
-                      className="block text-[11px] uppercase tracking-[0.18em] font-display text-white/55 mb-2"
+                      className="block text-[11px] uppercase tracking-[0.18em] font-display text-white/70 mb-2"
                     >
                       Business type
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/35 pointer-events-none">
+                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cyan/60 pointer-events-none">
                         {BriefcaseIcon}
                       </span>
                       <select
                         id="businessType"
                         name="businessType"
-                        className="w-full appearance-none bg-navy-soft/80 border border-white/10 rounded-xl pl-10 pr-10 py-3 text-white focus:outline-none focus:border-cyan/60 focus:ring-2 focus:ring-cyan/25 transition-all"
+                        className="w-full appearance-none bg-[#03051a] border border-white/20 rounded-xl pl-10 pr-10 py-3 text-white shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all"
                         defaultValue=""
                         required
                       >
@@ -229,7 +233,7 @@ export default function ContactCTA() {
                       </select>
                       <span
                         aria-hidden
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none"
                       >
                         ▾
                       </span>
@@ -239,7 +243,7 @@ export default function ContactCTA() {
                   <div className="sm:col-span-2">
                     <label
                       htmlFor="message"
-                      className="block text-[11px] uppercase tracking-[0.18em] font-display text-white/55 mb-2"
+                      className="block text-[11px] uppercase tracking-[0.18em] font-display text-white/70 mb-2"
                     >
                       Message
                     </label>
@@ -249,7 +253,7 @@ export default function ContactCTA() {
                       rows={4}
                       required
                       placeholder="What are you trying to grow, and what's getting in the way?"
-                      className="w-full bg-navy-soft/80 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-cyan/60 focus:ring-2 focus:ring-cyan/25 transition-all resize-none"
+                      className="w-full bg-[#03051a] border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/45 shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all resize-none"
                     />
                   </div>
 
@@ -299,13 +303,13 @@ function Field({
     <div>
       <label
         htmlFor={name}
-        className="block text-[11px] uppercase tracking-[0.18em] font-display text-white/55 mb-2"
+        className="block text-[11px] uppercase tracking-[0.18em] font-display text-white/70 mb-2"
       >
         {label}
       </label>
       <div className="relative">
         {icon && (
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/35 pointer-events-none">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cyan/60 pointer-events-none">
             {icon}
           </span>
         )}
@@ -315,9 +319,9 @@ function Field({
           name={name}
           required
           placeholder={placeholder}
-          className={`w-full bg-navy-soft/80 border border-white/10 rounded-xl ${
+          className={`w-full bg-[#03051a] border border-white/20 rounded-xl ${
             icon ? "pl-10" : "pl-4"
-          } pr-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-cyan/60 focus:ring-2 focus:ring-cyan/25 transition-all`}
+          } pr-4 py-3 text-white placeholder:text-white/45 shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all`}
         />
       </div>
     </div>
