@@ -15,10 +15,9 @@ const phrases = [
 ];
 
 const stats = [
-  { value: 2.1, suffix: "M", decimals: 1, label: "views on one reel" },
+  { value: 50, suffix: "M+", decimals: 0, label: "views generated across all platforms" },
   { value: 103, suffix: "%", decimals: 0, label: "organic traffic growth" },
   { value: 314, suffix: "", decimals: 0, label: "leads in one month" },
-  { value: 4.2, suffix: "x", decimals: 1, label: "return on ad spend" },
 ];
 
 export default function Hero() {
@@ -142,7 +141,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
-          className="mt-20 md:mt-28 grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm"
+          className="mt-20 md:mt-28 grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm"
         >
           {stats.map((s) => (
             <div key={s.label} className="bg-navy/80 p-6 md:p-8">
