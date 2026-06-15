@@ -22,11 +22,10 @@ export default function VideoTestimonial() {
                 className="absolute -inset-6 rounded-[2rem] bg-cyan/10 blur-3xl -z-10 pointer-events-none"
               />
               <iframe
-                src="https://www.youtube.com/embed/SC09CWjjBIA?rel=0&modestbranding=1&playsinline=1"
+                src="https://www.youtube.com/embed/SC09CWjjBIA?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd720"
                 title="Dr. Harel Papikian on working with Varion Media"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
                 className="absolute inset-0 w-full h-full"
               />
