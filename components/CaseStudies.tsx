@@ -82,7 +82,7 @@ const cases: CaseStudy[] = [
     role: "CA/CMA Coaching Institute · Jaipur",
     headline: "Organic traffic doubled in 12 months",
     metrics: [
-      { value: 1.01, suffix: "M", decimals: 2, label: "monthly organic sessions" },
+      { value: 1.01, suffix: "M", decimals: 2, label: "monthly organic visitors" },
       { value: 103, suffix: "%", label: "traffic growth" },
       { value: 73, suffix: "K+", label: "keywords · 47% top 5" },
     ],
