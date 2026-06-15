@@ -11,11 +11,11 @@ const nav = [
 export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-navy/70 border-b border-white/5">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link
           href="/"
           aria-label="Varion Media home"
-          className="inline-flex items-center"
+          className="flex items-center leading-none"
         >
           <Image
             src="/images/logo/wordmark-sm.png"
@@ -23,7 +23,7 @@ export default function SiteHeader() {
             width={851}
             height={587}
             priority
-            className="h-10 w-auto block brightness-0 invert"
+            className="h-14 w-auto block brightness-0 invert"
           />
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
