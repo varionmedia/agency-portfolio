@@ -308,7 +308,7 @@ function ProofStack({
         {items.map((item, i) => (
           <figure
             key={i}
-            className="relative rounded-xl overflow-hidden border border-white/15 shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)]"
+            className="relative overflow-hidden border border-white/15 shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)]"
           >
             <Image
               src={item.src}
