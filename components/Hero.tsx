@@ -15,7 +15,7 @@ const phrases = [
 ];
 
 const stats = [
-  { value: 50, suffix: "M+", decimals: 0, label: "views generated across all platforms" },
+  { value: 50, suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
   { value: 103, suffix: "%", decimals: 0, label: "organic traffic growth" },
   { value: 314, suffix: "", decimals: 0, label: "leads in one month" },
 ];
@@ -141,7 +141,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
-          className="mt-20 md:mt-28 grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm"
+          className="mt-20 md:mt-28 grid grid-cols-1 sm:grid-cols-3 gap-[2px] bg-cyan/40 border border-cyan/30 rounded-2xl overflow-hidden backdrop-blur-sm"
         >
           {stats.map((s) => (
             <div key={s.label} className="bg-navy/80 p-6 md:p-8">
