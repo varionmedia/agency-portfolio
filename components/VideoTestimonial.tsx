@@ -23,7 +23,7 @@ export default function VideoTestimonial() {
                 className="absolute -inset-6 rounded-[2rem] bg-cyan/10 blur-3xl -z-10 pointer-events-none"
               />
               <iframe
-                src="https://www.youtube.com/embed/LuzoszSR_Qs?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd720"
+                src="https://www.youtube.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd720"
                 title="Dr. Harel Papikian on working with Varion Media"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -73,6 +73,31 @@ export default function VideoTestimonial() {
                 </p>
               </div>
             </FadeUp>
+
+            {/* Recommendation — light card */}
+            <FadeUp delay={0.2}>
+              <div className="relative rounded-2xl bg-white border border-white/20 px-6 py-5 md:px-7 md:py-6 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.6)]">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  className="text-blue/80 mb-2"
+                  aria-hidden
+                >
+                  <path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V7zm12 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6V7z" />
+                </svg>
+                <p className="text-ink text-base md:text-lg leading-relaxed">
+                  Dr. Harel{" "}
+                  <span className="text-blue font-semibold">
+                    highly recommends Varion Media
+                  </span>{" "}
+                  to any business looking to build a strong social media
+                  presence and attract active, engaged potential clients.
+                </p>
+              </div>
+            </FadeUp>
+
             <FadeUp delay={0.25}>
               <div className="flex items-center gap-4">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border border-cyan/40 ring-2 ring-cyan/15 flex-shrink-0">
