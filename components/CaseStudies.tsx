@@ -134,7 +134,7 @@ const cases: CaseStudy[] = [
       "Repositioned his voice around high-intent student pain points",
       "Built a weekly script + shoot rhythm for consistent output",
       "Engineered hooks on every reel to lift watch time and retention",
-      "Built an engagement loop via comments and stories to retain followers",
+      "Managing the whole process — scripting → editing → publishing → automation",
     ],
     accent: "from-cyan/25",
     proof: "/images/instagram/ravi-taori.jpg",
