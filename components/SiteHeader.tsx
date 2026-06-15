@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const nav = [
   { label: "Services", href: "#services" },
@@ -13,10 +14,17 @@ export default function SiteHeader() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className="font-display font-extrabold tracking-[0.18em] uppercase text-sm"
           aria-label="Varion Media home"
+          className="inline-flex items-center rounded-full bg-white px-4 py-1.5 shadow-[0_4px_18px_-4px_rgba(0,0,0,0.45)]"
         >
-          Varion<span className="text-cyan">.</span>Media
+          <Image
+            src="/images/logo/wordmark-sm.png"
+            alt="Varion Media"
+            width={851}
+            height={587}
+            priority
+            className="h-7 w-auto block"
+          />
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
           {nav.map((item) => (

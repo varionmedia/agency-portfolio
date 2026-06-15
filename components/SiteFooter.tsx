@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const socials = [
   {
     label: "Instagram",
@@ -30,10 +32,16 @@ export default function SiteFooter() {
       />
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-14 grid gap-10 md:grid-cols-3">
         <div>
-          <div className="font-display font-extrabold tracking-[0.18em] uppercase text-sm">
-            Varion<span className="text-cyan">.</span>Media
+          <div className="inline-flex items-center rounded-full bg-white px-4 py-1.5 shadow-[0_4px_18px_-4px_rgba(0,0,0,0.45)]">
+            <Image
+              src="/images/logo/wordmark-sm.png"
+              alt="Varion Media"
+              width={851}
+              height={587}
+              className="h-7 w-auto block"
+            />
           </div>
-          <p className="mt-3 text-sm text-white/60 max-w-xs">
+          <p className="mt-4 text-sm text-white/60 max-w-xs">
             We don&apos;t just run campaigns. We build upward trajectories.
           </p>
           <div className="mt-6 flex items-center gap-3">
