@@ -15,7 +15,7 @@ export default function VideoTestimonial() {
             What Our Clients Say
           </div>
         </FadeUp>
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-12 items-start">
           <FadeUp delay={0.1}>
             <div className="relative mx-auto w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]">
               <div
