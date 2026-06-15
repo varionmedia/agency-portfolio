@@ -35,9 +35,9 @@ export default function SiteFooter() {
           <Image
             src="/images/logo/wordmark-sm.png"
             alt="Varion Media"
-            width={851}
-            height={587}
-            className="h-12 w-auto block brightness-0 invert"
+            width={849}
+            height={240}
+            className="h-9 w-auto block brightness-0 invert"
           />
           <p className="mt-4 text-sm text-white/60 max-w-xs">
             We don&apos;t just run campaigns. We build upward trajectories.
