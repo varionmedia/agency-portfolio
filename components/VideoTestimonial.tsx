@@ -16,23 +16,20 @@ export default function VideoTestimonial() {
         </FadeUp>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <FadeUp delay={0.1}>
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-navy border border-white/10 flex items-center justify-center group">
-              {/* TODO: Swap in YouTube embed once URL is provided */}
+            <div className="relative mx-auto w-full max-w-[380px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]">
               <div
                 aria-hidden
-                className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_50%,rgba(1,84,160,0.3),transparent_70%)]"
+                className="absolute -inset-6 rounded-[2rem] bg-cyan/10 blur-3xl -z-10 pointer-events-none"
               />
-              <div className="text-center px-6 relative">
-                <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-cyan/15 border border-cyan/40 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                  <span className="text-cyan text-xl translate-x-0.5">▶</span>
-                </div>
-                <p className="font-display uppercase tracking-[0.2em] text-xs text-white/60">
-                  Video testimonial coming soon
-                </p>
-                <p className="mt-2 text-sm text-white/40">
-                  Dr. Harel Papikian · Clinical Psychologist, LA
-                </p>
-              </div>
+              <iframe
+                src="https://www.youtube.com/embed/SC09CWjjBIA?rel=0&modestbranding=1&playsinline=1"
+                title="Dr. Harel Papikian on working with Varion Media"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                className="absolute inset-0 w-full h-full"
+              />
             </div>
           </FadeUp>
           <div className="space-y-6">
