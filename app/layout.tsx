@@ -34,6 +34,18 @@ export const metadata: Metadata = {
   },
   description:
     "We build upward trajectories for service professionals and coaches through SEO, Social Media, and Paid Ads that actually deliver results.",
+  applicationName: "Varion Media",
+  authors: [{ name: "Varion Media" }],
+  keywords: [
+    "digital marketing agency",
+    "SEO",
+    "social media marketing",
+    "Meta ads",
+    "AI automation",
+    "lead generation",
+    "personal branding",
+    "Varion Media",
+  ],
   openGraph: {
     title: "Varion Media — Digital Marketing Agency",
     description:
@@ -41,6 +53,7 @@ export const metadata: Metadata = {
     url: "https://www.varionmedia.com",
     siteName: "Varion Media",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
@@ -48,6 +61,30 @@ export const metadata: Metadata = {
     description:
       "We don't just run campaigns. We build upward trajectories.",
   },
+  alternates: {
+    canonical: "https://www.varionmedia.com",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Varion Media",
+  url: "https://www.varionmedia.com",
+  logo: "https://www.varionmedia.com/images/logo/icon-512.png",
+  description:
+    "Digital marketing agency for service professionals and coaches. SEO, Social Media, and Paid Ads that deliver real results.",
+  email: "hello@varionmedia.com",
+  founder: [
+    { "@type": "Person", name: "Umang Rawat", jobTitle: "Co-Founder · Strategy & SEO" },
+    { "@type": "Person", name: "Mann Desai", jobTitle: "Co-Founder · Social & Content" },
+  ],
+  sameAs: [
+    "https://www.instagram.com/varionmedia/",
+    "https://www.linkedin.com/in/varion-media/",
+    "https://www.youtube.com/@VarionMedia",
+    "https://www.facebook.com/profile.php?id=61590373334425",
+  ],
 };
 
 export default function RootLayout({
@@ -59,6 +96,10 @@ export default function RootLayout({
       className={`${raleway.variable} ${inter.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-navy text-white font-sans selection:bg-cyan/30 selection:text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <SmoothScroll>
           <SiteHeader />
           <main className="flex-1">{children}</main>
