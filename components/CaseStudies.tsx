@@ -25,7 +25,6 @@ type CaseStudy = {
   accent: string;
   proof: string;
   proofLabel: string;
-  proofLabels: string[];
   beforeAfter?: { before: string; after: string; alt: string };
 };
 
@@ -44,7 +43,6 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/dr-harel.jpg",
     proofLabel: "Dr. Harel Papikian Instagram profile",
-    proofLabels: ["Reel", "Insights", "DMs"],
   },
   {
     client: "CA Amol Jain",
@@ -60,7 +58,6 @@ const cases: CaseStudy[] = [
     accent: "from-blue/30",
     proof: "/images/instagram/amol-jain.jpg",
     proofLabel: "CA Amol Jain Instagram profile",
-    proofLabels: ["Before", "", "Now"],
     beforeAfter: {
       before: "/images/case-proof/amol-jain/before.jpg",
       after: "/images/case-proof/amol-jain/now.jpg",
@@ -81,7 +78,6 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/vsi-jaipur.jpg",
     proofLabel: "VSI Jaipur Instagram profile",
-    proofLabels: ["Search Console", "Keywords", "Traffic"],
   },
   {
     client: "Megha Kapoor",
@@ -97,7 +93,6 @@ const cases: CaseStudy[] = [
     accent: "from-blue/30",
     proof: "/images/instagram/megha-kapoor.jpg",
     proofLabel: "Megha Kapoor Instagram profile",
-    proofLabels: ["Meta Ads", "Leads", "ROAS"],
   },
   {
     client: "CA Ravi Taori",
@@ -113,7 +108,6 @@ const cases: CaseStudy[] = [
     accent: "from-cyan/25",
     proof: "/images/instagram/ravi-taori.jpg",
     proofLabel: "CA Ravi Taori Instagram profile",
-    proofLabels: ["Reels", "YouTube", "Reviews"],
   },
 ];
 
@@ -146,100 +140,77 @@ function PhoneFrame({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function ImagePlaceholderIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <circle cx="8.5" cy="8.5" r="1.5" />
-      <path d="M21 15l-5-5L5 21" />
-    </svg>
-  );
-}
-
-function ProofGallery({
-  labels,
-  beforeAfter,
+function BeforeAfterStack({
+  before,
+  after,
+  alt,
 }: {
-  labels: string[];
-  beforeAfter?: { before: string; after: string; alt: string };
+  before: string;
+  after: string;
+  alt: string;
 }) {
-  if (beforeAfter) {
-    return (
-      <div className="mt-5 max-w-sm">
-        <div className="font-display uppercase tracking-[0.2em] text-[0.65rem] text-white/40 mb-2">
-          Before &rarr; After
-        </div>
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-          <ProofImageTile
-            src={beforeAfter.before}
-            alt={`${beforeAfter.alt} — before`}
-            label="Before"
-          />
-          <div className="flex flex-col items-center text-cyan">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M5 12h14" />
-              <path d="m13 5 7 7-7 7" />
-            </svg>
-          </div>
-          <ProofImageTile
-            src={beforeAfter.after}
-            alt={`${beforeAfter.alt} — after`}
-            label="Now"
-          />
-        </div>
-      </div>
-    );
-  }
   return (
-    <div className="mt-5 max-w-xl">
-      <div className="font-display uppercase tracking-[0.2em] text-[0.65rem] text-white/40 mb-3">
-        More proof — coming soon
-      </div>
-      <div className="grid grid-cols-3 gap-3">
-        {labels.map((label, n) => (
-          <div
-            key={n}
-            className="group/proof aspect-[16/10] rounded-xl border border-dashed border-white/15 bg-white/[0.03] flex flex-col items-center justify-center gap-1.5 text-white/35 transition-colors hover:border-cyan/40 hover:text-cyan/70"
-            title={`${label} screenshot placeholder`}
-          >
-            <ImagePlaceholderIcon className="w-5 h-5" />
-            <span className="text-[0.6rem] uppercase tracking-[0.15em] font-display">
-              {label}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProofImageTile({ src, alt, label }: { src: string; alt: string; label: string }) {
-  return (
-    <figure className="group/proof relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-white/[0.03] shadow-[0_10px_30px_-15px_rgba(0,0,0,0.7)] transition-all duration-300 hover:border-cyan/40 hover:-translate-y-0.5">
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(max-width: 1024px) 40vw, 180px"
-        className="object-cover object-top"
-      />
+    <div className="relative mx-auto w-[220px] sm:w-[240px] lg:w-[260px]">
+      {/* Soft cyan glow behind */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/0"
+        className="absolute -inset-6 rounded-[3rem] bg-cyan/10 blur-3xl"
       />
-      <figcaption className="absolute bottom-1.5 left-2 text-[0.6rem] uppercase tracking-[0.18em] font-display font-semibold text-white/90">
-        {label}
-      </figcaption>
-    </figure>
+
+      {/* Before */}
+      <figure className="relative aspect-[4/3] rounded-xl overflow-hidden border border-white/15 bg-white/[0.03] shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)]">
+        <Image
+          src={before}
+          alt={`${alt} — before`}
+          fill
+          sizes="260px"
+          className="object-cover object-top"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/0"
+        />
+        <figcaption className="absolute bottom-2 left-2 text-[0.6rem] uppercase tracking-[0.18em] font-display font-bold text-white bg-black/55 backdrop-blur-sm rounded px-2 py-0.5">
+          Before
+        </figcaption>
+      </figure>
+
+      {/* Curved arrow */}
+      <div className="relative flex justify-center py-1.5 text-cyan">
+        <svg
+          viewBox="0 0 60 60"
+          width="46"
+          height="46"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M 30 6 Q 54 30, 30 52" />
+          <path d="M 22 45 L 30 52 L 38 45" />
+        </svg>
+      </div>
+
+      {/* After (highlighted with cyan ring) */}
+      <figure className="relative aspect-[4/3] rounded-xl overflow-hidden border border-cyan/40 bg-white/[0.03] shadow-[0_22px_50px_-15px_rgba(0,200,232,0.35)] ring-1 ring-cyan/20">
+        <Image
+          src={after}
+          alt={`${alt} — after`}
+          fill
+          sizes="260px"
+          className="object-cover object-top"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/0"
+        />
+        <figcaption className="absolute bottom-2 left-2 text-[0.6rem] uppercase tracking-[0.18em] font-display font-bold text-navy bg-cyan rounded px-2 py-0.5">
+          Now
+        </figcaption>
+      </figure>
+    </div>
   );
 }
 
@@ -291,14 +262,22 @@ function CaseCard({
           {String(i + 1).padStart(2, "0")}
         </div>
 
-        <div className="relative grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Phone */}
+        <div className="relative grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Visual: phone, or before/after stack when supplied */}
           <div
             className={`lg:col-span-5 ${
               phoneRight ? "lg:order-2" : "lg:order-1"
             }`}
           >
-            <PhoneFrame src={c.proof} alt={c.proofLabel} />
+            {c.beforeAfter ? (
+              <BeforeAfterStack
+                before={c.beforeAfter.before}
+                after={c.beforeAfter.after}
+                alt={c.beforeAfter.alt}
+              />
+            ) : (
+              <PhoneFrame src={c.proof} alt={c.proofLabel} />
+            )}
           </div>
 
           {/* Content */}
@@ -314,14 +293,14 @@ function CaseCard({
               {c.client}
             </h3>
             <div className="mt-1 text-sm text-white/50">{c.role}</div>
-            <p className="mt-4 font-display font-semibold text-lg md:text-xl leading-snug max-w-xl">
+            <p className="mt-4 font-display font-semibold text-lg md:text-xl leading-snug">
               {c.headline}
             </p>
-            <p className="mt-3 text-sm md:text-base text-white/65 max-w-xl">
+            <p className="mt-3 text-sm md:text-base text-white/65">
               {c.summary}
             </p>
 
-            <div className="mt-5 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10 max-w-xl">
+            <div className="mt-5 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10">
               {c.metrics.map((m) => (
                 <div key={m.label} className="bg-navy/90 p-3 md:p-4">
                   {m.display ? (
@@ -343,8 +322,6 @@ function CaseCard({
                 </div>
               ))}
             </div>
-
-            <ProofGallery labels={c.proofLabels} beforeAfter={c.beforeAfter} />
           </div>
         </div>
       </motion.article>
