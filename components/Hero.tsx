@@ -107,12 +107,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
-          className="mt-10 flex flex-wrap items-center gap-6"
+          className="mt-10 flex flex-wrap items-center gap-5 sm:gap-6"
         >
           <Magnetic>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-cyan text-navy px-7 py-4 font-display font-bold text-sm uppercase tracking-[0.18em] hover:bg-white transition-colors"
+              className="group inline-flex items-center gap-2 rounded-full bg-cyan text-navy px-5 sm:px-7 py-3.5 sm:py-4 font-display font-bold text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] whitespace-nowrap hover:bg-white transition-colors"
             >
               Book a Free Strategy Call
               <span
@@ -125,9 +125,10 @@ export default function Hero() {
           </Magnetic>
           <a
             href="#case-studies"
-            className="inline-flex items-center text-sm uppercase tracking-[0.18em] font-display font-semibold text-white/70 hover:text-cyan transition-colors"
+            className="inline-flex items-center text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] font-display font-semibold text-white/70 hover:text-cyan transition-colors whitespace-nowrap"
           >
             See the work
+            <span aria-hidden className="ml-2 transition-transform">→</span>
           </a>
         </motion.div>
 
