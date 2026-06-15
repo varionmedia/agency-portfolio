@@ -1,10 +1,46 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { FadeUp } from "@/components/ui/Reveal";
 import Spotlight from "@/components/ui/Spotlight";
 
+const QUALITIES: { label: string; value: string }[] = [
+  { label: "Auto", value: "default" },
+  { label: "1080p", value: "hd1080" },
+  { label: "720p", value: "hd720" },
+  { label: "480p", value: "large" },
+  { label: "360p", value: "medium" },
+];
+
 export default function VideoTestimonial() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [muted, setMuted] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const [quality, setQuality] = useState<string>("default");
+
+  function sendCommand(func: string, args: unknown[] = []) {
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: "command", func, args }),
+      "*"
+    );
+  }
+
+  function toggleMute() {
+    if (muted) {
+      sendCommand("unMute");
+    } else {
+      sendCommand("mute");
+    }
+    setMuted((m) => !m);
+  }
+
+  function pickQuality(value: string) {
+    sendCommand("setPlaybackQuality", [value]);
+    setQuality(value);
+    setShowSettings(false);
+  }
+
   return (
     <section id="testimonial" className="relative bg-navy-warm grain">
       <Spotlight />
@@ -23,13 +59,78 @@ export default function VideoTestimonial() {
                 className="absolute -inset-6 rounded-[2rem] bg-cyan/10 blur-3xl -z-10 pointer-events-none"
               />
               <iframe
-                src="https://www.youtube.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd720"
+                ref={iframeRef}
+                src="https://www.youtube.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
                 title="Dr. Harel Papikian on working with Varion Media"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
                 referrerPolicy="strict-origin-when-cross-origin"
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 w-full h-full pointer-events-none"
               />
+              {/* Custom controls overlay — pinned to bottom */}
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"
+              />
+              <div className="absolute inset-x-0 bottom-0 px-3 pb-3 flex items-center justify-between z-10">
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  aria-label={muted ? "Unmute" : "Mute"}
+                  className="w-9 h-9 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm text-white flex items-center justify-center transition-colors"
+                >
+                  {muted ? (
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M11 5 6 9H2v6h4l5 4z" />
+                      <line x1="22" y1="9" x2="16" y2="15" />
+                      <line x1="16" y1="9" x2="22" y2="15" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M11 5 6 9H2v6h4l5 4z" />
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                    </svg>
+                  )}
+                </button>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowSettings((s) => !s)}
+                    aria-label="Settings"
+                    aria-expanded={showSettings}
+                    className="w-9 h-9 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm text-white flex items-center justify-center transition-colors"
+                  >
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    </svg>
+                  </button>
+                  {showSettings && (
+                    <div
+                      role="menu"
+                      className="absolute bottom-full right-0 mb-2 min-w-[110px] rounded-lg bg-black/85 backdrop-blur-sm border border-white/10 shadow-lg overflow-hidden"
+                    >
+                      <div className="px-3 py-2 text-[10px] uppercase tracking-[0.15em] text-white/45 font-display">
+                        Quality
+                      </div>
+                      {QUALITIES.map((q) => (
+                        <button
+                          key={q.value}
+                          type="button"
+                          onClick={() => pickQuality(q.value)}
+                          className={`block w-full text-left px-3 py-1.5 text-xs transition-colors ${
+                            quality === q.value
+                              ? "text-cyan bg-white/5"
+                              : "text-white/80 hover:bg-white/5"
+                          }`}
+                        >
+                          {q.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </FadeUp>
           <div className="space-y-6">
