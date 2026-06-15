@@ -125,10 +125,15 @@ export default function Hero() {
           </Magnetic>
           <a
             href="#case-studies"
-            className="inline-flex items-center text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] font-display font-semibold text-white/70 hover:text-cyan transition-colors whitespace-nowrap"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/50 text-white px-5 py-3.5 text-xs tracking-[0.14em] whitespace-nowrap font-display font-bold uppercase transition-colors hover:bg-white hover:text-navy sm:rounded-none sm:border-0 sm:p-0 sm:text-sm sm:tracking-[0.18em] sm:font-semibold sm:text-white/70 sm:hover:bg-transparent sm:hover:text-cyan"
           >
             See the work
-            <span aria-hidden className="ml-2 transition-transform">→</span>
+            <span
+              aria-hidden
+              className="transition-transform group-hover:translate-x-1"
+            >
+              →
+            </span>
           </a>
         </motion.div>
 
