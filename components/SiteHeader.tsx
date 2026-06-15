@@ -15,7 +15,7 @@ export default function SiteHeader() {
         <Link
           href="/"
           aria-label="Varion Media home"
-          className="inline-flex items-center rounded-full bg-white px-4 py-1.5 shadow-[0_4px_18px_-4px_rgba(0,0,0,0.45)]"
+          className="inline-flex items-center"
         >
           <Image
             src="/images/logo/wordmark-sm.png"
@@ -23,7 +23,7 @@ export default function SiteHeader() {
             width={851}
             height={587}
             priority
-            className="h-7 w-auto block"
+            className="h-10 w-auto block brightness-0 invert"
           />
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
