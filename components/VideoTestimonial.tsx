@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FadeUp } from "@/components/ui/Reveal";
 import Spotlight from "@/components/ui/Spotlight";
 
@@ -16,13 +17,13 @@ export default function VideoTestimonial() {
         </FadeUp>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <FadeUp delay={0.1}>
-            <div className="relative mx-auto w-full max-w-[380px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]">
+            <div className="relative mx-auto w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]">
               <div
                 aria-hidden
                 className="absolute -inset-6 rounded-[2rem] bg-cyan/10 blur-3xl -z-10 pointer-events-none"
               />
               <iframe
-                src="https://www.youtube.com/embed/SC09CWjjBIA?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd720"
+                src="https://www.youtube.com/embed/LuzoszSR_Qs?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd720"
                 title="Dr. Harel Papikian on working with Varion Media"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -74,8 +75,14 @@ export default function VideoTestimonial() {
             </FadeUp>
             <FadeUp delay={0.25}>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-cyan/15 border border-cyan/40 flex items-center justify-center font-display font-bold text-cyan text-sm">
-                  HP
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-cyan/40 ring-2 ring-cyan/15 flex-shrink-0">
+                  <Image
+                    src="/images/testimonial/harel-avatar.jpg"
+                    alt="Dr. Harel Papikian"
+                    fill
+                    sizes="48px"
+                    className="object-cover object-center"
+                  />
                 </div>
                 <div className="text-sm">
                   <div className="font-display font-semibold text-white">
