@@ -142,6 +142,29 @@ const cases: CaseStudy[] = [
     accent: "from-blue/30",
     proof: "/images/instagram/megha-kapoor.jpg",
     proofLabel: "Megha Kapoor Instagram profile",
+    proofStack: [
+      {
+        src: "/images/case-proof/megha-kapoor/ads.jpg",
+        label: "Meta Ads account — top-level results",
+        alt: "Meta Ads Manager — campaign overview",
+        width: 1400,
+        height: 230,
+      },
+      {
+        src: "/images/case-proof/megha-kapoor/funnel.jpg",
+        label: "End-to-end conversion funnel",
+        alt: "Conversion funnel — ad spend, leads, conversions, revenue",
+        width: 1400,
+        height: 730,
+      },
+      {
+        src: "/images/case-proof/megha-kapoor/payment.jpg",
+        label: "Payment confirmation",
+        alt: "Payment confirmation from a converted lead",
+        width: 980,
+        height: 710,
+      },
+    ],
   },
   {
     client: "CA Ravi Taori",
@@ -231,20 +254,20 @@ function BeforeAfterStack({
       </figure>
 
       {/* Curved arrow */}
-      <div className="relative flex justify-center py-1.5 text-cyan">
+      <div className="relative flex justify-center py-2 text-cyan">
         <svg
-          viewBox="0 0 60 60"
-          width="46"
-          height="46"
+          viewBox="0 0 40 60"
+          width="40"
+          height="60"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2.4"
+          strokeWidth="2.8"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden
         >
-          <path d="M 30 6 Q 54 30, 30 52" />
-          <path d="M 22 45 L 30 52 L 38 45" />
+          <path d="M 20 4 Q 36 28, 20 50" />
+          <path d="M 12 42 L 20 50 L 28 42" />
         </svg>
       </div>
 
