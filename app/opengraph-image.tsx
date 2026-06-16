@@ -2,9 +2,8 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-export const alt =
-  "Varion Media — Digital Marketing Agency That Drives Leads";
-export const size = { width: 1200, height: 630 };
+export const alt = "Varion Media — Digital Marketing Agency";
+export const size = { width: 1200, height: 1200 };
 export const contentType = "image/png";
 
 export default async function Image() {
@@ -22,102 +21,47 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           background:
-            "radial-gradient(circle at 25% 30%, #0a1640 0%, #020516 65%)",
+            "radial-gradient(circle at 50% 38%, #0b1a44 0%, #020516 70%)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "72px 80px",
-          color: "#ffffff",
+          alignItems: "center",
+          justifyContent: "center",
           fontFamily: "sans-serif",
-          position: "relative",
+          color: "#ffffff",
         }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={iconSrc} width={520} height={520} alt="" />
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            gap: "20px",
-          }}
-        >
-          <div
-            style={{
-              width: "56px",
-              height: "2px",
-              background: "#00C8E8",
-            }}
-          />
-          <span
-            style={{
-              color: "#00C8E8",
-              letterSpacing: "0.28em",
-              fontSize: "22px",
-              textTransform: "uppercase",
-              fontWeight: 700,
-            }}
-          >
-            Digital Marketing Agency
-          </span>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontSize: "76px",
+            fontSize: 96,
             fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
-            maxWidth: "1000px",
+            letterSpacing: "0.02em",
+            marginTop: 24,
           }}
         >
-          <span>We don&apos;t just run campaigns.</span>
-          <span style={{ color: "#00C8E8" }}>
-            We build upward trajectories.
-          </span>
+          Varion Media
         </div>
-
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            width: 120,
+            height: 4,
+            background: "#00C8E8",
+            margin: "36px 0",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            fontSize: 40,
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.7)",
+            letterSpacing: "0.01em",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-            }}
-          >
-            <img
-              src={iconSrc}
-              width={72}
-              height={72}
-              alt=""
-              style={{ borderRadius: 14 }}
-            />
-            <span
-              style={{
-                fontSize: "30px",
-                fontWeight: 800,
-                letterSpacing: "0.04em",
-              }}
-            >
-              Varion Media
-            </span>
-          </div>
-          <span
-            style={{
-              color: "rgba(255,255,255,0.55)",
-              fontSize: "20px",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              fontWeight: 600,
-            }}
-          >
-            varionmedia.com
-          </span>
+          We build upward trajectories.
         </div>
       </div>
     ),
