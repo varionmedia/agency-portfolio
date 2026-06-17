@@ -30,7 +30,6 @@ export default async function Image() {
           color: "#ffffff",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={iconSrc} width={520} height={520} alt="" />
         <div
           style={{

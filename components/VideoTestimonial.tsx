@@ -60,7 +60,7 @@ export default function VideoTestimonial() {
               />
               <iframe
                 ref={iframeRef}
-                src="https://www.youtube.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
+                src="https://www.youtube-nocookie.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
                 title="Dr. Harel Papikian on working with Varion Media"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
@@ -110,7 +110,7 @@ export default function VideoTestimonial() {
                       role="menu"
                       className="absolute bottom-full right-0 mb-2 min-w-[110px] rounded-lg bg-black/85 backdrop-blur-sm border border-white/10 shadow-lg overflow-hidden"
                     >
-                      <div className="px-3 py-2 text-[10px] uppercase tracking-[0.15em] text-white/45 font-display">
+                      <div className="px-3 py-2 text-[10px] uppercase tracking-[0.15em] text-white/60 font-display">
                         Quality
                       </div>
                       {QUALITIES.map((q) => (

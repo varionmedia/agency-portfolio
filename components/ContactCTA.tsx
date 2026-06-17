@@ -160,7 +160,7 @@ export default function ContactCTA() {
                   <div className="text-white/85 font-medium">
                     Umang &amp; Mann · Co-founders
                   </div>
-                  <div className="text-white/45">
+                  <div className="text-white/60">
                     We read every message ourselves.
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export default function ContactCTA() {
                       rows={4}
                       required
                       placeholder="What are you trying to grow, and what's getting in the way?"
-                      className="w-full bg-[#03051a] border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/45 shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all resize-none"
+                      className="w-full bg-[#03051a] border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/60 shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all resize-none"
                     />
                   </div>
 
@@ -272,7 +272,7 @@ export default function ContactCTA() {
                         </span>
                       </button>
                     </Magnetic>
-                    <p className="text-center text-xs text-white/40 mt-3">
+                    <p className="text-center text-xs text-white/60 mt-3">
                       No obligation — just a clear next step.
                     </p>
                   </div>
@@ -321,7 +321,7 @@ function Field({
           placeholder={placeholder}
           className={`w-full bg-[#03051a] border border-white/20 rounded-xl ${
             icon ? "pl-10" : "pl-4"
-          } pr-4 py-3 text-white placeholder:text-white/45 shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all`}
+          } pr-4 py-3 text-white placeholder:text-white/60 shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)] focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-all`}
         />
       </div>
     </div>

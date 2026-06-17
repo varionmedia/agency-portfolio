@@ -58,7 +58,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="text-sm text-white/70 space-y-2">
-          <div className="font-display uppercase tracking-[0.18em] text-xs text-white/40 mb-2">
+          <div className="font-display uppercase tracking-[0.18em] text-xs text-white/60 mb-2">
             Reach us
           </div>
           <div>
@@ -71,7 +71,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="text-sm text-white/70 space-y-2">
-          <div className="font-display uppercase tracking-[0.18em] text-xs text-white/40 mb-2">
+          <div className="font-display uppercase tracking-[0.18em] text-xs text-white/60 mb-2">
             Explore
           </div>
           <a href="#services" className="block hover:text-cyan transition-colors">Services</a>
@@ -80,7 +80,7 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-white/40">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-white/60">
           <div>© {new Date().getFullYear()} Varion Media. All rights reserved.</div>
           <div className="font-display uppercase tracking-[0.18em]">
             Momentum · Variation · Reliable

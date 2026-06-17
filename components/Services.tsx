@@ -28,7 +28,7 @@ function ScreenFrame({
         <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
         <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
         <span className="w-2 h-2 rounded-full bg-[#28c840]" />
-        <span className="ml-2 text-[8px] uppercase tracking-[0.18em] text-white/45 font-display">
+        <span className="ml-2 text-[8px] uppercase tracking-[0.18em] text-white/60 font-display">
           {label}
         </span>
         <span className="ml-auto flex items-center gap-1 text-[7.5px] uppercase tracking-[0.16em] text-white/55">
@@ -159,7 +159,7 @@ function SeoGraphic() {
                 transition={{ duration: 1.6, ease: "easeInOut" }}
               />
             </svg>
-            <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40">
+            <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/60">
               Organic traffic
             </div>
           </div>
@@ -276,7 +276,7 @@ function SocialGraphic() {
                   transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatType: "loop", repeatDelay: 1.4 }}
                 />
               </svg>
-              <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40">
+              <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/60">
                 Audience
               </div>
             </div>
@@ -322,7 +322,7 @@ function MetaAdsGraphic() {
         <div className="absolute inset-0 p-2.5 flex gap-2.5">
           {/* Targeting */}
           <div className="relative w-[46%] flex-shrink-0 rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
-            <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/40 z-10">
+            <div className="absolute top-1.5 left-2 text-[7.5px] uppercase tracking-[0.16em] text-white/60 z-10">
               Targeting
             </div>
             <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
@@ -351,7 +351,7 @@ function MetaAdsGraphic() {
             {/* ROAS — horizontal meter (compact on desktop, balanced on mobile) */}
             <div className="flex-1 lg:flex-none rounded-lg bg-white/[0.02] border border-white/[0.06] px-2.5 py-2 flex flex-col justify-center gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[7px] uppercase tracking-[0.18em] text-white/40">
+                <span className="text-[7px] uppercase tracking-[0.18em] text-white/60">
                   ROAS
                 </span>
                 <span className="flex items-center gap-0.5 font-display font-extrabold text-[#22c55e] text-[9px] leading-none">
@@ -373,7 +373,7 @@ function MetaAdsGraphic() {
 
             {/* CPL — sparkline trending down (desktop only, hidden on mobile) */}
             <div className="flex-1 hidden lg:block relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden">
-              <div className="absolute top-1.5 right-2.5 flex items-center gap-0.5 text-[8px] uppercase tracking-[0.18em] text-white/45 z-10">
+              <div className="absolute top-1.5 right-2.5 flex items-center gap-0.5 text-[8px] uppercase tracking-[0.18em] text-white/60 z-10">
                 CPL
                 <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="#22c55e" strokeWidth="3.5">
                   <polyline points="6 9 12 15 18 9" />
@@ -403,7 +403,7 @@ function MetaAdsGraphic() {
 
             {/* Conversions — rising bars */}
             <div className="flex-1 relative rounded-lg bg-white/[0.02] border border-white/[0.06] overflow-hidden flex items-end gap-1 px-2.5 pb-1.5 pt-5">
-              <span className="absolute top-1.5 left-2.5 text-[7px] uppercase tracking-[0.16em] text-white/40">
+              <span className="absolute top-1.5 left-2.5 text-[7px] uppercase tracking-[0.16em] text-white/60">
                 Conversions
               </span>
               {[0.4, 0.55, 0.45, 0.7, 0.85, 1].map((h, i) => (
@@ -465,7 +465,7 @@ function LogRow({
       </span>
       <span
         className={`text-[8px] flex-1 truncate ${
-          done ? "text-white/70" : active ? "text-white" : "text-white/45"
+          done ? "text-white/70" : active ? "text-white" : "text-white/60"
         }`}
       >
         {row.label}
@@ -486,7 +486,7 @@ function KpiTile({ label, value, accent }: { label: string; value: string; accen
       <span className="font-display font-extrabold text-[11px] leading-none" style={{ color: accent }}>
         {value}
       </span>
-      <span className="text-[6.5px] uppercase tracking-[0.12em] text-white/40 mt-0.5">{label}</span>
+      <span className="text-[6.5px] uppercase tracking-[0.12em] text-white/60 mt-0.5">{label}</span>
     </div>
   );
 }
