@@ -22,7 +22,7 @@ const phrases = [
 
 const stats = [
   { value: 50, suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
-  { value: 103, suffix: "%", decimals: 0, label: "organic traffic growth" },
+  { value: 5, suffix: " Million+", decimals: 0, label: "organic Google traffic through SEO" },
   { value: 314, suffix: "", decimals: 0, label: "leads in one month" },
 ];
 
