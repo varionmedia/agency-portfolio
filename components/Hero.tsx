@@ -21,9 +21,9 @@ const phrases = [
 ];
 
 const stats = [
-  { value: 50, suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
-  { value: 5, suffix: " Million+", decimals: 0, label: "organic Google traffic through SEO" },
-  { value: 314, suffix: "", decimals: 0, label: "leads in one month" },
+  { value: 50, prefix: "", suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
+  { value: 5, prefix: "", suffix: " Million+", decimals: 0, label: "organic Google traffic through SEO" },
+  { value: 1, prefix: "₹", suffix: " Crore+", decimals: 0, label: "ad spent (Meta + Google)" },
 ];
 
 export default function Hero() {
@@ -144,6 +144,7 @@ export default function Hero() {
               <dd>
                 <Counter
                   value={s.value}
+                  prefix={s.prefix}
                   suffix={s.suffix}
                   decimals={s.decimals}
                   className="font-display font-extrabold text-3xl md:text-4xl text-cyan"
