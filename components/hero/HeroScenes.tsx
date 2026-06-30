@@ -62,7 +62,7 @@ export function SeoScene({ accent, accent2, reduce, centered: C }: SceneProps) {
       <svg
         viewBox="0 0 100 60"
         preserveAspectRatio="none"
-        className={C ? "absolute inset-x-[7%] bottom-[16%] h-[38%]" : "absolute right-[3%] bottom-[12%] w-[48%] h-[48%]"}
+        className={C ? "absolute inset-x-[3%] bottom-[10%] h-[52%]" : "absolute right-[3%] bottom-[12%] w-[48%] h-[48%]"}
       >
         <defs>
           <linearGradient id="seoArea" x1="0" y1="0" x2="0" y2="1">
@@ -227,7 +227,7 @@ export function MetaScene({ accent, accent2, reduce, centered: C }: SceneProps) 
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Glow accent={accent} accent2={accent2} centered={C} />
-      <div className={C ? "absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 w-[60%] max-w-[240px] aspect-square" : "absolute right-[14%] top-1/2 -translate-y-1/2 w-[40%] aspect-square max-w-[440px]"}>
+      <div className={C ? "absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 w-[52%] max-w-[200px] aspect-square" : "absolute right-[14%] top-1/2 -translate-y-1/2 w-[40%] aspect-square max-w-[440px]"}>
         {[1, 0.66, 0.33].map((s, i) => (
           <motion.span
             key={i}
@@ -260,10 +260,24 @@ export function MetaScene({ accent, accent2, reduce, centered: C }: SceneProps) 
             animate={reduce ? { width: "82%" } : { width: ["0%", "82%"] }} transition={LOOP(3)} />
         </div>
       </div>
+      {/* Conversions — rising graph line */}
+      {C && (
+        <div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 w-[54%] max-w-[150px] rounded-xl border p-2.5" style={{ borderColor: `${accent}40`, background: "#ffffff08" }}>
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[0.55rem] uppercase tracking-[0.14em] text-white/60 font-display">Conversions</span>
+            <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="#22c55e" strokeWidth="3.5"><polyline points="18 15 12 9 6 15" /></svg>
+          </div>
+          <svg viewBox="0 0 100 26" preserveAspectRatio="none" className="w-full h-5">
+            <motion.path d="M2,22 L20,18 L38,19 L56,12 L74,8 L98,3" fill="none" stroke="#22c55e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 3px #22c55e)" }}
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+              transition={reduce ? { duration: 0 } : { duration: 1.8, repeat: Infinity, repeatType: "loop", repeatDelay: 1.2, ease: "easeInOut" }} />
+          </svg>
+        </div>
+      )}
       {C ? (
         <>
-          <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "86%", left: "5%" }}>314 leads</Tag>
-          <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "86%", left: "60%" }}>CPL ↓ 38%</Tag>
+          <Tag accent={accent} delay={0.3} reduce={reduce} style={{ bottom: "6%", left: "3%" }}>314 leads</Tag>
+          <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ bottom: "6%", right: "3%" }}>CPL ↓ 38%</Tag>
         </>
       ) : (
         <>
@@ -281,8 +295,8 @@ const NODES = [
   { x: 58, y: 66 }, { x: 47, y: 46 }, { x: 68, y: 44 },
 ];
 const NODES_C = [
-  { x: 30, y: 28 }, { x: 54, y: 18 }, { x: 78, y: 36 }, { x: 70, y: 66 },
-  { x: 40, y: 62 }, { x: 22, y: 46 }, { x: 50, y: 46 },
+  { x: 28, y: 44 }, { x: 52, y: 36 }, { x: 76, y: 46 }, { x: 68, y: 72 },
+  { x: 40, y: 70 }, { x: 24, y: 58 }, { x: 50, y: 56 },
 ];
 const EDGES: [number, number][] = [[0, 6], [1, 6], [2, 6], [6, 3], [6, 4], [5, 6], [0, 1], [3, 4]];
 

@@ -35,10 +35,11 @@ const config: WorkPageConfig = {
       description:
         "Reels and short-form edits across personal-brand, education, and authority-content formats.",
       layout: "video",
+      // First reel autoplays (muted); the rest are click-to-play.
       // Shuffled so each 4-up viewport mixes creators.
       videos: [
-        { youtubeId: "fO2xWS1W_1I" },
         { youtubeId: "1J1vHHeN3z0" },
+        { youtubeId: "fO2xWS1W_1I" },
         { youtubeId: "9xjaDGNJwBo" },
         { youtubeId: "d5IUc7hdesw" },
         { youtubeId: "WvaGbGvKSFg" },

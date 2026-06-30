@@ -2,7 +2,7 @@ import Counter from "@/components/ui/Counter";
 import { FadeUp } from "@/components/ui/Reveal";
 
 const stats = [
-  { value: 50, prefix: "", suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
+  { value: 50, prefix: "", suffix: " Million+", decimals: 0, label: "views generated across all Social Media" },
   { value: 5, prefix: "", suffix: " Million+", decimals: 0, label: "organic Google traffic generated through SEO" },
   { value: 1, prefix: "₹", suffix: " Crore+", decimals: 0, label: "Total ad spent (Meta + Google)" },
 ];

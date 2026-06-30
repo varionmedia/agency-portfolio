@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { FadeUp } from "@/components/ui/Reveal";
+import ReelPlayer from "@/components/work/ReelPlayer";
 import type {
   GraphicGroup,
   GraphicItem,
@@ -104,9 +105,20 @@ function MediaCarousel({
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  // Infinite arrows: next past the end wraps to the start, prev past the
+  // start wraps to the end.
   const by = (d: number) => {
     const el = ref.current;
     if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    if (d > 0 && el.scrollLeft >= max - 8) {
+      el.scrollTo({ left: 0, behavior: "smooth" });
+      return;
+    }
+    if (d < 0 && el.scrollLeft <= 8) {
+      el.scrollTo({ left: max, behavior: "smooth" });
+      return;
+    }
     el.scrollBy({ left: d * el.clientWidth * 0.85, behavior: "smooth" });
   };
   return (
@@ -137,55 +149,22 @@ function tileMotion(i: number) {
   };
 }
 
-function VideoCard({
+function VideoTile({
   video,
   accentHex,
+  i,
   ratio = "9/16",
+  autoplay = false,
 }: {
   video?: VideoItem;
   accentHex: string;
+  i: number;
   ratio?: "9/16" | "16/9";
+  autoplay?: boolean;
 }) {
-  const id = video?.youtubeId;
-  const placeholderLabel = ratio === "9/16" ? "Reel · Coming soon" : "Video · Coming soon";
-  return (
-    <div className={`relative ${RATIO_CLASS[ratio]} rounded-2xl overflow-hidden bg-[#070920] border border-ink/10 shadow-[0_14px_34px_-18px_rgba(2,5,22,0.4)]`}>
-      {id ? (
-        <>
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=${id}`}
-            title={video?.label ?? "Video"}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            className="absolute inset-0 w-full h-full pointer-events-none scale-[1.02]"
-          />
-          <div aria-hidden className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/50 to-transparent" />
-        </>
-      ) : (
-        <div className="absolute inset-0">
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{ background: `radial-gradient(circle at 50% 35%, ${accentHex}26 0%, transparent 60%)` }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="#0a0d1f"><path d="M8 5v14l11-7L8 5z" /></svg>
-            </div>
-          </div>
-          <span className="absolute bottom-3 left-0 right-0 text-center font-display text-[0.55rem] uppercase tracking-[0.22em] text-white/45">
-            {placeholderLabel}
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function VideoTile({ video, accentHex, i, ratio = "9/16" }: { video?: VideoItem; accentHex: string; i: number; ratio?: "9/16" | "16/9" }) {
   return (
     <motion.div {...tileMotion(i)}>
-      <VideoCard video={video} accentHex={accentHex} ratio={ratio} />
+      <ReelPlayer youtubeId={video?.youtubeId} accentHex={accentHex} ratio={ratio} autoplay={autoplay} />
     </motion.div>
   );
 }
@@ -247,27 +226,21 @@ export function VideoSection({ sub, accentHex }: { sub: WorkSubcategory; accentH
   const landscape: VideoItem[] =
     sub.landscapeVideos ??
     (sub.landscapeVideoCount ? Array.from({ length: sub.landscapeVideoCount }).map(() => ({})) : []);
-  // Two copies for a seamless -50% loop (marquee), spacing baked into each
-  // item (mr-*) so the two halves tile perfectly.
-  const loop = [...videos, ...videos];
   return (
     <section id={sub.id} className="scroll-mt-28 relative">
       <FadeUp>
         <SectionHeading accentHex={accentHex} eyebrow="Short-form · Reels" title={sub.title} description={sub.description} />
       </FadeUp>
 
-      {/* Continuously rotating reel marquee — loops seamlessly, pauses on hover. */}
-      <div className="group relative overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 md:w-16 bg-gradient-to-r from-cream to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 md:w-16 bg-gradient-to-l from-cream to-transparent" />
-        <div className="flex w-max marquee-track-slow group-hover:[animation-play-state:paused] py-1">
-          {loop.map((v, i) => (
-            <div key={i} className="w-[180px] sm:w-[210px] lg:w-[230px] shrink-0 mr-4 md:mr-5">
-              <VideoCard video={v} accentHex={accentHex} ratio="9/16" />
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Arrow carousel — loops infinitely (next past the last wraps to the
+          first). Only the first reel autoplays; the rest are click-to-play. */}
+      <MediaCarousel accentHex={accentHex}>
+        {videos.map((v, i) => (
+          <div key={i} className={ITEM_WIDTH}>
+            <VideoTile video={v} accentHex={accentHex} i={i} ratio="9/16" autoplay={i === 0} />
+          </div>
+        ))}
+      </MediaCarousel>
 
       {landscape.length > 0 && (
         <div className="mt-14 md:mt-16">
