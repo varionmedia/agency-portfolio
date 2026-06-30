@@ -46,7 +46,7 @@ function Glow({ accent, accent2 }: { accent: string; accent2: string }) {
       aria-hidden
       className="absolute inset-0"
       style={{
-        background: `radial-gradient(42% 54% at 56% 46%, ${accent}55 0%, transparent 68%), radial-gradient(34% 44% at 78% 82%, ${accent2}33 0%, transparent 70%), radial-gradient(30% 40% at 46% 16%, ${accent2}24 0%, transparent 70%)`,
+        background: `radial-gradient(46% 58% at 66% 48%, ${accent}4d 0%, transparent 70%), radial-gradient(30% 40% at 90% 20%, ${accent2}2e 0%, transparent 68%), radial-gradient(30% 42% at 88% 84%, ${accent2}26 0%, transparent 70%), radial-gradient(26% 36% at 52% 88%, ${accent}1f 0%, transparent 70%)`,
       }}
     />
   );
@@ -57,7 +57,7 @@ export function SeoScene({ accent, accent2, reduce }: SceneProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Glow accent={accent} accent2={accent2} />
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="absolute right-[8%] bottom-[10%] w-[60%] h-[52%]">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="absolute right-[3%] bottom-[12%] w-[48%] h-[48%]">
         <defs>
           <linearGradient id="seoArea" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={accent} stopOpacity="0.6" />
@@ -191,7 +191,7 @@ export function MetaScene({ accent, accent2, reduce }: SceneProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Glow accent={accent} accent2={accent2} />
-      <div className="absolute right-[28%] top-1/2 -translate-y-1/2 w-[34%] aspect-square max-w-[400px]">
+      <div className="absolute right-[14%] top-1/2 -translate-y-1/2 w-[40%] aspect-square max-w-[440px]">
         {[1, 0.66, 0.33].map((s, i) => (
           <motion.span
             key={i}
@@ -224,16 +224,16 @@ export function MetaScene({ accent, accent2, reduce }: SceneProps) {
             animate={reduce ? { width: "82%" } : { width: ["0%", "82%"] }} transition={LOOP(3)} />
         </div>
       </div>
-      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "62%", left: "50%" }}>314 leads · month 1</Tag>
-      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "80%", left: "70%" }}>CPL ↓ 38%</Tag>
+      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "60%", left: "48%" }}>314 leads · month 1</Tag>
+      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "82%", left: "80%" }}>CPL ↓ 38%</Tag>
     </div>
   );
 }
 
 /* ── AI Automation — node graph, pulses, streaming log ─────── */
 const NODES = [
-  { x: 46, y: 28 }, { x: 68, y: 18 }, { x: 82, y: 44 }, { x: 72, y: 70 },
-  { x: 50, y: 64 }, { x: 36, y: 46 }, { x: 60, y: 44 },
+  { x: 52, y: 26 }, { x: 72, y: 18 }, { x: 90, y: 40 }, { x: 80, y: 70 },
+  { x: 58, y: 66 }, { x: 47, y: 46 }, { x: 68, y: 44 },
 ];
 const EDGES: [number, number][] = [[0, 6], [1, 6], [2, 6], [6, 3], [6, 4], [5, 6], [0, 1], [3, 4]];
 
@@ -267,8 +267,8 @@ export function AiScene({ accent, accent2, reduce }: SceneProps) {
           </motion.div>
         ))}
       </div>
-      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "66%", left: "50%" }}>40+ hrs saved / wk</Tag>
-      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "82%", left: "60%" }}>agent · running</Tag>
+      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "62%", left: "48%" }}>40+ hrs saved / wk</Tag>
+      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "82%", left: "80%" }}>agent · running</Tag>
     </div>
   );
 }
