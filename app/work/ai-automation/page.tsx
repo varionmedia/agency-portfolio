@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import WorkPageShell, { type WorkPageConfig } from "@/components/work/WorkPageShell";
+import AiAutomationHero from "@/components/work/heroes/AiAutomationHero";
 
 export const metadata: Metadata = {
   title: "AI Automation Work — Tools, Dashboards & Workflow Demos",
@@ -16,6 +17,17 @@ const config: WorkPageConfig = {
   title: "AI that earns its keep — every workflow, every week.",
   positioning:
     "Custom tools that remove the busywork — lead scoring, content drafting, CRM hygiene, reporting. We build, deploy, and own the result.",
+  marqueeItems: [
+    "Tools Built",
+    "Dashboards",
+    "Workflow Demos",
+    "AI Agents",
+    "CRM Hygiene",
+    "Lead Scoring",
+    "Email Agents",
+    "Automation",
+  ],
+  heroVisual: <AiAutomationHero />,
   subcategories: [
     {
       id: "tools-built",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import WorkPageShell, { type WorkPageConfig } from "@/components/work/WorkPageShell";
+import MetaAdsHero from "@/components/work/heroes/MetaAdsHero";
 
 export const metadata: Metadata = {
   title: "Meta Ads Work — Creatives, Campaigns & Funnel Performance",
@@ -16,6 +17,17 @@ const config: WorkPageConfig = {
   title: "Paid campaigns that turn spend into a pipeline.",
   positioning:
     "Targeting, creative, and funnel — all owned in-house. We build the offer, ship the creative, and tune the spend until the cost per lead is one you'd run all year.",
+  marqueeItems: [
+    "Ad Creatives",
+    "Campaign Results",
+    "ROAS",
+    "CPL",
+    "Funnel",
+    "Retargeting",
+    "Audience Targeting",
+    "Creative Testing",
+  ],
+  heroVisual: <MetaAdsHero />,
   subcategories: [
     {
       id: "ad-creatives",

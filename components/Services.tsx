@@ -118,7 +118,7 @@ function KeywordRow({
   );
 }
 
-function SeoGraphic() {
+export function SeoGraphic() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   return (
@@ -223,7 +223,7 @@ const SOCIAL_TILES = [
   "from-[#ef4444] to-[#ec4899]",
 ];
 
-function SocialGraphic() {
+export function SocialGraphic() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   return (
@@ -314,7 +314,7 @@ const TARGET_DOTS = [
   { left: "71%", top: "14%", color: "#ec4899" },
 ];
 
-function MetaAdsGraphic() {
+export function MetaAdsGraphic() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   return (
@@ -492,7 +492,7 @@ function KpiTile({ label, value, accent }: { label: string; value: string; accen
   );
 }
 
-function AiAutomationGraphic() {
+export function AiAutomationGraphic() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   const [step, setStep] = useState(0);

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import WorkPageShell, { type WorkPageConfig } from "@/components/work/WorkPageShell";
+import SeoHero from "@/components/work/heroes/SeoHero";
 
 export const metadata: Metadata = {
   title: "SEO Work — Rank Tracking, Traffic Growth & Content",
@@ -16,6 +17,17 @@ const config: WorkPageConfig = {
   title: "SEO work that compounds month after month.",
   positioning:
     "We don't chase rankings. We build the organic engine — technical, topical, and editorial — that turns search into a reliable lead channel.",
+  marqueeItems: [
+    "Rank Tracking",
+    "Search Console",
+    "Keywords Won",
+    "Technical SEO",
+    "Topical Authority",
+    "Content Velocity",
+    "Backlinks",
+    "Traffic Growth",
+  ],
+  heroVisual: <SeoHero />,
   subcategories: [
     {
       id: "rank-tracking",
