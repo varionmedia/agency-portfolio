@@ -1,21 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Magnetic from "@/components/ui/Magnetic";
 import MarqueeStrip from "@/components/work/MarqueeStrip";
+import { MediaGrid, type TileKind } from "@/components/work/MediaTile";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-export type TileKind =
-  | "video"
-  | "graphic"
-  | "screenshot"
-  | "script"
-  | "dashboard"
-  | "workflow"
-  | "ad";
 
 export type WorkSubcategory = {
   id: string;
@@ -38,142 +29,13 @@ export type WorkPageConfig = {
   marqueeItems?: string[];
 };
 
-const KIND_RATIO: Record<TileKind, string> = {
-  video: "aspect-[9/16]",
-  graphic: "aspect-square",
-  screenshot: "aspect-[16/10]",
-  script: "aspect-[4/5]",
-  dashboard: "aspect-[16/10]",
-  workflow: "aspect-[16/9]",
-  ad: "aspect-[4/5]",
-};
-
-const KIND_COLS: Record<TileKind, string> = {
-  video: "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
-  graphic: "grid-cols-2 md:grid-cols-3",
-  screenshot: "grid-cols-1 md:grid-cols-2",
-  script: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-  dashboard: "grid-cols-1 md:grid-cols-2",
-  workflow: "grid-cols-1 md:grid-cols-2",
-  ad: "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
-};
-
-function KindIcon({ kind, color }: { kind: TileKind; color: string }) {
-  const stroke = { fill: "none", stroke: color, strokeWidth: 1.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  switch (kind) {
-    case "video":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <polygon points="9 7 9 17 17 12 9 7" fill={color} />
-        </svg>
-      );
-    case "ad":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <path d="M3 9h18" />
-          <circle cx="7" cy="7" r="0.5" fill={color} />
-        </svg>
-      );
-    case "graphic":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <circle cx="9" cy="9" r="2" />
-          <path d="m3 17 5-5 5 5 4-4 4 4" />
-        </svg>
-      );
-    case "script":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <path d="M14 2v6h6M8 13h8M8 17h6" />
-        </svg>
-      );
-    case "screenshot":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <rect x="2" y="3" width="20" height="14" rx="2" />
-          <path d="M8 21h8M12 17v4" />
-          <path d="m6 13 4-4 3 3 5-5" />
-        </svg>
-      );
-    case "dashboard":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <rect x="3" y="3" width="7" height="9" rx="1" />
-          <rect x="14" y="3" width="7" height="5" rx="1" />
-          <rect x="14" y="12" width="7" height="9" rx="1" />
-          <rect x="3" y="16" width="7" height="5" rx="1" />
-        </svg>
-      );
-    case "workflow":
-      return (
-        <svg viewBox="0 0 24 24" width="26" height="26" {...stroke}>
-          <circle cx="6" cy="6" r="2" />
-          <circle cx="18" cy="6" r="2" />
-          <circle cx="18" cy="18" r="2" />
-          <circle cx="6" cy="18" r="2" />
-          <path d="M8 6h8M18 8v8M16 18H8M6 16V8" />
-        </svg>
-      );
-  }
-}
-
 const DOT_GRID_STYLE: React.CSSProperties = {
   backgroundImage:
     "radial-gradient(circle, rgba(10, 13, 31, 0.08) 1px, transparent 1px)",
   backgroundSize: "22px 22px",
 };
 
-function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: string; i: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}
-      className={`group relative ${KIND_RATIO[kind]} rounded-2xl overflow-hidden border border-ink/[0.08] bg-white shadow-[0_10px_30px_-16px_rgba(2,5,22,0.18)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-18px_rgba(2,5,22,0.28)] hover:border-ink/[0.14]`}
-    >
-      <span
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-[3px] z-10"
-        style={{
-          background: `linear-gradient(to right, transparent 0%, ${accentHex} 50%, transparent 100%)`,
-          opacity: 0.55,
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(circle at 30% 18%, ${accentHex}1a 0%, transparent 55%), radial-gradient(circle at 80% 88%, ${accentHex}0d 0%, transparent 60%)`,
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(10, 13, 31, 0.07) 1px, transparent 1px)",
-          backgroundSize: "16px 16px",
-        }}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-ink/40">
-        <KindIcon kind={kind} color={accentHex} />
-        <span className="font-display text-[0.6rem] uppercase tracking-[0.22em] text-ink/45">
-          Coming soon
-        </span>
-      </div>
-      <span className="absolute top-3 left-3 text-[0.55rem] uppercase tracking-[0.2em] font-display font-bold text-ink/35">
-        FIG. 0{i + 1}
-      </span>
-    </motion.div>
-  );
-}
-
 function SubcategorySection({ sub, accentHex, index }: { sub: WorkSubcategory; accentHex: string; index: number }) {
-  const count = sub.count ?? (sub.kind === "screenshot" || sub.kind === "dashboard" || sub.kind === "workflow" ? 4 : 6);
   return (
     <section id={sub.id} className="scroll-mt-24 relative">
       {/* Giant outline numeral behind the section heading */}
@@ -215,11 +77,7 @@ function SubcategorySection({ sub, accentHex, index }: { sub: WorkSubcategory; a
         </div>
       </FadeUp>
 
-      <div className={`grid ${KIND_COLS[sub.kind]} gap-4 md:gap-5`}>
-        {Array.from({ length: count }).map((_, i) => (
-          <PlaceholderTile key={i} kind={sub.kind} accentHex={accentHex} i={i} />
-        ))}
-      </div>
+      <MediaGrid kind={sub.kind} accentHex={accentHex} count={sub.count} />
     </section>
   );
 }
