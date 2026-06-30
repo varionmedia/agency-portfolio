@@ -33,11 +33,24 @@ const config: WorkPageConfig = {
       id: "video-editing",
       title: "Video Editing",
       description:
-        "Reels and short-form edits across personal-brand, education, and authority-content formats. Muted autoplay — tap any reel to hear it.",
+        "Reels and short-form edits across personal-brand, education, and authority-content formats.",
       layout: "video",
-      videoCount: 12,
+      // Shuffled so each 4-up viewport mixes creators.
+      videos: [
+        { youtubeId: "fO2xWS1W_1I" },
+        { youtubeId: "1J1vHHeN3z0" },
+        { youtubeId: "9xjaDGNJwBo" },
+        { youtubeId: "d5IUc7hdesw" },
+        { youtubeId: "WvaGbGvKSFg" },
+        { youtubeId: "fljSeNjJRBk" },
+        { youtubeId: "2SztPQwnuTo" },
+        { youtubeId: "Z-AUG9AXJjc" },
+        { youtubeId: "8mFQPfzX66o" },
+        { youtubeId: "El3QayvxGmY" },
+        { youtubeId: "08CTzAbLWt4" },
+        { youtubeId: "h5OU6y4pcoA" },
+      ],
       landscapeVideoCount: 3,
-      // videos: [{ youtubeId: "..." }, ...]  ← 9:16 reels go here
       // landscapeVideos: [{ youtubeId: "..." }, ...]  ← 3 × 16:9 videos
     },
     {
