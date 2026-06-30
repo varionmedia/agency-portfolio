@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
@@ -559,34 +560,42 @@ function AiAutomationGraphic() {
 const services = [
   {
     title: "SEO",
+    href: "/work/seo",
     bullets: ["Technical SEO", "Topical authority", "Content velocity"],
     copy: "Show up when your ideal clients are searching. We build your organic presence to generate consistent, high-intent leads.",
     tags: ["Technical SEO", "Content", "Local"],
     accent: "from-[#10b981]/15",
+    accentHex: "#10b981",
     Graphic: SeoGraphic,
   },
   {
     title: "Social Media",
+    href: "/work/social",
     bullets: ["Personal brand", "Viral reels", "Authority content"],
     copy: "Turn your social profile into a trust-building machine. Content that grows your audience and keeps them engaged until they're ready to buy.",
     tags: ["Reels", "Personal Brand", "Growth"],
     accent: "from-[#ec4899]/15",
+    accentHex: "#ec4899",
     Graphic: SocialGraphic,
   },
   {
     title: "Meta Ads",
+    href: "/work/meta-ads",
     bullets: ["Lead-gen funnels", "Retargeting", "Creative testing"],
     copy: "Stop wasting spend on the wrong audience. Targeted campaigns that bring you qualified leads and maximize ROI.",
     tags: ["Lead Gen", "Retargeting", "Creative"],
     accent: "from-[#facc15]/12",
+    accentHex: "#facc15",
     Graphic: MetaAdsGraphic,
   },
   {
     title: "AI Automation",
+    href: "/work/ai-automation",
     bullets: ["CRM dashboards", "Email agents", "Custom workflows"],
     copy: "Work smarter, not harder. Custom AI tools that save your team's time, cut costs, and improve output — without hiring more people.",
     tags: ["CRM Dashboards", "Agents", "Workflows"],
     accent: "from-[#a855f7]/15",
+    accentHex: "#a855f7",
     Graphic: AiAutomationGraphic,
   },
 ];
@@ -601,64 +610,94 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
       transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
       className="group relative rounded-3xl bg-white border border-ink/[0.08] overflow-hidden shadow-[0_12px_40px_-18px_rgba(2,5,22,0.28)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-20px_rgba(2,5,22,0.4)]"
     >
-      {/* Top: animated graphic — dark */}
-      <div
-        className={`relative h-52 md:h-56 bg-[#040519] bg-gradient-to-br ${s.accent} to-[#040519] overflow-hidden text-white`}
-      >
+      <Link href={s.href} aria-label={`See our ${s.title} work`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan/70">
+        {/* Top: animated graphic — dark */}
         <div
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,200,232,0.12),transparent_60%)]"
-        />
-        <Graphic />
-      </div>
+          className={`relative h-52 md:h-56 bg-[#040519] bg-gradient-to-br ${s.accent} to-[#040519] overflow-hidden text-white`}
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,200,232,0.12),transparent_60%)]"
+          />
+          <Graphic />
+        </div>
 
-      {/* Bottom: content — light */}
-      <div className="relative p-6 md:p-7">
-        <h3 className="font-display font-bold text-2xl md:text-[1.75rem] tracking-tight text-blue">
-          {s.title}
-        </h3>
+        {/* Bottom: content — light */}
+        <div className="relative p-6 md:p-7">
+          <h3 className="font-display font-bold text-2xl md:text-[1.75rem] tracking-tight text-blue">
+            {s.title}
+          </h3>
 
-        <ul className="mt-4 space-y-1.5">
-          {s.bullets.map((b) => (
-            <li key={b} className="flex items-center gap-2 text-sm text-ink/85">
+          <ul className="mt-4 space-y-1.5">
+            {s.bullets.map((b) => (
+              <li key={b} className="flex items-center gap-2 text-sm text-ink/85">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-blue flex-shrink-0"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-4 text-sm text-ink/60 leading-relaxed">{s.copy}</p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {s.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[0.65rem] uppercase tracking-[0.18em] font-display font-semibold text-ink/55 border border-ink/15 rounded-full px-2.5 py-1"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-6 pt-5 border-t border-ink/[0.08] flex items-center justify-between gap-3">
+            <span
+              className="inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.22em] font-display font-bold"
+              style={{ color: s.accentHex }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: s.accentHex }}
+              />
+              See the work
+            </span>
+            <span
+              className="inline-flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 group-hover:scale-110"
+              style={{
+                borderColor: `${s.accentHex}40`,
+                backgroundColor: `${s.accentHex}10`,
+                color: s.accentHex,
+              }}
+            >
               <svg
                 viewBox="0 0 24 24"
-                width="12"
-                height="12"
+                width="14"
+                height="14"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-blue flex-shrink-0"
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
               >
-                <polyline points="20 6 9 17 4 12" />
+                <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
-              <span>{b}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-4 text-sm text-ink/60 leading-relaxed">{s.copy}</p>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {s.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[0.65rem] uppercase tracking-[0.18em] font-display font-semibold text-ink/55 border border-ink/15 rounded-full px-2.5 py-1"
-            >
-              {tag}
             </span>
-          ))}
+          </div>
         </div>
-
-        <div className="mt-5 flex items-center gap-1.5 text-[0.7rem] uppercase tracking-[0.2em] font-display text-blue opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-          Learn more
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        </div>
-      </div>
+      </Link>
     </motion.article>
   );
 }
