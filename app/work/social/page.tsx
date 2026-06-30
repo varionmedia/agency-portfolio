@@ -36,7 +36,9 @@ const config: WorkPageConfig = {
         "Reels and short-form edits across personal-brand, education, and authority-content formats. Muted autoplay — tap any reel to hear it.",
       layout: "video",
       videoCount: 12,
-      // videos: [{ youtubeId: "..." }, ...]  ← drop real YouTube IDs here
+      landscapeVideoCount: 3,
+      // videos: [{ youtubeId: "..." }, ...]  ← 9:16 reels go here
+      // landscapeVideos: [{ youtubeId: "..." }, ...]  ← 3 × 16:9 videos
     },
     {
       id: "graphic-designing",

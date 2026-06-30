@@ -44,6 +44,9 @@ export type WorkSubcategory = {
   // video
   videos?: VideoItem[];
   videoCount?: number;
+  /** Optional static 16:9 row rendered below the reel carousel (no arrows). */
+  landscapeVideos?: VideoItem[];
+  landscapeVideoCount?: number;
 
   // graphics
   graphicGroups?: GraphicGroup[];

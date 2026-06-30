@@ -137,40 +137,52 @@ function tileMotion(i: number) {
   };
 }
 
-function VideoTile({ video, accentHex, i }: { video?: VideoItem; accentHex: string; i: number }) {
+function VideoTile({
+  video,
+  accentHex,
+  i,
+  ratio = "9/16",
+}: {
+  video?: VideoItem;
+  accentHex: string;
+  i: number;
+  ratio?: "9/16" | "16/9";
+}) {
   const id = video?.youtubeId;
+  const placeholderLabel = ratio === "9/16" ? "Reel · Coming soon" : "Video · Coming soon";
   return (
-    <motion.div {...tileMotion(i)} className={ITEM_WIDTH}>
-      <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-[#070920] border border-ink/10 shadow-[0_14px_34px_-18px_rgba(2,5,22,0.4)]">
-        {id ? (
-          <>
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=${id}`}
-              title={video?.label ?? "Reel"}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              className="absolute inset-0 w-full h-full pointer-events-none scale-[1.02]"
-            />
-            <div aria-hidden className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/50 to-transparent" />
-          </>
-        ) : (
-          <div className="absolute inset-0">
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{ background: `radial-gradient(circle at 50% 35%, ${accentHex}26 0%, transparent 60%)` }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="#0a0d1f"><path d="M8 5v14l11-7L8 5z" /></svg>
-              </div>
+    <motion.div
+      {...tileMotion(i)}
+      className={`relative ${RATIO_CLASS[ratio]} rounded-2xl overflow-hidden bg-[#070920] border border-ink/10 shadow-[0_14px_34px_-18px_rgba(2,5,22,0.4)]`}
+    >
+      {id ? (
+        <>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=${id}`}
+            title={video?.label ?? "Video"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            className="absolute inset-0 w-full h-full pointer-events-none scale-[1.02]"
+          />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/50 to-transparent" />
+        </>
+      ) : (
+        <div className="absolute inset-0">
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ background: `radial-gradient(circle at 50% 35%, ${accentHex}26 0%, transparent 60%)` }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#0a0d1f"><path d="M8 5v14l11-7L8 5z" /></svg>
             </div>
-            <span className="absolute bottom-3 left-0 right-0 text-center font-display text-[0.55rem] uppercase tracking-[0.22em] text-white/45">
-              Reel · Coming soon
-            </span>
           </div>
-        )}
-      </div>
+          <span className="absolute bottom-3 left-0 right-0 text-center font-display text-[0.55rem] uppercase tracking-[0.22em] text-white/45">
+            {placeholderLabel}
+          </span>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -229,6 +241,9 @@ function GraphicTile({
  * ────────────────────────────────────────────────────────── */
 export function VideoSection({ sub, accentHex }: { sub: WorkSubcategory; accentHex: string }) {
   const videos: VideoItem[] = sub.videos ?? Array.from({ length: sub.videoCount ?? 12 }).map(() => ({}));
+  const landscape: VideoItem[] =
+    sub.landscapeVideos ??
+    (sub.landscapeVideoCount ? Array.from({ length: sub.landscapeVideoCount }).map(() => ({})) : []);
   return (
     <section id={sub.id} className="scroll-mt-28 relative">
       <FadeUp>
@@ -236,9 +251,31 @@ export function VideoSection({ sub, accentHex }: { sub: WorkSubcategory; accentH
       </FadeUp>
       <MediaCarousel accentHex={accentHex}>
         {videos.map((v, i) => (
-          <VideoTile key={i} video={v} accentHex={accentHex} i={i} />
+          <div key={i} className={ITEM_WIDTH}>
+            <VideoTile video={v} accentHex={accentHex} i={i} ratio="9/16" />
+          </div>
         ))}
       </MediaCarousel>
+
+      {landscape.length > 0 && (
+        <div className="mt-14 md:mt-16">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="font-display font-semibold text-base md:text-lg text-ink">Long-form &amp; Landscape</span>
+            <span
+              className="text-[0.6rem] uppercase tracking-[0.18em] font-display font-bold rounded px-2 py-0.5"
+              style={{ color: accentHex, backgroundColor: `${accentHex}14` }}
+            >
+              16:9
+            </span>
+            <span className="h-px flex-1 bg-ink/10" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {landscape.map((v, i) => (
+              <VideoTile key={i} video={v} accentHex={accentHex} i={i} ratio="16/9" />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
