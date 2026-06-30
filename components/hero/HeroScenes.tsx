@@ -57,7 +57,15 @@ export function SeoScene({ accent, accent2, reduce }: SceneProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Glow accent={accent} accent2={accent2} />
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="absolute right-[3%] bottom-[12%] w-[48%] h-[48%]">
+      <svg
+        viewBox="0 0 100 60"
+        preserveAspectRatio="none"
+        className="absolute right-[3%] bottom-[12%] w-[48%] h-[48%]"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0%, #000 30%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, #000 30%)",
+        }}
+      >
         <defs>
           <linearGradient id="seoArea" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={accent} stopOpacity="0.6" />

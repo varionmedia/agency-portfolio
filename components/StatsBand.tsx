@@ -3,8 +3,8 @@ import { FadeUp } from "@/components/ui/Reveal";
 
 const stats = [
   { value: 50, prefix: "", suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
-  { value: 5, prefix: "", suffix: " Million+", decimals: 0, label: "organic Google traffic through SEO" },
-  { value: 1, prefix: "₹", suffix: " Crore+", decimals: 0, label: "ad spent (Meta + Google)" },
+  { value: 5, prefix: "", suffix: " Million+", decimals: 0, label: "organic Google traffic generated through SEO" },
+  { value: 1, prefix: "₹", suffix: " Crore+", decimals: 0, label: "Total ad spent (Meta + Google)" },
 ];
 
 export default function StatsBand() {
