@@ -194,7 +194,7 @@ export default function Hero() {
                     setActive(i);
                     setLocked(true);
                   }}
-                  className="group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs sm:text-sm font-display font-semibold uppercase tracking-[0.12em] transition-all duration-300"
+                  className="group inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.68rem] sm:text-xs font-display font-semibold uppercase tracking-[0.1em] transition-all duration-300"
                   style={{
                     color: on ? "#05060a" : "rgba(255,255,255,0.72)",
                     borderColor: on ? "transparent" : "rgba(255,255,255,0.18)",

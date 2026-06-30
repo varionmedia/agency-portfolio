@@ -150,9 +150,9 @@ function Bubble({ icon, color, left, delay, reduce }: { icon: keyof typeof GLYPH
 
 export function SocialScene({ accent, accent2, reduce }: SceneProps) {
   const cards = [
-    { c: `linear-gradient(160deg, ${accent}, ${accent2})`, x: "16%", y: "24%", w: 30, h: 46, r: -4, d: 0 },
-    { c: `linear-gradient(160deg, ${accent2}, #3b82f6)`, x: "36%", y: "40%", w: 26, h: 40, r: 5, d: 0.6 },
-    { c: `linear-gradient(160deg, #f97316, ${accent})`, x: "2%", y: "46%", w: 24, h: 38, r: -8, d: 1 },
+    { c: `linear-gradient(160deg, ${accent}, ${accent2})`, x: "20%", y: "24%", w: 27, h: 44, r: -4, d: 0 },
+    { c: `linear-gradient(160deg, ${accent2}, #3b82f6)`, x: "38%", y: "40%", w: 24, h: 40, r: 5, d: 0.6 },
+    { c: `linear-gradient(160deg, #f97316, ${accent})`, x: "11%", y: "44%", w: 23, h: 38, r: -8, d: 1 },
   ];
   return (
     <div className="absolute inset-0 pointer-events-none">
