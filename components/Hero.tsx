@@ -32,6 +32,17 @@ export default function Hero() {
   const reduce = useReducedMotion() ?? false;
   const [active, setActive] = useState(0);
   const [locked, setLocked] = useState(false);
+  // Render the scene only in the slot that's actually visible (and only after
+  // mount) so we never animate two scenes at once / on initial paint.
+  const [isLg, setIsLg] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsLg(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // Cursor tracking — subtle parallax on the scene
   const nx = useMotionValue(0.5);
@@ -205,18 +216,20 @@ export default function Hero() {
 
           {/* Mobile/tablet (< lg): the scene shown BELOW the copy, contained */}
           <div data-testid="mobile-scene" className="lg:hidden mt-12 relative h-[44vh] min-h-[320px] max-h-[460px] rounded-2xl border border-white/10 overflow-hidden bg-[#070a14]">
-            <AnimatePresence>
-              <motion.div
-                key={SERVICES[active].id}
-                className="absolute inset-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: EASE }}
-              >
-                <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
-              </motion.div>
-            </AnimatePresence>
+            {isLg === false && (
+              <AnimatePresence>
+                <motion.div
+                  key={SERVICES[active].id}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: EASE }}
+                >
+                  <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
+                </motion.div>
+              </AnimatePresence>
+            )}
           </div>
         </div>
 
@@ -226,18 +239,20 @@ export default function Hero() {
           className="hidden lg:block relative h-[58vh] min-h-[440px] max-h-[600px]"
           style={{ x: stageX, y: stageY }}
         >
-          <AnimatePresence>
-            <motion.div
-              key={SERVICES[active].id}
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.7, ease: EASE }}
-            >
-              <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
-            </motion.div>
-          </AnimatePresence>
+          {isLg === true && (
+            <AnimatePresence>
+              <motion.div
+                key={SERVICES[active].id}
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.7, ease: EASE }}
+              >
+                <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
+              </motion.div>
+            </AnimatePresence>
+          )}
         </motion.div>
       </div>
     </section>

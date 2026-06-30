@@ -62,18 +62,20 @@ export function SeoScene({ accent, accent2, reduce, centered: C }: SceneProps) {
       <svg
         viewBox="0 0 100 60"
         preserveAspectRatio="none"
-        className={C ? "absolute inset-x-[3%] bottom-[10%] h-[52%]" : "absolute right-[3%] bottom-[12%] w-[48%] h-[48%]"}
+        className={C ? "absolute inset-x-[2%] bottom-[8%] h-[58%]" : "absolute right-[3%] bottom-[12%] w-[48%] h-[48%]"}
+        style={{
+          // Fade the graph into the background toward the edges/corners.
+          maskImage: "radial-gradient(125% 135% at 42% 78%, #000 55%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(125% 135% at 42% 78%, #000 55%, transparent 100%)",
+        }}
       >
         <defs>
           <linearGradient id="seoArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={accent} stopOpacity="0.6" />
+            <stop offset="0%" stopColor={accent} stopOpacity="0.55" />
             <stop offset="100%" stopColor={accent} stopOpacity="0" />
           </linearGradient>
         </defs>
-        {[15, 30, 45].map((y) => (
-          <line key={y} x1="0" y1={y} x2="100" y2={y} stroke="#ffffff" strokeOpacity="0.07" strokeWidth="0.4" />
-        ))}
-        <path d="M0,50 L40,48 L72,49 L100,47" fill="none" stroke={accent2} strokeOpacity="0.5" strokeWidth="1" strokeDasharray="2 2" />
+        <path d="M0,50 L40,48 L72,49 L100,47" fill="none" stroke={accent2} strokeOpacity="0.45" strokeWidth="1" strokeDasharray="2 2" />
         <motion.path
           d="M0,52 L16,46 L30,48 L46,34 L62,26 L80,15 L100,5 L100,60 L0,60 Z"
           fill="url(#seoArea)"
@@ -227,7 +229,7 @@ export function MetaScene({ accent, accent2, reduce, centered: C }: SceneProps) 
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Glow accent={accent} accent2={accent2} centered={C} />
-      <div className={C ? "absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2 w-[52%] max-w-[200px] aspect-square" : "absolute right-[14%] top-1/2 -translate-y-1/2 w-[40%] aspect-square max-w-[440px]"}>
+      <div className={C ? "absolute left-1/2 top-[48%] -translate-x-1/2 -translate-y-1/2 w-[58%] max-w-[230px] aspect-square" : "absolute right-[14%] top-1/2 -translate-y-1/2 w-[40%] aspect-square max-w-[440px]"}>
         {[1, 0.66, 0.33].map((s, i) => (
           <motion.span
             key={i}
@@ -260,20 +262,6 @@ export function MetaScene({ accent, accent2, reduce, centered: C }: SceneProps) 
             animate={reduce ? { width: "82%" } : { width: ["0%", "82%"] }} transition={LOOP(3)} />
         </div>
       </div>
-      {/* Conversions — rising graph line */}
-      {C && (
-        <div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 w-[54%] max-w-[150px] rounded-xl border p-2.5" style={{ borderColor: `${accent}40`, background: "#ffffff08" }}>
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-[0.55rem] uppercase tracking-[0.14em] text-white/60 font-display">Conversions</span>
-            <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="#22c55e" strokeWidth="3.5"><polyline points="18 15 12 9 6 15" /></svg>
-          </div>
-          <svg viewBox="0 0 100 26" preserveAspectRatio="none" className="w-full h-5">
-            <motion.path d="M2,22 L20,18 L38,19 L56,12 L74,8 L98,3" fill="none" stroke="#22c55e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 3px #22c55e)" }}
-              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-              transition={reduce ? { duration: 0 } : { duration: 1.8, repeat: Infinity, repeatType: "loop", repeatDelay: 1.2, ease: "easeInOut" }} />
-          </svg>
-        </div>
-      )}
       {C ? (
         <>
           <Tag accent={accent} delay={0.3} reduce={reduce} style={{ bottom: "6%", left: "3%" }}>314 leads</Tag>

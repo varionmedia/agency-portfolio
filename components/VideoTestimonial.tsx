@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { FadeUp } from "@/components/ui/Reveal";
@@ -17,10 +17,30 @@ const QUALITIES: { label: string; value: string }[] = [
 
 export default function VideoTestimonial() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [quality, setQuality] = useState<string>("default");
+  const [load, setLoad] = useState(false);
   const reduce = useReducedMotion();
+
+  // Defer the (heavy) YouTube embed until it's about to scroll into view —
+  // keeps it off the initial page load for a faster start.
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   function sendCommand(func: string, args: unknown[] = []) {
     iframeRef.current?.contentWindow?.postMessage(
@@ -73,19 +93,29 @@ export default function VideoTestimonial() {
         </FadeUp>
         <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-12 items-start">
           <FadeUp delay={0.1}>
-            <div className="relative mx-auto w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]">
+            <div ref={boxRef} className="relative mx-auto w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]">
               <div
                 aria-hidden
                 className="absolute -inset-6 rounded-[2rem] bg-cyan/10 blur-3xl -z-10 pointer-events-none"
               />
-              <iframe
-                ref={iframeRef}
-                src="https://www.youtube-nocookie.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
-                title="Dr. Harel Papikian on working with Varion Media"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                className="absolute inset-0 w-full h-full pointer-events-none"
-              />
+              {load ? (
+                <iframe
+                  ref={iframeRef}
+                  src="https://www.youtube-nocookie.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
+                  title="Dr. Harel Papikian on working with Varion Media"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                />
+              ) : (
+                <div aria-hidden className="absolute inset-0 flex items-center justify-center bg-[#070920]">
+                  <span className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#0a0d1f"><path d="M8 5v14l11-7L8 5z" /></svg>
+                  </span>
+                </div>
+              )}
+              {load && (
+              <>
               {/* Custom controls overlay — pinned to bottom */}
               <div
                 aria-hidden
@@ -151,6 +181,8 @@ export default function VideoTestimonial() {
                   )}
                 </div>
               </div>
+              </>
+              )}
             </div>
           </FadeUp>
           <div className="space-y-6">

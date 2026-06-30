@@ -75,18 +75,19 @@ function ArrowButton({
   dir,
   accentHex,
   onClick,
+  className = "",
 }: {
   dir: "prev" | "next";
   accentHex: string;
   onClick: () => void;
+  className?: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={dir === "prev" ? "Previous" : "Next"}
-      className="group w-10 h-10 rounded-full bg-white border border-ink/12 shadow-[0_6px_18px_-8px_rgba(2,5,22,0.25)] flex items-center justify-center text-ink/70 hover:text-white transition-colors"
-      style={{ ["--ah" as string]: accentHex }}
+      className={`group w-10 h-10 rounded-full bg-white border border-ink/12 shadow-[0_8px_22px_-8px_rgba(2,5,22,0.4)] flex items-center justify-center text-ink/70 hover:text-white transition-colors ${className}`}
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = accentHex)}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
     >
@@ -123,10 +124,8 @@ function MediaCarousel({
   };
   return (
     <div className="relative">
-      <div className="absolute -top-14 right-0 hidden sm:flex items-center gap-2">
-        <ArrowButton dir="prev" accentHex={accentHex} onClick={() => by(-1)} />
-        <ArrowButton dir="next" accentHex={accentHex} onClick={() => by(1)} />
-      </div>
+      <ArrowButton dir="prev" accentHex={accentHex} onClick={() => by(-1)} className="hidden sm:flex absolute left-0 lg:-left-4 top-1/2 -translate-y-1/2 z-20" />
+      <ArrowButton dir="next" accentHex={accentHex} onClick={() => by(1)} className="hidden sm:flex absolute right-0 lg:-right-4 top-1/2 -translate-y-1/2 z-20" />
       <div
         ref={ref}
         className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-1 px-1"
