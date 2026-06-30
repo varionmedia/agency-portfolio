@@ -34,6 +34,8 @@ export default function SiteHeader() {
             </a>
           ))}
         </nav>
+        {/* Plain <a> (not <Link>) so same-page hash scrolling works under Lenis. */}
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/#contact"
           className="hidden md:inline-flex items-center rounded-full border border-cyan/60 text-cyan px-4 py-2 text-xs uppercase tracking-[0.18em] font-display font-semibold hover:bg-cyan hover:text-navy transition-colors"
