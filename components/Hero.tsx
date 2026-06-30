@@ -10,7 +10,6 @@ import {
   useTransform,
 } from "motion/react";
 import Magnetic from "@/components/ui/Magnetic";
-import Counter from "@/components/ui/Counter";
 import { SeoScene, SocialScene, MetaScene, AiScene, type SceneProps } from "@/components/hero/HeroScenes";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -27,12 +26,6 @@ const SERVICES: {
   { id: "social", label: "Social Media", accent: "#ec4899", accent2: "#a855f7", blurb: "Content that grows and converts.", Scene: SocialScene },
   { id: "meta", label: "Meta Ads", accent: "#facc15", accent2: "#f97316", blurb: "Spend that turns into pipeline.", Scene: MetaScene },
   { id: "ai", label: "AI Automation", accent: "#a855f7", accent2: "#3b82f6", blurb: "Tools that do the busywork.", Scene: AiScene },
-];
-
-const stats = [
-  { value: 50, prefix: "", suffix: " Million+", decimals: 0, label: "views generated across all platforms" },
-  { value: 5, prefix: "", suffix: " Million+", decimals: 0, label: "organic Google traffic through SEO" },
-  { value: 1, prefix: "₹", suffix: " Crore+", decimals: 0, label: "ad spent (Meta + Google)" },
 ];
 
 export default function Hero() {
@@ -107,7 +100,7 @@ export default function Hero() {
         />
       )}
 
-      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-28 pb-16 md:pb-20">
+      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-[5rem] md:pt-[5.5rem] pb-16 md:pb-20">
         <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-4xl">
           <span className="block text-white text-4xl sm:text-5xl md:text-6xl">
             Turn{" "}
@@ -115,9 +108,9 @@ export default function Hero() {
               Clicks
               <svg
                 aria-hidden
-                viewBox="0 0 200 16"
+                viewBox="0 0 200 10"
                 preserveAspectRatio="none"
-                className="absolute left-0 -bottom-[0.12em] w-full h-[0.42em]"
+                className="absolute left-0 -bottom-[0.02em] w-full h-[0.2em]"
               >
                 <defs>
                   <linearGradient id="clicksUnderline" x1="0" y1="0" x2="1" y2="0">
@@ -125,8 +118,8 @@ export default function Hero() {
                     <stop offset="100%" stopColor={accent2} />
                   </linearGradient>
                 </defs>
-                {/* tapered, gently curved brush underline — thick left, thin right */}
-                <path d="M2,6 Q100,0 197,8 L197,11 Q100,16 2,13 Z" fill="url(#clicksUnderline)" />
+                {/* thin, gently curved brush underline — slightly thicker left, tapering right */}
+                <path d="M2,4 Q100,2.4 197,4.6 L197,5.4 Q100,4 2,6 Z" fill="url(#clicksUnderline)" />
               </svg>
             </span>{" "}
             Into
@@ -244,28 +237,6 @@ export default function Hero() {
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </a>
         </div>
-
-        {/* Stats band */}
-        <dl
-          className="animate-fade-up mt-14 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-[2px] bg-cyan/40 border border-cyan/30 rounded-2xl overflow-hidden backdrop-blur-sm max-w-4xl"
-          style={{ animationDelay: "0.42s" }}
-        >
-          {stats.map((s) => (
-            <div key={s.label} className="bg-[#05060a]/85 p-6 md:p-7">
-              <dt className="sr-only">{s.label}</dt>
-              <dd>
-                <Counter
-                  value={s.value}
-                  prefix={s.prefix}
-                  suffix={s.suffix}
-                  decimals={s.decimals}
-                  className="font-display font-extrabold text-3xl md:text-4xl text-cyan"
-                />
-                <div className="mt-2 text-xs uppercase tracking-[0.18em] text-white/60">{s.label}</div>
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );
