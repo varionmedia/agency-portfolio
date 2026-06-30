@@ -33,25 +33,19 @@ export default function Hero() {
   const [active, setActive] = useState(0);
   const [locked, setLocked] = useState(false);
 
-  // Cursor tracking — parallax + a glow that follows the pointer
+  // Cursor tracking — subtle parallax on the scene
   const nx = useMotionValue(0.5);
   const ny = useMotionValue(0.5);
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
   const sNx = useSpring(nx, { stiffness: 60, damping: 20 });
   const sNy = useSpring(ny, { stiffness: 60, damping: 20 });
-  const glowX = useSpring(px, { stiffness: 120, damping: 25 });
-  const glowY = useSpring(py, { stiffness: 120, damping: 25 });
-  const stageX = useTransform(sNx, [0, 1], [24, -24]);
-  const stageY = useTransform(sNy, [0, 1], [16, -16]);
+  const stageX = useTransform(sNx, [0, 1], [18, -18]);
+  const stageY = useTransform(sNy, [0, 1], [12, -12]);
 
   function onMove(e: React.PointerEvent) {
     if (reduce) return;
     const r = e.currentTarget.getBoundingClientRect();
     nx.set((e.clientX - r.left) / r.width);
     ny.set((e.clientY - r.top) / r.height);
-    px.set(e.clientX - r.left);
-    py.set(e.clientY - r.top);
   }
 
   useEffect(() => {
@@ -68,49 +62,12 @@ export default function Hero() {
     <section
       id="top"
       onPointerMove={onMove}
-      className="relative overflow-hidden grain scroll-mt-20 min-h-[88vh]"
+      className="relative overflow-hidden grain scroll-mt-20"
       style={{ background: "#05060a" }}
     >
-      {/* Reactive stage (parallax). Left edge fades to transparent so no scene
-          element overlaps the headline/copy on the left. */}
-      <motion.div
-        className="absolute inset-0 hidden xl:block"
-        style={{
-          x: stageX,
-          y: stageY,
-          maskImage: "linear-gradient(to right, transparent 38%, #000 56%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 38%, #000 56%)",
-        }}
-        aria-hidden
-      >
-        <AnimatePresence>
-          <motion.div
-            key={SERVICES[active].id}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
-          >
-            <ActiveScene accent={accent} accent2={accent2} reduce={reduce} />
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Legibility — keep the left column readable over the scene (desktop only) */}
-      <div aria-hidden className="hidden xl:block absolute inset-0 bg-gradient-to-r from-[#05060a] from-22% via-[#05060a]/55 via-58% to-transparent" />
-      <div aria-hidden className="hidden xl:block absolute inset-0 pointer-events-none bg-[radial-gradient(65%_60%_at_15%_40%,rgba(5,6,10,0.6),transparent_70%)]" />
-
-      {/* Cursor-following glow */}
-      {!reduce && (
-        <motion.div
-          aria-hidden
-          className="hidden xl:block absolute top-0 left-0 w-[460px] h-[460px] rounded-full pointer-events-none -ml-[230px] -mt-[230px] blur-2xl"
-          style={{ x: glowX, y: glowY, background: `radial-gradient(circle, ${accent}26 0%, transparent 65%)` }}
-        />
-      )}
-
-      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
+      <div className="relative z-[2] mx-auto max-w-7xl px-6 lg:px-10 pt-8 md:pt-12 pb-14 md:pb-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center lg:min-h-[82vh]">
+        {/* ── Left column: copy ─────────────────────────────── */}
+        <div>
         <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-2xl">
           <span className="block text-white text-4xl sm:text-5xl md:text-6xl">
             Turn{" "}
@@ -246,11 +203,8 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Below xl: the reactive scene shown BELOW the text (clean, contained).
-            The scenes are right-weighted for the wide background, so nudge them
-            left inside the panel so nothing is cut off the right edge. */}
-        <div className="xl:hidden mt-12 relative h-[42vh] min-h-[300px] rounded-2xl border border-white/10 overflow-hidden bg-[#070a14]">
-          <div className="absolute inset-0" style={{ transform: "translateX(-11%)" }}>
+          {/* Mobile/tablet (< lg): the scene shown BELOW the copy, contained */}
+          <div data-testid="mobile-scene" className="lg:hidden mt-12 relative h-[44vh] min-h-[320px] max-h-[460px] rounded-2xl border border-white/10 overflow-hidden bg-[#070a14]">
             <AnimatePresence>
               <motion.div
                 key={SERVICES[active].id}
@@ -260,11 +214,31 @@ export default function Hero() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: EASE }}
               >
-                <ActiveScene accent={accent} accent2={accent2} reduce={reduce} />
+                <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
+
+        {/* ── Right column: the reactive scene (desktop), bounded so it never
+            spreads or overlaps at any width / zoom. Subtle cursor parallax. ── */}
+        <motion.div
+          className="hidden lg:block relative h-[58vh] min-h-[440px] max-h-[600px]"
+          style={{ x: stageX, y: stageY }}
+        >
+          <AnimatePresence>
+            <motion.div
+              key={SERVICES[active].id}
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: EASE }}
+            >
+              <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
