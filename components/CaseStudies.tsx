@@ -372,7 +372,7 @@ function CaseCard({
     >
       <motion.article
         style={{ scale }}
-        className={`relative w-full origin-top rounded-[2rem] border px-5 pt-7 pb-9 sm:px-6 sm:pt-8 sm:pb-10 md:px-12 md:pt-10 md:pb-12 mb-6 sm:mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)] ${
+        className={`relative w-full origin-top rounded-[2rem] border px-5 pt-7 pb-9 sm:px-6 sm:pt-8 sm:pb-10 md:px-12 md:pt-10 md:pb-12 mb-6 sm:mb-8 overflow-hidden ${
           light
             ? "border-ink/10 bg-gradient-to-br from-white to-[#e7ebf3] text-ink"
             : `border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft text-white`
