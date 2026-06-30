@@ -74,12 +74,12 @@ export default function Hero() {
       {/* Reactive stage (parallax). Left edge fades to transparent so no scene
           element overlaps the headline/copy on the left. */}
       <motion.div
-        className="absolute inset-0 hidden lg:block"
+        className="absolute inset-0 hidden xl:block"
         style={{
           x: stageX,
           y: stageY,
-          maskImage: "linear-gradient(to right, transparent 36%, #000 54%)",
-          WebkitMaskImage: "linear-gradient(to right, transparent 36%, #000 54%)",
+          maskImage: "linear-gradient(to right, transparent 38%, #000 56%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 38%, #000 56%)",
         }}
         aria-hidden
       >
@@ -98,20 +98,20 @@ export default function Hero() {
       </motion.div>
 
       {/* Legibility — keep the left column readable over the scene (desktop only) */}
-      <div aria-hidden className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#05060a] from-20% via-[#05060a]/55 via-55% to-transparent" />
-      <div aria-hidden className="hidden lg:block absolute inset-0 pointer-events-none bg-[radial-gradient(65%_60%_at_15%_40%,rgba(5,6,10,0.6),transparent_70%)]" />
+      <div aria-hidden className="hidden xl:block absolute inset-0 bg-gradient-to-r from-[#05060a] from-22% via-[#05060a]/55 via-58% to-transparent" />
+      <div aria-hidden className="hidden xl:block absolute inset-0 pointer-events-none bg-[radial-gradient(65%_60%_at_15%_40%,rgba(5,6,10,0.6),transparent_70%)]" />
 
       {/* Cursor-following glow */}
       {!reduce && (
         <motion.div
           aria-hidden
-          className="hidden lg:block absolute top-0 left-0 w-[460px] h-[460px] rounded-full pointer-events-none -ml-[230px] -mt-[230px] blur-2xl"
+          className="hidden xl:block absolute top-0 left-0 w-[460px] h-[460px] rounded-full pointer-events-none -ml-[230px] -mt-[230px] blur-2xl"
           style={{ x: glowX, y: glowY, background: `radial-gradient(circle, ${accent}26 0%, transparent 65%)` }}
         />
       )}
 
       <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
-        <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-4xl">
+        <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-2xl">
           <span className="block text-white text-4xl sm:text-5xl md:text-6xl">
             Turn{" "}
             <span className="relative inline-block">
@@ -168,19 +168,17 @@ export default function Hero() {
 
         {/* Interactive service switcher */}
         <div className="animate-fade-up mt-8" style={{ animationDelay: "0.2s" }}>
-          <div className="flex items-center gap-3 mb-3">
-            <span className="font-display uppercase tracking-[0.24em] text-[0.62rem] font-bold text-white/40">
-              Hover to explore
-            </span>
+          <div className="mb-3">
             <motion.span
               key={SERVICES[active].id}
               initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="text-[0.72rem] font-display font-semibold"
+              className="inline-flex items-center gap-2 text-[0.78rem] md:text-sm font-display font-semibold"
               style={{ color: accent }}
             >
-              — {SERVICES[active].blurb}
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} />
+              {SERVICES[active].blurb}
             </motion.span>
           </div>
           <div className="flex flex-wrap gap-2.5">
@@ -248,20 +246,24 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Mobile: the reactive scene shown BELOW the text (clean, contained) */}
-        <div className="lg:hidden mt-12 relative h-[46vh] min-h-[320px] rounded-2xl border border-white/10 overflow-hidden bg-[#070a14]">
-          <AnimatePresence>
-            <motion.div
-              key={SERVICES[active].id}
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: EASE }}
-            >
-              <ActiveScene accent={accent} accent2={accent2} reduce={reduce} />
-            </motion.div>
-          </AnimatePresence>
+        {/* Below xl: the reactive scene shown BELOW the text (clean, contained).
+            The scenes are right-weighted for the wide background, so nudge them
+            left inside the panel so nothing is cut off the right edge. */}
+        <div className="xl:hidden mt-12 relative h-[42vh] min-h-[300px] rounded-2xl border border-white/10 overflow-hidden bg-[#070a14]">
+          <div className="absolute inset-0" style={{ transform: "translateX(-11%)" }}>
+            <AnimatePresence>
+              <motion.div
+                key={SERVICES[active].id}
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: EASE }}
+              >
+                <ActiveScene accent={accent} accent2={accent2} reduce={reduce} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
