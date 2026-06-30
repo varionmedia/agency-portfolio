@@ -15,12 +15,6 @@ import { SeoScene, SocialScene, MetaScene, AiScene, type SceneProps } from "@/co
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const phrases = [
-  "Drives Leads for Your Business",
-  "Builds Your Personal Brand",
-  "Keeps the Sales Pipeline Full",
-];
-
 const SERVICES: {
   id: string;
   label: string;
@@ -43,8 +37,6 @@ const stats = [
 
 export default function Hero() {
   const reduce = useReducedMotion() ?? false;
-  const [index, setIndex] = useState(0);
-  const [started, setStarted] = useState(false);
   const [active, setActive] = useState(0);
   const [locked, setLocked] = useState(false);
 
@@ -68,16 +60,6 @@ export default function Hero() {
     px.set(e.clientX - r.left);
     py.set(e.clientY - r.top);
   }
-
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => setStarted(true));
-    if (reduce) return () => cancelAnimationFrame(raf);
-    const id = setInterval(() => setIndex((i) => (i + 1) % phrases.length), 3200);
-    return () => {
-      cancelAnimationFrame(raf);
-      clearInterval(id);
-    };
-  }, [reduce]);
 
   useEffect(() => {
     if (locked || reduce) return;
@@ -125,27 +107,29 @@ export default function Hero() {
         />
       )}
 
-      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-28 pb-16 md:pb-20">
-        <div className="animate-fade-up flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-7">
+      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-[5.5rem] md:pt-24 pb-16 md:pb-20">
+        <div className="animate-fade-up flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-6">
           <span className="h-px w-10 bg-cyan/60" />
           Digital Marketing Agency
         </div>
 
-        <h1 className="font-display font-extrabold leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] max-w-4xl">
-          <span className="block">An Agency That</span>
-          <span className="relative block min-h-[2.4em] lg:min-h-[1.2em] text-cyan">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={index}
-                initial={started ? { opacity: 0, y: 24 } : false}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -24 }}
-                transition={{ duration: 0.5, ease: EASE }}
-                className="absolute inset-x-0 top-0 block"
-              >
-                {phrases[index]}
-              </motion.span>
-            </AnimatePresence>
+        <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-4xl">
+          <span className="block text-white text-4xl sm:text-5xl md:text-6xl">
+            Turn{" "}
+            <span className="relative inline-block">
+              Clicks
+              <span
+                className="absolute left-0 -bottom-1 h-[4px] w-full rounded-full transition-colors duration-500"
+                style={{ backgroundColor: accent }}
+              />
+            </span>{" "}
+            Into
+          </span>
+          <span
+            className="block mt-1 text-6xl sm:text-7xl md:text-[5rem] lg:text-[5.75rem] font-extrabold transition-colors duration-500"
+            style={{ color: accent }}
+          >
+            Customers
           </span>
         </h1>
 
