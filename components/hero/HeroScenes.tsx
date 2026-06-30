@@ -213,8 +213,8 @@ export function MetaScene({ accent, accent2, reduce }: SceneProps) {
           />
         ))}
       </div>
-      {/* ROAS gauge */}
-      <div className="absolute bottom-[16%] right-[10%] w-48 rounded-xl border p-3" style={{ borderColor: `${accent}40`, background: "#ffffff08" }}>
+      {/* ROAS gauge — top */}
+      <div className="absolute top-[12%] right-[7%] w-48 rounded-xl border p-3" style={{ borderColor: `${accent}40`, background: "#ffffff08" }}>
         <div className="flex items-center justify-between mb-1.5">
           <span className="text-[0.6rem] uppercase tracking-[0.18em] text-white/60 font-display">ROAS</span>
           <span className="text-[0.72rem] font-display font-extrabold" style={{ color: accent }}>4.2x</span>
@@ -224,8 +224,8 @@ export function MetaScene({ accent, accent2, reduce }: SceneProps) {
             animate={reduce ? { width: "82%" } : { width: ["0%", "82%"] }} transition={LOOP(3)} />
         </div>
       </div>
-      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "16%", left: "52%" }}>314 leads · month 1</Tag>
-      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "40%", left: "84%" }}>CPL ↓ 38%</Tag>
+      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "62%", left: "50%" }}>314 leads · month 1</Tag>
+      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "80%", left: "70%" }}>CPL ↓ 38%</Tag>
     </div>
   );
 }
@@ -257,8 +257,8 @@ export function AiScene({ accent, accent2, reduce }: SceneProps) {
             animate={reduce ? {} : { r: [2, 2.6, 2] }} transition={LOOP(2.6, i * 0.2)} />
         ))}
       </svg>
-      {/* streaming log */}
-      <div className="absolute bottom-[16%] right-[8%] w-52 rounded-xl border p-3 space-y-1.5" style={{ borderColor: `${accent}40`, background: "#ffffff08" }}>
+      {/* streaming log — top */}
+      <div className="absolute top-[12%] right-[6%] w-52 rounded-xl border p-3 space-y-1.5" style={{ borderColor: `${accent}40`, background: "#ffffff08" }}>
         {["lead captured", "scored · 92/100", "synced to CRM"].map((l, i) => (
           <motion.div key={l} className="flex items-center gap-2"
             animate={reduce ? { opacity: 1 } : { opacity: [0.2, 1, 0.2] }} transition={LOOP(3, i * 0.8)}>
@@ -267,8 +267,8 @@ export function AiScene({ accent, accent2, reduce }: SceneProps) {
           </motion.div>
         ))}
       </div>
-      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "18%", left: "50%" }}>40+ hrs saved / wk</Tag>
-      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "44%", left: "84%" }}>agent · running</Tag>
+      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "66%", left: "50%" }}>40+ hrs saved / wk</Tag>
+      <Tag accent={accent2} delay={1.5} reduce={reduce} style={{ top: "82%", left: "60%" }}>agent · running</Tag>
     </div>
   );
 }

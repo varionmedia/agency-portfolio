@@ -107,29 +107,51 @@ export default function Hero() {
         />
       )}
 
-      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-[5.5rem] md:pt-24 pb-16 md:pb-20">
-        <div className="animate-fade-up flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-6">
-          <span className="h-px w-10 bg-cyan/60" />
-          Digital Marketing Agency
-        </div>
-
+      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-28 pb-16 md:pb-20">
         <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-4xl">
           <span className="block text-white text-4xl sm:text-5xl md:text-6xl">
             Turn{" "}
             <span className="relative inline-block">
               Clicks
-              <span
-                className="absolute left-0 -bottom-1 h-[4px] w-full rounded-full transition-colors duration-500"
-                style={{ backgroundColor: accent }}
-              />
+              <svg
+                aria-hidden
+                viewBox="0 0 200 16"
+                preserveAspectRatio="none"
+                className="absolute left-0 -bottom-[0.12em] w-full h-[0.42em]"
+              >
+                <defs>
+                  <linearGradient id="clicksUnderline" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor={accent} />
+                    <stop offset="100%" stopColor={accent2} />
+                  </linearGradient>
+                </defs>
+                {/* tapered, gently curved brush underline — thick left, thin right */}
+                <path d="M2,6 Q100,0 197,8 L197,11 Q100,16 2,13 Z" fill="url(#clicksUnderline)" />
+              </svg>
             </span>{" "}
             Into
           </span>
-          <span
-            className="block mt-1 text-6xl sm:text-7xl md:text-[5rem] lg:text-[5.75rem] font-extrabold transition-colors duration-500"
-            style={{ color: accent }}
-          >
-            Customers
+          <span className="relative block mt-1 text-6xl sm:text-7xl md:text-[5rem] lg:text-[5.75rem] font-extrabold">
+            <span className="text-transparent">Customers</span>
+            <AnimatePresence>
+              <motion.span
+                key={SERVICES[active].id}
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `linear-gradient(100deg, ${accent}, ${accent2})`,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: EASE }}
+              >
+                Customers
+              </motion.span>
+            </AnimatePresence>
           </span>
         </h1>
 
@@ -182,8 +204,9 @@ export default function Hero() {
                   className="group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs sm:text-sm font-display font-semibold uppercase tracking-[0.12em] transition-all duration-300"
                   style={{
                     color: on ? "#05060a" : "rgba(255,255,255,0.72)",
-                    borderColor: on ? s.accent : "rgba(255,255,255,0.18)",
-                    backgroundColor: on ? s.accent : "rgba(255,255,255,0.04)",
+                    borderColor: on ? "transparent" : "rgba(255,255,255,0.18)",
+                    backgroundColor: on ? "transparent" : "rgba(255,255,255,0.04)",
+                    backgroundImage: on ? `linear-gradient(100deg, ${s.accent}, ${s.accent2})` : "none",
                     boxShadow: on ? `0 8px 26px -8px ${s.accent}cc` : "none",
                   }}
                 >
@@ -202,7 +225,12 @@ export default function Hero() {
           <Magnetic>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-cyan text-navy px-5 sm:px-7 py-3.5 sm:py-4 font-display font-bold text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] whitespace-nowrap hover:bg-white transition-colors"
+              style={{
+                backgroundImage: `linear-gradient(100deg, ${accent}, ${accent2})`,
+                color: "#05060a",
+                boxShadow: `0 14px 36px -12px ${accent}cc`,
+              }}
+              className="group inline-flex items-center gap-2 rounded-full px-5 sm:px-7 py-3.5 sm:py-4 font-display font-bold text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] whitespace-nowrap transition-[filter,box-shadow] duration-300 hover:brightness-110"
             >
               Book a Free Strategy Call
               <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
