@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 const nav = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#case-studies" },
-  { label: "About", href: "#story" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/#services" },
+  { label: "Work", href: "/#case-studies" },
+  { label: "About", href: "/#story" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function SiteHeader() {
@@ -24,21 +24,21 @@ export default function SiteHeader() {
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
           {nav.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="hover:text-cyan transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
-        <a
-          href="#contact"
+        <Link
+          href="/#contact"
           className="hidden md:inline-flex items-center rounded-full border border-cyan/60 text-cyan px-4 py-2 text-xs uppercase tracking-[0.18em] font-display font-semibold hover:bg-cyan hover:text-navy transition-colors"
         >
           Book a Call
-        </a>
+        </Link>
       </div>
     </header>
   );
