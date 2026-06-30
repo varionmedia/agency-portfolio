@@ -74,7 +74,7 @@ export default function Hero() {
       {/* Reactive stage (parallax). Left edge fades to transparent so no scene
           element overlaps the headline/copy on the left. */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden lg:block"
         style={{
           x: stageX,
           y: stageY,
@@ -97,20 +97,20 @@ export default function Hero() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Legibility — keep the left column readable over the scene */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#05060a] from-20% via-[#05060a]/55 via-55% to-transparent" />
-      <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(65%_60%_at_15%_40%,rgba(5,6,10,0.6),transparent_70%)]" />
+      {/* Legibility — keep the left column readable over the scene (desktop only) */}
+      <div aria-hidden className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#05060a] from-20% via-[#05060a]/55 via-55% to-transparent" />
+      <div aria-hidden className="hidden lg:block absolute inset-0 pointer-events-none bg-[radial-gradient(65%_60%_at_15%_40%,rgba(5,6,10,0.6),transparent_70%)]" />
 
       {/* Cursor-following glow */}
       {!reduce && (
         <motion.div
           aria-hidden
-          className="absolute top-0 left-0 w-[460px] h-[460px] rounded-full pointer-events-none -ml-[230px] -mt-[230px] blur-2xl"
+          className="hidden lg:block absolute top-0 left-0 w-[460px] h-[460px] rounded-full pointer-events-none -ml-[230px] -mt-[230px] blur-2xl"
           style={{ x: glowX, y: glowY, background: `radial-gradient(circle, ${accent}26 0%, transparent 65%)` }}
         />
       )}
 
-      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-[5rem] md:pt-[5.5rem] pb-16 md:pb-20">
+      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
         <h1 className="animate-fade-up font-display font-extrabold leading-[1.02] tracking-tight max-w-4xl">
           <span className="block text-white text-4xl sm:text-5xl md:text-6xl">
             Turn{" "}
@@ -246,6 +246,22 @@ export default function Hero() {
             Client Case Studies
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </a>
+        </div>
+
+        {/* Mobile: the reactive scene shown BELOW the text (clean, contained) */}
+        <div className="lg:hidden mt-12 relative h-[46vh] min-h-[320px] rounded-2xl border border-white/10 overflow-hidden bg-[#070a14]">
+          <AnimatePresence>
+            <motion.div
+              key={SERVICES[active].id}
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              <ActiveScene accent={accent} accent2={accent2} reduce={reduce} />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
