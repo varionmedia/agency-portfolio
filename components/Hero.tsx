@@ -88,8 +88,8 @@ export default function Hero() {
       </motion.div>
 
       {/* Legibility — keep the left column readable over the scene */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#05060a] via-[#05060a]/85 to-transparent" />
-      <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(70%_60%_at_18%_40%,rgba(5,6,10,0.65),transparent_72%)]" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#05060a] from-20% via-[#05060a]/55 via-55% to-transparent" />
+      <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(65%_60%_at_15%_40%,rgba(5,6,10,0.6),transparent_70%)]" />
 
       {/* Cursor-following glow */}
       {!reduce && (
@@ -233,7 +233,7 @@ export default function Hero() {
             href="#case-studies"
             className="group inline-flex items-center gap-2 rounded-full border border-white/50 text-white px-5 py-3.5 text-xs tracking-[0.14em] whitespace-nowrap font-display font-bold uppercase transition-colors hover:bg-white hover:text-navy sm:rounded-none sm:border-0 sm:p-0 sm:text-sm sm:tracking-[0.18em] sm:font-semibold sm:text-white/70 sm:hover:bg-transparent sm:hover:text-cyan"
           >
-            See the work
+            Client Case Studies
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </a>
         </div>
