@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import Magnetic from "@/components/ui/Magnetic";
 import Counter from "@/components/ui/Counter";
 import { SeoScene, SocialScene, MetaScene, AiScene, type SceneProps } from "@/components/hero/HeroScenes";
@@ -18,13 +25,14 @@ const SERVICES: {
   id: string;
   label: string;
   accent: string;
+  accent2: string;
   blurb: string;
   Scene: (p: SceneProps) => React.ReactElement;
 }[] = [
-  { id: "seo", label: "SEO", accent: "#10b981", blurb: "Rank where your clients are searching.", Scene: SeoScene },
-  { id: "social", label: "Social Media", accent: "#ec4899", blurb: "Content that grows and converts.", Scene: SocialScene },
-  { id: "meta", label: "Meta Ads", accent: "#facc15", blurb: "Spend that turns into pipeline.", Scene: MetaScene },
-  { id: "ai", label: "AI Automation", accent: "#a855f7", blurb: "Tools that do the busywork.", Scene: AiScene },
+  { id: "seo", label: "SEO", accent: "#10b981", accent2: "#00c8e8", blurb: "Rank where your clients are searching.", Scene: SeoScene },
+  { id: "social", label: "Social Media", accent: "#ec4899", accent2: "#a855f7", blurb: "Content that grows and converts.", Scene: SocialScene },
+  { id: "meta", label: "Meta Ads", accent: "#facc15", accent2: "#f97316", blurb: "Spend that turns into pipeline.", Scene: MetaScene },
+  { id: "ai", label: "AI Automation", accent: "#a855f7", accent2: "#3b82f6", blurb: "Tools that do the busywork.", Scene: AiScene },
 ];
 
 const stats = [
@@ -40,8 +48,27 @@ export default function Hero() {
   const [active, setActive] = useState(0);
   const [locked, setLocked] = useState(false);
 
-  // Rotating headline. Defer `started` past first paint (via rAF, not a
-  // synchronous setState) so the opening phrase renders as the LCP element.
+  // Cursor tracking — parallax + a glow that follows the pointer
+  const nx = useMotionValue(0.5);
+  const ny = useMotionValue(0.5);
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const sNx = useSpring(nx, { stiffness: 60, damping: 20 });
+  const sNy = useSpring(ny, { stiffness: 60, damping: 20 });
+  const glowX = useSpring(px, { stiffness: 120, damping: 25 });
+  const glowY = useSpring(py, { stiffness: 120, damping: 25 });
+  const stageX = useTransform(sNx, [0, 1], [24, -24]);
+  const stageY = useTransform(sNy, [0, 1], [16, -16]);
+
+  function onMove(e: React.PointerEvent) {
+    if (reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    nx.set((e.clientX - r.left) / r.width);
+    ny.set((e.clientY - r.top) / r.height);
+    px.set(e.clientX - r.left);
+    py.set(e.clientY - r.top);
+  }
+
   useEffect(() => {
     const raf = requestAnimationFrame(() => setStarted(true));
     if (reduce) return () => cancelAnimationFrame(raf);
@@ -52,7 +79,6 @@ export default function Hero() {
     };
   }, [reduce]);
 
-  // Auto-cycle the service scenes when not hovering
   useEffect(() => {
     if (locked || reduce) return;
     const id = setInterval(() => setActive((a) => (a + 1) % SERVICES.length), 3600);
@@ -60,12 +86,18 @@ export default function Hero() {
   }, [locked, reduce]);
 
   const accent = SERVICES[active].accent;
+  const accent2 = SERVICES[active].accent2;
   const ActiveScene = SERVICES[active].Scene;
 
   return (
-    <section id="top" className="relative overflow-hidden grain scroll-mt-20 min-h-[92vh] flex items-center">
-      {/* Reactive stage */}
-      <div className="absolute inset-0" aria-hidden>
+    <section
+      id="top"
+      onPointerMove={onMove}
+      className="relative overflow-hidden grain scroll-mt-20 min-h-[88vh]"
+      style={{ background: "#05060a" }}
+    >
+      {/* Reactive stage (parallax) */}
+      <motion.div className="absolute inset-0" style={{ x: stageX, y: stageY }} aria-hidden>
         <AnimatePresence>
           <motion.div
             key={SERVICES[active].id}
@@ -73,22 +105,28 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
+            transition={{ duration: 0.7, ease: EASE }}
           >
-            <ActiveScene accent={accent} reduce={reduce} />
+            <ActiveScene accent={accent} accent2={accent2} reduce={reduce} />
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
 
-      {/* Legibility overlays — keep the left column readable over the scene */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-transparent" />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(75%_65%_at_22%_38%,rgba(2,5,22,0.55),transparent_72%)]"
-      />
+      {/* Legibility — keep the left column readable over the scene */}
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#05060a] via-[#05060a]/85 to-transparent" />
+      <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(70%_60%_at_18%_40%,rgba(5,6,10,0.65),transparent_72%)]" />
 
-      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-28 pb-20 md:pt-32 md:pb-24">
-        <div className="animate-fade-up flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-8">
+      {/* Cursor-following glow */}
+      {!reduce && (
+        <motion.div
+          aria-hidden
+          className="absolute top-0 left-0 w-[460px] h-[460px] rounded-full pointer-events-none -ml-[230px] -mt-[230px] blur-2xl"
+          style={{ x: glowX, y: glowY, background: `radial-gradient(circle, ${accent}26 0%, transparent 65%)` }}
+        />
+      )}
+
+      <div className="relative z-[2] w-full mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-28 pb-16 md:pb-20">
+        <div className="animate-fade-up flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs text-cyan mb-7">
           <span className="h-px w-10 bg-cyan/60" />
           Digital Marketing Agency
         </div>
@@ -119,8 +157,8 @@ export default function Hero() {
           through SEO, Social Media, and Paid Ads that actually deliver results.
         </p>
 
-        {/* Interactive service switcher — drives the background */}
-        <div className="animate-fade-up mt-9" style={{ animationDelay: "0.2s" }}>
+        {/* Interactive service switcher */}
+        <div className="animate-fade-up mt-8" style={{ animationDelay: "0.2s" }}>
           <div className="flex items-center gap-3 mb-3">
             <span className="font-display uppercase tracking-[0.24em] text-[0.62rem] font-bold text-white/40">
               Hover to explore
@@ -130,7 +168,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="text-[0.7rem] font-display font-semibold"
+              className="text-[0.72rem] font-display font-semibold"
               style={{ color: accent }}
             >
               — {SERVICES[active].blurb}
@@ -157,16 +195,17 @@ export default function Hero() {
                     setActive(i);
                     setLocked(true);
                   }}
-                  className="group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs sm:text-sm font-display font-semibold uppercase tracking-[0.12em] transition-colors duration-300"
+                  className="group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs sm:text-sm font-display font-semibold uppercase tracking-[0.12em] transition-all duration-300"
                   style={{
-                    color: on ? "#020516" : "rgba(255,255,255,0.7)",
+                    color: on ? "#05060a" : "rgba(255,255,255,0.72)",
                     borderColor: on ? s.accent : "rgba(255,255,255,0.18)",
-                    backgroundColor: on ? s.accent : "rgba(255,255,255,0.03)",
+                    backgroundColor: on ? s.accent : "rgba(255,255,255,0.04)",
+                    boxShadow: on ? `0 8px 26px -8px ${s.accent}cc` : "none",
                   }}
                 >
                   <span
                     className="w-1.5 h-1.5 rounded-full transition-colors duration-300"
-                    style={{ backgroundColor: on ? "#020516" : s.accent }}
+                    style={{ backgroundColor: on ? "#05060a" : s.accent }}
                   />
                   {s.label}
                 </button>
@@ -175,7 +214,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="animate-fade-up mt-9 flex flex-wrap items-center gap-5 sm:gap-6" style={{ animationDelay: "0.3s" }}>
+        <div className="animate-fade-up mt-8 flex flex-wrap items-center gap-5 sm:gap-6" style={{ animationDelay: "0.3s" }}>
           <Magnetic>
             <a
               href="#contact"
@@ -196,11 +235,11 @@ export default function Hero() {
 
         {/* Stats band */}
         <dl
-          className="animate-fade-up mt-16 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-[2px] bg-cyan/40 border border-cyan/30 rounded-2xl overflow-hidden backdrop-blur-sm max-w-4xl"
+          className="animate-fade-up mt-14 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-[2px] bg-cyan/40 border border-cyan/30 rounded-2xl overflow-hidden backdrop-blur-sm max-w-4xl"
           style={{ animationDelay: "0.42s" }}
         >
           {stats.map((s) => (
-            <div key={s.label} className="bg-navy/80 p-6 md:p-7">
+            <div key={s.label} className="bg-[#05060a]/85 p-6 md:p-7">
               <dt className="sr-only">{s.label}</dt>
               <dd>
                 <Counter
