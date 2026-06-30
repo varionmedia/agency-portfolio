@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import { FadeUp } from "@/components/ui/Reveal";
 import Spotlight from "@/components/ui/Spotlight";
 
@@ -18,6 +19,7 @@ export default function VideoTestimonial() {
   const [muted, setMuted] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [quality, setQuality] = useState<string>("default");
+  const reduce = useReducedMotion();
 
   function sendCommand(func: string, args: unknown[] = []) {
     iframeRef.current?.contentWindow?.postMessage(
@@ -42,7 +44,23 @@ export default function VideoTestimonial() {
   }
 
   return (
-    <section id="testimonial" className="relative bg-navy-warm grain">
+    <section id="testimonial" className="relative overflow-hidden bg-[#05060a] grain">
+      {/* Subtle moving ambient — classy + interactive (with the cursor spotlight) */}
+      <motion.div
+        aria-hidden
+        className="absolute -top-24 -left-16 w-[42rem] h-[42rem] rounded-full pointer-events-none blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(0,200,232,0.10), transparent 70%)" }}
+        animate={reduce ? {} : { x: [0, 70, 0], y: [0, 40, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute -bottom-24 right-0 w-[36rem] h-[36rem] rounded-full pointer-events-none blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(1,84,160,0.14), transparent 70%)" }}
+        animate={reduce ? {} : { x: [0, -60, 0], y: [0, -30, 0] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div aria-hidden className="absolute inset-0 v-lines opacity-30 pointer-events-none" />
       <Spotlight />
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32 relative z-[2]">
         <FadeUp>
