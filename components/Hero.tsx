@@ -42,7 +42,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden grain">
+    <section id="top" className="relative overflow-hidden grain scroll-mt-20">
       {/* Living network — the agency's medium, made visible */}
       <Constellation />
       {/* Vignette keeps the headline legible over the network */}
