@@ -24,21 +24,21 @@ export default function SiteHeader() {
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/80">
           {nav.map((item) => (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className="hover:text-cyan transition-colors"
             >
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
-        <Link
+        <a
           href="/#contact"
           className="hidden md:inline-flex items-center rounded-full border border-cyan/60 text-cyan px-4 py-2 text-xs uppercase tracking-[0.18em] font-display font-semibold hover:bg-cyan hover:text-navy transition-colors"
         >
           Book a Call
-        </Link>
+        </a>
       </div>
     </header>
   );
