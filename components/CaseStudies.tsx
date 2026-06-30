@@ -222,21 +222,23 @@ function BeforeAfterStack({
   before,
   after,
   alt,
+  light = false,
 }: {
   before: string;
   after: string;
   alt: string;
+  light?: boolean;
 }) {
   return (
     <div className="relative mx-auto w-[220px] sm:w-[240px] lg:w-[260px]">
-      {/* Soft cyan glow behind */}
+      {/* Soft glow behind */}
       <div
         aria-hidden
-        className="absolute -inset-6 rounded-[3rem] bg-cyan/10 blur-3xl"
+        className={`absolute -inset-6 rounded-[3rem] blur-3xl ${light ? "bg-blue/15" : "bg-cyan/10"}`}
       />
 
       {/* Before */}
-      <figure className="relative aspect-[4/3] rounded-xl overflow-hidden border border-white/15 bg-white/[0.03] shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)]">
+      <figure className={`relative aspect-[4/3] rounded-xl overflow-hidden border bg-white/[0.03] shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)] ${light ? "border-ink/15" : "border-white/15"}`}>
         <Image
           src={before}
           alt={`${alt} — before`}
@@ -254,7 +256,7 @@ function BeforeAfterStack({
       </figure>
 
       {/* Curved arrow */}
-      <div className="relative flex justify-center py-2 text-cyan">
+      <div className={`relative flex justify-center py-2 ${light ? "text-blue" : "text-cyan"}`}>
         <svg
           viewBox="0 0 40 60"
           width="40"
@@ -271,8 +273,8 @@ function BeforeAfterStack({
         </svg>
       </div>
 
-      {/* After (highlighted with cyan ring) */}
-      <figure className="relative aspect-[4/3] rounded-xl overflow-hidden border border-cyan/40 bg-white/[0.03] shadow-[0_22px_50px_-15px_rgba(0,200,232,0.35)] ring-1 ring-cyan/20">
+      {/* After (highlighted with accent ring) */}
+      <figure className={`relative aspect-[4/3] rounded-xl overflow-hidden border bg-white/[0.03] ring-1 ${light ? "border-blue/40 ring-blue/20 shadow-[0_22px_50px_-15px_rgba(1,84,160,0.35)]" : "border-cyan/40 ring-cyan/20 shadow-[0_22px_50px_-15px_rgba(0,200,232,0.35)]"}`}>
         <Image
           src={after}
           alt={`${alt} — after`}
@@ -284,7 +286,7 @@ function BeforeAfterStack({
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/0"
         />
-        <figcaption className="absolute bottom-2 left-2 text-[0.6rem] uppercase tracking-[0.18em] font-display font-bold text-navy bg-cyan rounded px-2 py-0.5">
+        <figcaption className={`absolute bottom-2 left-2 text-[0.6rem] uppercase tracking-[0.18em] font-display font-bold rounded px-2 py-0.5 ${light ? "text-white bg-blue" : "text-navy bg-cyan"}`}>
           Now
         </figcaption>
       </figure>
@@ -294,21 +296,23 @@ function BeforeAfterStack({
 
 function ProofStack({
   items,
+  light = false,
 }: {
   items: { src: string; label: string; alt: string; width: number; height: number }[];
+  light?: boolean;
 }) {
   return (
     <div className="relative mx-auto w-[260px] sm:w-[280px] lg:w-[300px]">
-      {/* Soft cyan glow behind */}
+      {/* Soft glow behind */}
       <div
         aria-hidden
-        className="absolute -inset-6 rounded-[3rem] bg-cyan/10 blur-3xl"
+        className={`absolute -inset-6 rounded-[3rem] blur-3xl ${light ? "bg-blue/15" : "bg-cyan/10"}`}
       />
       <div className="relative flex flex-col gap-4">
         {items.map((item, i) => (
           <figure
             key={i}
-            className="relative overflow-hidden border border-white/15 shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)]"
+            className={`relative overflow-hidden border shadow-[0_18px_40px_-15px_rgba(0,0,0,0.7)] ${light ? "border-ink/15" : "border-white/15"}`}
           >
             <Image
               src={item.src}
@@ -336,6 +340,10 @@ function CaseCard({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const phoneRight = i % 2 === 1;
+  // Cards 2 & 4 (index 1 & 3) render light (white) for clear separation.
+  const light = i % 2 === 1;
+  const accentLabel = light ? "text-blue" : "text-cyan/80";
+  const metricValue = `font-display font-extrabold text-lg md:text-2xl ${light ? "text-blue" : "text-cyan"}`;
 
   // Sticky-stack + scale collapse only applies on lg+ (desktop). On mobile the
   // card is full-width and taller than the viewport — pinning it clips the
@@ -364,11 +372,15 @@ function CaseCard({
     >
       <motion.article
         style={{ scale }}
-        className={`relative w-full origin-top rounded-[2rem] border border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft px-5 pt-7 pb-9 sm:px-6 sm:pt-8 sm:pb-10 md:px-12 md:pt-10 md:pb-12 mb-6 sm:mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)]`}
+        className={`relative w-full origin-top rounded-[2rem] border px-5 pt-7 pb-9 sm:px-6 sm:pt-8 sm:pb-10 md:px-12 md:pt-10 md:pb-12 mb-6 sm:mb-8 overflow-hidden shadow-[0_-16px_50px_rgba(2,5,22,0.85)] ${
+          light
+            ? "border-ink/10 bg-gradient-to-br from-white to-[#e7ebf3] text-ink"
+            : `border-white/10 bg-navy-soft bg-gradient-to-br ${c.accent} to-navy-soft text-white`
+        }`}
       >
         <div
           aria-hidden
-          className="absolute -right-6 -top-12 font-display font-extrabold text-stroke-cream text-[11rem] leading-none select-none hidden md:block pointer-events-none"
+          className={`absolute -right-6 -top-12 font-display font-extrabold text-[11rem] leading-none select-none hidden md:block pointer-events-none ${light ? "text-stroke-navy" : "text-stroke-cream"}`}
         >
           {String(i + 1).padStart(2, "0")}
         </div>
@@ -385,9 +397,10 @@ function CaseCard({
                 before={c.beforeAfter.before}
                 after={c.beforeAfter.after}
                 alt={c.beforeAfter.alt}
+                light={light}
               />
             ) : c.proofStack ? (
-              <ProofStack items={c.proofStack} />
+              <ProofStack items={c.proofStack} light={light} />
             ) : (
               <PhoneFrame src={c.proof} alt={c.proofLabel} />
             )}
@@ -399,37 +412,35 @@ function CaseCard({
               phoneRight ? "lg:order-1" : "lg:order-2"
             }`}
           >
-            <div className="font-display text-xs uppercase tracking-[0.25em] text-cyan/80">
+            <div className={`font-display text-xs uppercase tracking-[0.25em] ${accentLabel}`}>
               Case {String(i + 1).padStart(2, "0")}
             </div>
             <h3 className="mt-2 font-display font-bold text-2xl md:text-3xl">
               {c.client}
             </h3>
-            <div className="mt-1 text-sm text-white/50">{c.role}</div>
+            <div className={`mt-1 text-sm ${light ? "text-ink/55" : "text-white/50"}`}>{c.role}</div>
             <p className="mt-4 font-display font-semibold text-lg md:text-xl leading-snug">
               {c.headline}
             </p>
-            <p className="mt-3 text-sm md:text-base text-white/65">
+            <p className={`mt-3 text-sm md:text-base ${light ? "text-ink/70" : "text-white/65"}`}>
               {c.summary}
             </p>
 
-            <div className="mt-5 grid grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10">
+            <div className={`mt-5 grid grid-cols-3 gap-px rounded-xl overflow-hidden border ${light ? "bg-ink/10 border-ink/10" : "bg-white/10 border-white/10"}`}>
               {c.metrics.map((m) => (
-                <div key={m.label} className="bg-navy/90 p-3 md:p-4">
+                <div key={m.label} className={`p-3 md:p-4 ${light ? "bg-white" : "bg-navy/90"}`}>
                   {m.display ? (
-                    <div className="font-display font-extrabold text-lg md:text-2xl text-cyan">
-                      {m.display}
-                    </div>
+                    <div className={metricValue}>{m.display}</div>
                   ) : (
                     <Counter
                       value={m.value}
                       prefix={m.prefix}
                       suffix={m.suffix}
                       decimals={m.decimals ?? 0}
-                      className="font-display font-extrabold text-lg md:text-2xl text-cyan"
+                      className={metricValue}
                     />
                   )}
-                  <div className="mt-1.5 text-[0.6rem] md:text-xs uppercase tracking-[0.14em] text-white/50 leading-tight">
+                  <div className={`mt-1.5 text-[0.6rem] md:text-xs uppercase tracking-[0.14em] leading-tight ${light ? "text-ink/55" : "text-white/50"}`}>
                     {m.label}
                   </div>
                 </div>
@@ -438,12 +449,12 @@ function CaseCard({
 
             {/* What we did */}
             <div className="mt-6">
-              <div className="font-display uppercase tracking-[0.22em] text-[0.65rem] text-cyan/80 mb-3">
+              <div className={`font-display uppercase tracking-[0.22em] text-[0.65rem] mb-3 ${accentLabel}`}>
                 What We Did
               </div>
               <ul className="grid sm:grid-cols-2 gap-x-5 gap-y-2">
                 {c.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm text-white/75 leading-snug">
+                  <li key={b} className={`flex items-start gap-2 text-sm leading-snug ${light ? "text-ink/75" : "text-white/75"}`}>
                     <svg
                       viewBox="0 0 24 24"
                       width="12"
@@ -453,7 +464,7 @@ function CaseCard({
                       strokeWidth="3"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-cyan flex-shrink-0 mt-[5px]"
+                      className={`flex-shrink-0 mt-[5px] ${light ? "text-blue" : "text-cyan"}`}
                       aria-hidden
                     >
                       <polyline points="20 6 9 17 4 12" />
@@ -472,7 +483,7 @@ function CaseCard({
 
 export default function CaseStudies() {
   return (
-    <section id="case-studies" className="relative bg-navy grain">
+    <section id="case-studies" className="relative bg-[#05060a] grain">
       <div aria-hidden className="v-lines absolute inset-0 pointer-events-none" />
       <Spotlight size={800} strength={0.05} />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 md:pt-32 pb-12">
