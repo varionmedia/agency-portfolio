@@ -71,8 +71,18 @@ export default function Hero() {
       className="relative overflow-hidden grain scroll-mt-20 min-h-[88vh]"
       style={{ background: "#05060a" }}
     >
-      {/* Reactive stage (parallax) */}
-      <motion.div className="absolute inset-0" style={{ x: stageX, y: stageY }} aria-hidden>
+      {/* Reactive stage (parallax). Left edge fades to transparent so no scene
+          element overlaps the headline/copy on the left. */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          x: stageX,
+          y: stageY,
+          maskImage: "linear-gradient(to right, transparent 36%, #000 54%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 36%, #000 54%)",
+        }}
+        aria-hidden
+      >
         <AnimatePresence>
           <motion.div
             key={SERVICES[active].id}

@@ -17,7 +17,7 @@ export default function StatsBand() {
       />
       <div aria-hidden className="absolute inset-0 v-lines opacity-40" />
 
-      <div className="relative mx-auto max-w-6xl px-6 lg:px-10 py-16 md:py-24">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-16 md:py-24">
         <FadeUp>
           <div className="flex items-center justify-center gap-3 font-display uppercase tracking-[0.28em] text-[0.7rem] text-cyan/80 mb-12 md:mb-14">
             <span className="h-px w-10 bg-cyan/50" />
@@ -39,7 +39,7 @@ export default function StatsBand() {
                     className="font-display font-extrabold text-4xl md:text-6xl text-cyan"
                   />
                 </dd>
-                <dt className="mt-3 text-xs md:text-sm uppercase tracking-[0.18em] text-white/55 max-w-[15rem] mx-auto leading-relaxed">
+                <dt className="mt-3 text-xs md:text-sm uppercase tracking-[0.14em] text-white/55 max-w-[20rem] mx-auto leading-relaxed">
                   {s.label}
                 </dt>
               </div>
