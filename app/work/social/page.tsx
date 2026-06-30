@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import WorkPageShell, { type WorkPageConfig } from "@/components/work/WorkPageShell";
+import SocialHero from "@/components/work/heroes/SocialHero";
 
 export const metadata: Metadata = {
   title: "Social Media Work — Video Editing, Graphics & Top Scripts",
@@ -16,6 +17,17 @@ const config: WorkPageConfig = {
   title: "Content built to grow audiences and convert them.",
   positioning:
     "Reels that earn the algorithm. Graphics that earn the brand. Scripts that earn the save. Every piece engineered to move someone from a stranger to a client.",
+  marqueeItems: [
+    "Reels",
+    "Carousels",
+    "Hooks",
+    "Personal Brand",
+    "Video Editing",
+    "Graphic Design",
+    "Scripts",
+    "Engagement",
+  ],
+  heroVisual: <SocialHero />,
   subcategories: [
     {
       id: "video-editing",

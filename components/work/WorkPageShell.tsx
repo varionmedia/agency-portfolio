@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Magnetic from "@/components/ui/Magnetic";
+import MarqueeStrip from "@/components/work/MarqueeStrip";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -33,6 +34,8 @@ export type WorkPageConfig = {
   accentLabel: string;
   subcategories: WorkSubcategory[];
   nextService?: { label: string; href: string };
+  heroVisual?: React.ReactNode;
+  marqueeItems?: string[];
 };
 
 const KIND_RATIO: Record<TileKind, string> = {
@@ -117,18 +120,10 @@ function KindIcon({ kind, color }: { kind: TileKind; color: string }) {
   }
 }
 
-/* Light dot-grid background — architectural texture for the cream sections. */
 const DOT_GRID_STYLE: React.CSSProperties = {
   backgroundImage:
     "radial-gradient(circle, rgba(10, 13, 31, 0.08) 1px, transparent 1px)",
   backgroundSize: "22px 22px",
-};
-
-/* Faint vertical line grid for header strip. */
-const LIGHT_V_LINES_STYLE: React.CSSProperties = {
-  backgroundImage:
-    "linear-gradient(to right, rgba(10, 13, 31, 0.05) 1px, transparent 1px)",
-  backgroundSize: "calc(100% / 6) 100%",
 };
 
 function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: string; i: number }) {
@@ -140,7 +135,6 @@ function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: st
       transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}
       className={`group relative ${KIND_RATIO[kind]} rounded-2xl overflow-hidden border border-ink/[0.08] bg-white shadow-[0_10px_30px_-16px_rgba(2,5,22,0.18)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-18px_rgba(2,5,22,0.28)] hover:border-ink/[0.14]`}
     >
-      {/* Accent rail at top */}
       <span
         aria-hidden
         className="absolute inset-x-0 top-0 h-[3px] z-10"
@@ -149,7 +143,6 @@ function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: st
           opacity: 0.55,
         }}
       />
-      {/* Soft accent wash */}
       <div
         aria-hidden
         className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
@@ -157,7 +150,6 @@ function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: st
           background: `radial-gradient(circle at 30% 18%, ${accentHex}1a 0%, transparent 55%), radial-gradient(circle at 80% 88%, ${accentHex}0d 0%, transparent 60%)`,
         }}
       />
-      {/* Inner dot grid for tile texture */}
       <div
         aria-hidden
         className="absolute inset-0 opacity-50"
@@ -167,16 +159,6 @@ function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: st
           backgroundSize: "16px 16px",
         }}
       />
-      {/* Subtle paper grain */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.05] mix-blend-multiply"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-          backgroundSize: "160px 160px",
-        }}
-      />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-ink/40">
         <KindIcon kind={kind} color={accentHex} />
         <span className="font-display text-[0.6rem] uppercase tracking-[0.22em] text-ink/45">
@@ -184,7 +166,7 @@ function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: st
         </span>
       </div>
       <span className="absolute top-3 left-3 text-[0.55rem] uppercase tracking-[0.2em] font-display font-bold text-ink/35">
-        0{i + 1}
+        FIG. 0{i + 1}
       </span>
     </motion.div>
   );
@@ -193,31 +175,38 @@ function PlaceholderTile({ kind, accentHex, i }: { kind: TileKind; accentHex: st
 function SubcategorySection({ sub, accentHex, index }: { sub: WorkSubcategory; accentHex: string; index: number }) {
   const count = sub.count ?? (sub.kind === "screenshot" || sub.kind === "dashboard" || sub.kind === "workflow" ? 4 : 6);
   return (
-    <section id={sub.id} className="scroll-mt-24">
+    <section id={sub.id} className="scroll-mt-24 relative">
+      {/* Giant outline numeral behind the section heading */}
+      <span
+        aria-hidden
+        className="hidden md:block absolute -top-8 -left-2 font-display font-extrabold text-[10rem] lg:text-[12rem] leading-none tracking-tight text-stroke-navy select-none pointer-events-none"
+      >
+        0{index + 1}
+      </span>
       <FadeUp>
-        <div className="flex items-end justify-between gap-6 mb-6 md:mb-8">
+        <div className="relative flex items-end justify-between gap-6 mb-6 md:mb-8 pt-4 md:pt-8">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-3">
               <span
-                className="font-display font-extrabold text-[0.7rem] tracking-[0.22em]"
+                className="font-display font-extrabold text-[0.7rem] tracking-[0.24em]"
                 style={{ color: accentHex }}
               >
-                0{index + 1}
+                §{index + 1}
               </span>
               <span
                 className="h-px w-8"
                 style={{ backgroundColor: `${accentHex}88` }}
               />
             </div>
-            <h2 className="font-display font-bold text-2xl md:text-3xl tracking-tight text-ink">
+            <h2 className="font-display font-bold text-2xl md:text-4xl tracking-tight text-ink">
               {sub.title}
             </h2>
-            <p className="mt-2 text-sm md:text-base text-ink/60 leading-relaxed">
+            <p className="mt-3 text-sm md:text-base text-ink/60 leading-relaxed">
               {sub.description}
             </p>
           </div>
           <span
-            className="hidden md:inline-flex items-center gap-2 text-[0.6rem] uppercase tracking-[0.22em] font-display font-semibold rounded-full px-3 py-1.5 border"
+            className="hidden md:inline-flex items-center gap-2 text-[0.6rem] uppercase tracking-[0.22em] font-display font-semibold rounded-full px-3 py-1.5 border whitespace-nowrap"
             style={{ color: accentHex, borderColor: `${accentHex}55`, backgroundColor: `${accentHex}10` }}
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentHex }} />
@@ -236,34 +225,36 @@ function SubcategorySection({ sub, accentHex, index }: { sub: WorkSubcategory; a
 }
 
 export default function WorkPageShell({ config }: { config: WorkPageConfig }) {
+  const hasHero = Boolean(config.heroVisual);
+  const marqueeItems = config.marqueeItems ?? config.subcategories.map((s) => s.title);
+
   return (
     <div className="relative bg-cream text-ink">
-      {/* ── Header strip ────────────────────────────────────── */}
+      {/* ── Top marquee strip ────────────────────────────────── */}
+      <MarqueeStrip items={marqueeItems} accentHex={config.accentHex} />
+
+      {/* ── Editorial header ─────────────────────────────────── */}
       <header className="relative overflow-hidden border-b border-ink/[0.06]">
-        {/* Vertical line grid */}
+        {/* Architectural vertical line grid */}
         <div
           aria-hidden
-          className="absolute inset-0"
-          style={LIGHT_V_LINES_STYLE}
+          className="absolute inset-0 opacity-90"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(10, 13, 31, 0.05) 1px, transparent 1px)",
+            backgroundSize: "calc(100% / 6) 100%",
+          }}
         />
         {/* Accent corner glows */}
         <div
           aria-hidden
           className="absolute inset-0"
           style={{
-            background: `radial-gradient(50% 70% at 85% 0%, ${config.accentHex}26 0%, transparent 65%), radial-gradient(40% 60% at 0% 100%, ${config.accentHex}14 0%, transparent 70%)`,
+            background: `radial-gradient(40% 70% at 100% 0%, ${config.accentHex}26 0%, transparent 70%), radial-gradient(35% 60% at 0% 100%, ${config.accentHex}14 0%, transparent 70%)`,
           }}
         />
-        {/* Bottom soft shadow into body */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-24"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(10,13,31,0.04) 100%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-16 md:pt-24 pb-16 md:pb-20">
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-10 md:pt-14 pb-16 md:pb-20">
           {/* Breadcrumb */}
           <FadeUp>
             <Link
@@ -277,53 +268,85 @@ export default function WorkPageShell({ config }: { config: WorkPageConfig }) {
             </Link>
           </FadeUp>
 
-          <div className="mt-8 grid lg:grid-cols-12 gap-8 items-end">
-            <div className="lg:col-span-8">
-              <FadeUp delay={0.05}>
-                <div className="flex items-center gap-3 font-display uppercase tracking-[0.25em] text-xs mb-5" style={{ color: config.accentHex }}>
-                  <span className="h-px w-10" style={{ backgroundColor: `${config.accentHex}99` }} />
-                  {config.index} · {config.accentLabel}
-                </div>
-              </FadeUp>
-              <WordReveal
-                as="h1"
-                text={config.title}
-                className="font-display font-extrabold text-5xl md:text-7xl leading-[1.02] tracking-tight text-ink"
-              />
+          {/* Eyebrow */}
+          <FadeUp delay={0.05}>
+            <div
+              className="mt-8 md:mt-10 flex items-center gap-3 font-display uppercase tracking-[0.3em] text-[0.7rem] md:text-xs font-bold"
+              style={{ color: config.accentHex }}
+            >
+              <span className="h-px w-12" style={{ backgroundColor: `${config.accentHex}99` }} />
+              Vol. {config.index} · {config.accentLabel}
             </div>
-            <FadeUp delay={0.18} className="lg:col-span-4">
-              <p className="text-ink/65 text-base md:text-lg leading-relaxed">
-                {config.positioning}
-              </p>
-            </FadeUp>
+          </FadeUp>
+
+          {/* Main split: title on left, hero (or positioning) on right */}
+          <div className="mt-6 md:mt-10 grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className={`relative ${hasHero ? "lg:col-span-7" : "lg:col-span-8"}`}>
+              {/* Giant outline numeral behind the title */}
+              <span
+                aria-hidden
+                className="absolute -top-10 md:-top-16 -left-2 md:-left-6 font-display font-extrabold text-[12rem] md:text-[18rem] lg:text-[22rem] leading-none tracking-[-0.04em] text-stroke-navy select-none pointer-events-none z-0"
+              >
+                {config.index}
+              </span>
+
+              <div className="relative z-10">
+                <WordReveal
+                  as="h1"
+                  text={config.title}
+                  className="font-display font-extrabold text-[2.75rem] md:text-7xl lg:text-[5.5rem] leading-[0.98] tracking-[-0.02em] text-ink"
+                />
+                <FadeUp delay={0.18}>
+                  <p className="mt-7 md:mt-9 max-w-xl text-ink/65 text-base md:text-lg leading-relaxed">
+                    {config.positioning}
+                  </p>
+                </FadeUp>
+              </div>
+            </div>
+
+            {hasHero && (
+              <FadeUp delay={0.3} className="lg:col-span-5">
+                <div className="relative">{config.heroVisual}</div>
+              </FadeUp>
+            )}
           </div>
 
           {/* Sub-category jump nav */}
-          <FadeUp delay={0.25}>
-            <nav className="mt-12 flex flex-wrap gap-2.5">
-              {config.subcategories.map((sub) => (
-                <a
-                  key={sub.id}
-                  href={`#${sub.id}`}
-                  className="text-[0.65rem] uppercase tracking-[0.2em] font-display font-semibold text-ink/70 bg-white/60 border border-ink/15 rounded-full px-3 py-1.5 hover:bg-white hover:border-ink/30 hover:text-ink transition-colors"
-                >
-                  {sub.title}
-                </a>
-              ))}
-            </nav>
+          <FadeUp delay={0.32}>
+            <div className="mt-12 md:mt-16 flex items-center gap-4 flex-wrap">
+              <span className="font-display uppercase tracking-[0.22em] text-[0.6rem] text-ink/45 font-bold">
+                Inside
+              </span>
+              <span className="h-px flex-1 min-w-12 bg-ink/15" />
+              <nav className="flex flex-wrap gap-2.5">
+                {config.subcategories.map((sub, i) => (
+                  <a
+                    key={sub.id}
+                    href={`#${sub.id}`}
+                    className="group inline-flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.2em] font-display font-semibold text-ink/70 bg-white/70 border border-ink/15 rounded-full px-3 py-1.5 hover:bg-white hover:border-ink/30 hover:text-ink transition-colors"
+                  >
+                    <span
+                      className="font-bold transition-colors"
+                      style={{ color: config.accentHex }}
+                    >
+                      §{i + 1}
+                    </span>
+                    {sub.title}
+                  </a>
+                ))}
+              </nav>
+            </div>
           </FadeUp>
         </div>
       </header>
 
       {/* ── Sub-category sections ───────────────────────────── */}
       <div className="relative">
-        {/* Dot grid texture */}
         <div
           aria-hidden
           className="absolute inset-0 opacity-60"
           style={DOT_GRID_STYLE}
         />
-        {/* Soft accent wash */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
