@@ -33,22 +33,31 @@ const config: WorkPageConfig = {
       id: "video-editing",
       title: "Video Editing",
       description:
-        "Reels and short-form edits across personal-brand, education, and authority-content formats.",
-      kind: "video",
+        "Reels and short-form edits across personal-brand, education, and authority-content formats. Muted autoplay — tap any reel to hear it.",
+      layout: "video",
+      videoCount: 12,
+      // videos: [{ youtubeId: "..." }, ...]  ← drop real YouTube IDs here
     },
     {
       id: "graphic-designing",
       title: "Graphic Designing",
       description:
-        "Feed posts, carousels, quote cards, and brand-system graphics that hold up across an entire account.",
-      kind: "graphic",
+        "Feed posts, carousels, quote cards, and brand-system graphics that hold up across an entire account — organised by format.",
+      layout: "graphics",
+      graphicGroups: [
+        { id: "stories", ratio: "9/16", label: "Stories & Reel Covers", count: 8 },
+        { id: "posts", ratio: "4/5", label: "Feed Posts & Carousels", count: 8 },
+        { id: "landscape", ratio: "16/9", label: "Banners & Thumbnails", count: 8 },
+      ],
     },
     {
       id: "top-performing-scripts",
       title: "Top Performing Scripts",
       description:
         "The hooks, beats, and CTAs behind reels that broke the audience ceiling. The actual writing — not the case-study summary.",
-      kind: "script",
+      layout: "scripts",
+      scriptCount: 4,
+      // scripts: [{ title, hook, metric, docUrl }]  ← add doc links for in-page reading
     },
   ],
   nextService: { label: "Meta Ads", href: "/work/meta-ads" },

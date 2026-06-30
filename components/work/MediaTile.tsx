@@ -71,14 +71,11 @@ function EmptySurface({ kind, accentHex }: { kind: TileKind; accentHex: string }
 }
 
 /* Exhibition caption shown under framed tiles. */
-function Caption({ kind, accentHex, i }: { kind: TileKind; accentHex: string; i: number }) {
+function Caption({ kind, accentHex }: { kind: TileKind; accentHex: string; i?: number }) {
   return (
-    <div className="mt-2.5 flex items-center justify-between gap-2 px-0.5">
-      <span className="text-[0.55rem] uppercase tracking-[0.2em] font-display font-bold text-ink/40">
-        Fig. 0{i + 1}
-      </span>
-      <span className="flex items-center gap-1.5 text-[0.55rem] uppercase tracking-[0.18em] font-display font-semibold text-ink/40">
-        <span className="w-1 h-1 rounded-full" style={{ backgroundColor: accentHex }} />
+    <div className="mt-2.5 flex items-center gap-1.5 px-0.5">
+      <span className="w-1 h-1 rounded-full" style={{ backgroundColor: accentHex }} />
+      <span className="text-[0.55rem] uppercase tracking-[0.18em] font-display font-semibold text-ink/40">
         {KIND_META[kind]} · Coming soon
       </span>
     </div>
@@ -141,9 +138,6 @@ function GraphicTile({ accentHex, i }: { accentHex: string; i: number }) {
         style={{ background: `linear-gradient(to right, transparent, ${accentHex}, transparent)`, opacity: 0.55 }}
       />
       <EmptySurface kind="graphic" accentHex={accentHex} />
-      <span className="absolute top-3 left-3 text-[0.55rem] uppercase tracking-[0.2em] font-display font-bold text-ink/35">
-        Fig. 0{i + 1}
-      </span>
     </motion.div>
   );
 }
