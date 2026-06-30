@@ -78,6 +78,10 @@ body {
   animation: marquee 22s linear infinite;
 }
 
+.marquee-track-slow {
+  animation: marquee 75s linear infinite;
+}
+
 /* Entrance fade-up — CSS-driven so above-the-fold content paints
    immediately instead of waiting for JS hydration (helps LCP). */
 @keyframes fade-up {
@@ -100,6 +104,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .marquee-track-fast,
+  .marquee-track-slow,
   .animate-fade-up {
     animation: none;
   }

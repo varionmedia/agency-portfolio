@@ -137,24 +137,19 @@ function tileMotion(i: number) {
   };
 }
 
-function VideoTile({
+function VideoCard({
   video,
   accentHex,
-  i,
   ratio = "9/16",
 }: {
   video?: VideoItem;
   accentHex: string;
-  i: number;
   ratio?: "9/16" | "16/9";
 }) {
   const id = video?.youtubeId;
   const placeholderLabel = ratio === "9/16" ? "Reel · Coming soon" : "Video · Coming soon";
   return (
-    <motion.div
-      {...tileMotion(i)}
-      className={`relative ${RATIO_CLASS[ratio]} rounded-2xl overflow-hidden bg-[#070920] border border-ink/10 shadow-[0_14px_34px_-18px_rgba(2,5,22,0.4)]`}
-    >
+    <div className={`relative ${RATIO_CLASS[ratio]} rounded-2xl overflow-hidden bg-[#070920] border border-ink/10 shadow-[0_14px_34px_-18px_rgba(2,5,22,0.4)]`}>
       {id ? (
         <>
           <iframe
@@ -183,6 +178,14 @@ function VideoTile({
           </span>
         </div>
       )}
+    </div>
+  );
+}
+
+function VideoTile({ video, accentHex, i, ratio = "9/16" }: { video?: VideoItem; accentHex: string; i: number; ratio?: "9/16" | "16/9" }) {
+  return (
+    <motion.div {...tileMotion(i)}>
+      <VideoCard video={video} accentHex={accentHex} ratio={ratio} />
     </motion.div>
   );
 }
@@ -244,18 +247,27 @@ export function VideoSection({ sub, accentHex }: { sub: WorkSubcategory; accentH
   const landscape: VideoItem[] =
     sub.landscapeVideos ??
     (sub.landscapeVideoCount ? Array.from({ length: sub.landscapeVideoCount }).map(() => ({})) : []);
+  // Two copies for a seamless -50% loop (marquee), spacing baked into each
+  // item (mr-*) so the two halves tile perfectly.
+  const loop = [...videos, ...videos];
   return (
     <section id={sub.id} className="scroll-mt-28 relative">
       <FadeUp>
         <SectionHeading accentHex={accentHex} eyebrow="Short-form · Reels" title={sub.title} description={sub.description} />
       </FadeUp>
-      <MediaCarousel accentHex={accentHex}>
-        {videos.map((v, i) => (
-          <div key={i} className={ITEM_WIDTH}>
-            <VideoTile video={v} accentHex={accentHex} i={i} ratio="9/16" />
-          </div>
-        ))}
-      </MediaCarousel>
+
+      {/* Continuously rotating reel marquee — loops seamlessly, pauses on hover. */}
+      <div className="group relative overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 md:w-16 bg-gradient-to-r from-cream to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 md:w-16 bg-gradient-to-l from-cream to-transparent" />
+        <div className="flex w-max marquee-track-slow group-hover:[animation-play-state:paused] py-1">
+          {loop.map((v, i) => (
+            <div key={i} className="w-[180px] sm:w-[210px] lg:w-[230px] shrink-0 mr-4 md:mr-5">
+              <VideoCard video={v} accentHex={accentHex} ratio="9/16" />
+            </div>
+          ))}
+        </div>
+      </div>
 
       {landscape.length > 0 && (
         <div className="mt-14 md:mt-16">
