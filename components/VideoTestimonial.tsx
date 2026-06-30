@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { FadeUp } from "@/components/ui/Reveal";
 import Spotlight from "@/components/ui/Spotlight";
+import Embers from "@/components/ui/Embers";
 
 const QUALITIES: { label: string; value: string }[] = [
   { label: "Auto", value: "default" },
@@ -61,6 +62,7 @@ export default function VideoTestimonial() {
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
       <div aria-hidden className="absolute inset-0 v-lines opacity-30 pointer-events-none" />
+      <Embers />
       <Spotlight />
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32 relative z-[2]">
         <FadeUp>

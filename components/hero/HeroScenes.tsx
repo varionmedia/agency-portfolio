@@ -125,6 +125,7 @@ const GLYPHS = {
   play: "M8 5v14l11-7L8 5z",
   comment: "M21 11.5a8.38 8.38 0 0 1-15 5L3 21l4.5-3a8.5 8.5 0 1 1 13.5-6.5z",
   star: "M12 2l2.4 7.4H22l-6.2 4.5L18.2 22 12 17.5 5.8 22l2.4-8.1L2 9.4h7.6L12 2z",
+  share: "M2 21 23 12 2 3 2 10 17 12 2 14z",
 } as const;
 
 function Bubble({ icon, color, left, delay, reduce }: { icon: keyof typeof GLYPHS; color: string; left: string; delay: number; reduce?: boolean }) {
@@ -168,14 +169,17 @@ export function SocialScene({ accent, accent2, reduce }: SceneProps) {
           </div>
         </motion.div>
       ))}
-      <Bubble icon="heart" color={accent} left="58%" delay={0} reduce={reduce} />
-      <Bubble icon="play" color={accent2} left="70%" delay={1.2} reduce={reduce} />
-      <Bubble icon="comment" color="#f97316" left="82%" delay={0.6} reduce={reduce} />
-      <Bubble icon="star" color={accent} left="64%" delay={2} reduce={reduce} />
-      <Bubble icon="heart" color={accent2} left="88%" delay={2.8} reduce={reduce} />
-      <Bubble icon="play" color={accent} left="76%" delay={3.4} reduce={reduce} />
-      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "14%", left: "58%" }}>+700K views</Tag>
-      <Tag accent={accent2} delay={1.4} reduce={reduce} style={{ top: "66%", left: "70%" }}>@yourbrand · +12.4K</Tag>
+      <Bubble icon="heart" color={accent} left="54%" delay={0} reduce={reduce} />
+      <Bubble icon="comment" color={accent2} left="60%" delay={1.4} reduce={reduce} />
+      <Bubble icon="share" color="#f97316" left="66%" delay={0.7} reduce={reduce} />
+      <Bubble icon="heart" color={accent2} left="73%" delay={2.2} reduce={reduce} />
+      <Bubble icon="comment" color={accent} left="79%" delay={1.0} reduce={reduce} />
+      <Bubble icon="share" color={accent2} left="85%" delay={3.0} reduce={reduce} />
+      <Bubble icon="heart" color="#f97316" left="91%" delay={1.8} reduce={reduce} />
+      <Bubble icon="star" color={accent} left="57%" delay={2.6} reduce={reduce} />
+      <Tag accent={accent} delay={0.3} reduce={reduce} style={{ top: "13%", left: "54%" }}>+700K views</Tag>
+      <Tag accent={accent2} delay={1.4} reduce={reduce} style={{ top: "88%", left: "55%" }}>@yourbrand · +12.4K</Tag>
+      <Tag accent="#f97316" delay={2.1} reduce={reduce} style={{ top: "26%", left: "88%" }}>1.2M reach</Tag>
     </div>
   );
 }

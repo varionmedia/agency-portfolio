@@ -204,7 +204,7 @@ export default function Hero() {
                     setActive(i);
                     setLocked(true);
                   }}
-                  className="group inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.68rem] sm:text-xs font-display font-semibold uppercase tracking-[0.1em] transition-all duration-300"
+                  className="group inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[0.6rem] sm:text-[0.68rem] font-display font-semibold uppercase tracking-[0.08em] transition-all duration-300"
                   style={{
                     color: on ? "#05060a" : "rgba(255,255,255,0.72)",
                     borderColor: on ? "transparent" : "rgba(255,255,255,0.18)",
@@ -214,7 +214,7 @@ export default function Hero() {
                   }}
                 >
                   <span
-                    className="w-1.5 h-1.5 rounded-full transition-colors duration-300"
+                    className="w-1 h-1 rounded-full transition-colors duration-300"
                     style={{ backgroundColor: on ? "#05060a" : s.accent }}
                   />
                   {s.label}
