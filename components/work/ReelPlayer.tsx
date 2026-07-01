@@ -112,14 +112,16 @@ export default function ReelPlayer({
         onLoad={() => window.setTimeout(() => setReveal(true), 650)}
         className="absolute inset-0 w-full h-full pointer-events-none scale-[1.06]"
       />
-      {/* Cover-fit thumbnail masking YouTube's black/letterboxed start frame;
-          cross-fades out once the player has painted the first frames. */}
+      {/* Cover-fit thumbnail that masks YouTube's own chrome: the black /
+          letterboxed start frame, and — critically — the paused-state overlay
+          (title, channel name, centre button, related videos, YouTube logo).
+          Shown at start and whenever paused; cross-fades out during playback. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
         alt=""
         aria-hidden
-        className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500 ${reveal ? "opacity-0" : "opacity-100"}`}
+        className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-300 ${reveal && !paused ? "opacity-0" : "opacity-100"}`}
       />
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/75 to-transparent pointer-events-none z-[1]" />
       <div className="absolute inset-x-0 bottom-0 px-2.5 pb-2.5 flex items-center justify-between z-10">
