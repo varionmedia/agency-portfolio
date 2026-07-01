@@ -49,6 +49,19 @@ export default function VideoTestimonial() {
     );
   }
 
+  // Force YouTube's caption track off — it loads a beat after playback and
+  // honours the viewer's global CC preference, so poll a few times to catch it.
+  function killCaptions() {
+    [400, 1200, 2500, 5000].forEach((t) =>
+      window.setTimeout(() => {
+        sendCommand("setOption", ["captions", "track", {}]);
+        sendCommand("setOption", ["cc", "track", {}]);
+        sendCommand("unloadModule", ["captions"]);
+        sendCommand("unloadModule", ["cc"]);
+      }, t)
+    );
+  }
+
   function toggleMute() {
     if (muted) {
       sendCommand("unMute");
@@ -101,10 +114,11 @@ export default function VideoTestimonial() {
               {load ? (
                 <iframe
                   ref={iframeRef}
-                  src="https://www.youtube-nocookie.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
+                  src="https://www.youtube-nocookie.com/embed/CfQTm3DGIPU?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&loop=1&playlist=CfQTm3DGIPU&vq=hd720&enablejsapi=1"
                   title="Dr. Harel Papikian on working with Varion Media"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
+                  onLoad={killCaptions}
                   className="absolute inset-0 w-full h-full pointer-events-none"
                 />
               ) : (

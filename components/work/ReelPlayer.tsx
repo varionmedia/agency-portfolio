@@ -39,6 +39,19 @@ export default function ReelPlayer({
   function cmd(func: string, args: unknown[] = []) {
     ref.current?.contentWindow?.postMessage(JSON.stringify({ event: "command", func, args }), "*");
   }
+  // Force YouTube's caption track off — the captions module loads a beat after
+  // playback starts (and honours the viewer's global CC preference), so poll a
+  // few times to catch it whenever it appears.
+  function killCaptions() {
+    [400, 1200, 2500, 5000].forEach((t) =>
+      window.setTimeout(() => {
+        cmd("setOption", ["captions", "track", {}]);
+        cmd("setOption", ["cc", "track", {}]);
+        cmd("unloadModule", ["captions"]);
+        cmd("unloadModule", ["cc"]);
+      }, t)
+    );
+  }
   function toggleMute() {
     if (muted) cmd("unMute");
     else cmd("mute");
@@ -105,11 +118,14 @@ export default function ReelPlayer({
     <div className={`${frame} group`}>
       <iframe
         ref={ref}
-        src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=${youtubeId}&enablejsapi=1`}
+        src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&loop=1&playlist=${youtubeId}&enablejsapi=1`}
         title="Reel"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerPolicy="strict-origin-when-cross-origin"
-        onLoad={() => window.setTimeout(() => setReveal(true), 650)}
+        onLoad={() => {
+          window.setTimeout(() => setReveal(true), 650);
+          killCaptions();
+        }}
         className="absolute inset-0 w-full h-full pointer-events-none scale-[1.06]"
       />
       {/* Cover-fit thumbnail that masks YouTube's own chrome: the black /
