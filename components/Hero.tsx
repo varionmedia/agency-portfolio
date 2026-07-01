@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -35,6 +35,11 @@ export default function Hero() {
   // Render the scene only in the slot that's actually visible (and only after
   // mount) so we never animate two scenes at once / on initial paint.
   const [isLg, setIsLg] = useState<boolean | null>(null);
+  // Pause the scene's (many, infinite) animations + auto-cycle once the hero is
+  // fully scrolled out of view — they otherwise keep running for the whole page
+  // and compete with the smooth-scroll loop. Invisible to the user.
+  const sectionRef = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -42,6 +47,14 @@ export default function Hero() {
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   // Cursor tracking — subtle parallax on the scene
@@ -60,17 +73,21 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    if (locked || reduce) return;
+    if (locked || reduce || !inView) return;
     const id = setInterval(() => setActive((a) => (a + 1) % SERVICES.length), 3600);
     return () => clearInterval(id);
-  }, [locked, reduce]);
+  }, [locked, reduce, inView]);
 
   const accent = SERVICES[active].accent;
   const accent2 = SERVICES[active].accent2;
   const ActiveScene = SERVICES[active].Scene;
+  // Freeze scene animation when the hero is off-screen (same flag the scenes use
+  // for reduced-motion → renders a static frame, no rAF churn).
+  const sceneReduce = reduce || !inView;
 
   return (
     <section
+      ref={sectionRef}
       id="top"
       onPointerMove={onMove}
       className="relative overflow-hidden grain scroll-mt-20"
@@ -226,7 +243,7 @@ export default function Hero() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.6, ease: EASE }}
                 >
-                  <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
+                  <ActiveScene accent={accent} accent2={accent2} reduce={sceneReduce} centered />
                 </motion.div>
               </AnimatePresence>
             )}
@@ -249,7 +266,7 @@ export default function Hero() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.7, ease: EASE }}
               >
-                <ActiveScene accent={accent} accent2={accent2} reduce={reduce} centered />
+                <ActiveScene accent={accent} accent2={accent2} reduce={sceneReduce} centered />
               </motion.div>
             </AnimatePresence>
           )}
