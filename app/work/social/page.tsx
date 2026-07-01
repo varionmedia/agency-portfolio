@@ -51,8 +51,12 @@ const config: WorkPageConfig = {
         { youtubeId: "08CTzAbLWt4" },
         { youtubeId: "WvaGbGvKSFg" },
       ],
-      landscapeVideoCount: 3,
-      // landscapeVideos: [{ youtubeId: "..." }, ...]  ← 3 × 16:9 videos
+      // 3 × 16:9 long-form / landscape edits
+      landscapeVideos: [
+        { youtubeId: "zxvCqZ5wz1k" },
+        { youtubeId: "PrV3_jq4rWY" },
+        { youtubeId: "2zuFFihVbxE" },
+      ],
     },
     {
       id: "graphic-designing",
