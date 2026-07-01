@@ -23,6 +23,7 @@ export default function SiteHeader() {
             alt="Varion Media"
             width={849}
             height={240}
+            sizes="130px"
             priority
             className="h-9 w-auto block brightness-0 invert"
           />

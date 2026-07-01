@@ -25,6 +25,9 @@ const caveat = Caveat({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
+  // Used once, far below the fold — don't preload it so it doesn't compete
+  // with the critical hero fonts on the initial load.
+  preload: false,
 });
 
 export const metadata: Metadata = {

@@ -37,6 +37,7 @@ export default function SiteFooter() {
             alt="Varion Media"
             width={849}
             height={240}
+            sizes="130px"
             className="h-9 w-auto block brightness-0 invert"
           />
           <p className="mt-4 text-sm text-white/60 max-w-xs">
