@@ -102,7 +102,7 @@ export default function ReelPlayer({
   }
 
   return (
-    <div className={frame}>
+    <div className={`${frame} group`}>
       <iframe
         ref={ref}
         src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&loop=1&playlist=${youtubeId}&enablejsapi=1`}
@@ -123,21 +123,26 @@ export default function ReelPlayer({
         aria-hidden
         className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-300 ${reveal && !paused ? "opacity-0" : "opacity-100"}`}
       />
+      {/* Functional centre play/pause — our own control, layered above the
+          masked YouTube chrome. Prominent when paused; fades in on hover while
+          playing. */}
+      <div className="absolute inset-0 z-[8] flex items-center justify-center pointer-events-none">
+        <button
+          type="button"
+          onClick={togglePlay}
+          aria-label={paused ? "Play" : "Pause"}
+          className={`pointer-events-auto w-14 h-14 rounded-full bg-black/45 hover:bg-black/65 backdrop-blur-sm text-white flex items-center justify-center shadow-[0_8px_24px_-6px_rgba(0,0,0,0.6)] ring-1 ring-white/20 transition-all duration-300 hover:scale-105 ${paused ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+        >
+          {paused ? (
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7L8 5z" /></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+          )}
+        </button>
+      </div>
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/75 to-transparent pointer-events-none z-[1]" />
       <div className="absolute inset-x-0 bottom-0 px-2.5 pb-2.5 flex items-center justify-between z-10">
         <div className="flex items-center gap-1.5">
-          <button
-            type="button"
-            onClick={togglePlay}
-            aria-label={paused ? "Play" : "Pause"}
-            className="w-8 h-8 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-sm text-white flex items-center justify-center transition-colors"
-          >
-            {paused ? (
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7L8 5z" /></svg>
-            ) : (
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
-            )}
-          </button>
           <button
             type="button"
             onClick={toggleMute}
