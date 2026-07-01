@@ -371,7 +371,7 @@ function CaseCard({
       style={{ top: `${4.5 + i * 1.1}rem` }}
     >
       <motion.article
-        style={{ scale }}
+        style={isLg ? { scale } : undefined}
         className={`relative w-full origin-top rounded-[2rem] border px-5 pt-7 pb-9 sm:px-6 sm:pt-8 sm:pb-10 md:px-12 md:pt-10 md:pb-12 mb-6 sm:mb-8 overflow-hidden ${
           light
             ? "border-ink/10 bg-gradient-to-br from-white to-[#e7ebf3] text-ink"

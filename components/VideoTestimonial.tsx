@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { FadeUp } from "@/components/ui/Reveal";
 import Spotlight from "@/components/ui/Spotlight";
 import Embers from "@/components/ui/Embers";
+import useHeavyMotionOff from "@/components/ui/useHeavyMotionOff";
 
 const QUALITIES: { label: string; value: string }[] = [
   { label: "Auto", value: "default" },
@@ -22,7 +23,9 @@ export default function VideoTestimonial() {
   const [showSettings, setShowSettings] = useState(false);
   const [quality, setQuality] = useState<string>("default");
   const [load, setLoad] = useState(false);
-  const reduce = useReducedMotion();
+  // Freeze the two drifting blur-3xl blobs on touch devices — animating large
+  // blurred layers every frame is the main cause of the mobile scroll jitter.
+  const reduce = useHeavyMotionOff();
 
   // Defer the (heavy) YouTube embed until it's about to scroll into view —
   // keeps it off the initial page load for a faster start.

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import useHeavyMotionOff from "@/components/ui/useHeavyMotionOff";
 
 /* Fixed (SSR-stable) set of drifting dots — gentle embers that rise + fade. */
 const DOTS = [
@@ -23,7 +24,9 @@ const DOTS = [
 ];
 
 export default function Embers({ color = "0,200,232" }: { color?: string }) {
-  const reduce = useReducedMotion();
+  // Static on touch devices — 16 continuously-drifting dots stutter native
+  // mobile scroll. They still render (just don't animate).
+  const reduce = useHeavyMotionOff();
   return (
     <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
       {DOTS.map((p, i) => (
