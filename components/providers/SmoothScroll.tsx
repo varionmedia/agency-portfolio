@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
+import ScrollReset from "@/components/providers/ScrollReset";
 
 export default function SmoothScroll({
   children,
@@ -12,6 +13,7 @@ export default function SmoothScroll({
   // like the scroll "hanging" then stopping. Native scroll on touch devices.
   return (
     <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, syncTouch: false }}>
+      <ScrollReset />
       {children}
     </ReactLenis>
   );
