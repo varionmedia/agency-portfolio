@@ -47,7 +47,7 @@ function Glow({ accent, accent2, centered }: { accent: string; accent2: string; 
       className="absolute inset-0"
       style={{
         background: centered
-          ? `radial-gradient(48% 52% at 50% 48%, ${accent}4d 0%, transparent 70%), radial-gradient(32% 38% at 84% 20%, ${accent2}26 0%, transparent 68%), radial-gradient(32% 40% at 16% 82%, ${accent2}24 0%, transparent 70%)`
+          ? `radial-gradient(58% 56% at 50% 52%, ${accent}4d 0%, transparent 72%), radial-gradient(32% 38% at 84% 20%, ${accent2}26 0%, transparent 68%), radial-gradient(32% 40% at 16% 82%, ${accent2}24 0%, transparent 70%)`
           : `radial-gradient(46% 58% at 66% 48%, ${accent}4d 0%, transparent 70%), radial-gradient(30% 40% at 90% 20%, ${accent2}2e 0%, transparent 68%), radial-gradient(30% 42% at 88% 84%, ${accent2}26 0%, transparent 70%), radial-gradient(26% 36% at 52% 88%, ${accent}1f 0%, transparent 70%)`,
       }}
     />
@@ -64,9 +64,10 @@ export function SeoScene({ accent, accent2, reduce, centered: C }: SceneProps) {
         preserveAspectRatio="none"
         className={C ? "absolute inset-x-[2%] bottom-[8%] h-[58%]" : "absolute right-[3%] bottom-[12%] w-[48%] h-[48%]"}
         style={{
-          // Fade the graph into the background toward the edges/corners.
-          maskImage: "radial-gradient(125% 135% at 42% 78%, #000 55%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(125% 135% at 42% 78%, #000 55%, transparent 100%)",
+          // Keep the graph visible edge-to-edge (full width) and only blend the
+          // four corners into the background. Centered core → no right-side cutoff.
+          maskImage: "radial-gradient(120% 135% at 50% 60%, #000 58%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(120% 135% at 50% 60%, #000 58%, transparent 100%)",
         }}
       >
         <defs>
