@@ -10,8 +10,12 @@ const nav = [
 ];
 
 export default function SiteHeader() {
+  // Solid (not frosted) background: a translucent backdrop-blur header reveals
+  // the high-contrast vertical edges of content scrolling behind it (cream page
+  // vs dark cards), which read as a flickering vertical seam. Solid navy is
+  // clean over both the dark hero and the light sections.
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-navy/70 border-b border-white/5">
+    <header className="sticky top-0 z-50 bg-navy border-b border-white/5">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link href="/" aria-label="Varion Media home" className="block">
           <Image
