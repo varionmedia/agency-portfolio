@@ -30,6 +30,7 @@ export default function ReelPlayer({
 }) {
   const ref = useRef<HTMLIFrameElement>(null);
   const [active, setActive] = useState(autoplay);
+  const [reveal, setReveal] = useState(false);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -76,7 +77,10 @@ export default function ReelPlayer({
     return (
       <button
         type="button"
-        onClick={() => setActive(true)}
+        onClick={() => {
+          setReveal(false);
+          setActive(true);
+        }}
         aria-label="Play reel"
         className={`${frame} group block w-full`}
       >
@@ -105,9 +109,19 @@ export default function ReelPlayer({
         title="Reel"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerPolicy="strict-origin-when-cross-origin"
-        className="absolute inset-0 w-full h-full pointer-events-none scale-[1.02]"
+        onLoad={() => window.setTimeout(() => setReveal(true), 650)}
+        className="absolute inset-0 w-full h-full pointer-events-none scale-[1.06]"
       />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
+      {/* Cover-fit thumbnail masking YouTube's black/letterboxed start frame;
+          cross-fades out once the player has painted the first frames. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+        alt=""
+        aria-hidden
+        className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500 ${reveal ? "opacity-0" : "opacity-100"}`}
+      />
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/75 to-transparent pointer-events-none z-[1]" />
       <div className="absolute inset-x-0 bottom-0 px-2.5 pb-2.5 flex items-center justify-between z-10">
         <div className="flex items-center gap-1.5">
           <button
