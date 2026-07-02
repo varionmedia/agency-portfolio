@@ -24,7 +24,6 @@ const config: WorkPageConfig = {
     "Meme Marketing",
     "YouTube Analytics",
     "Personal Brand",
-    "Scripts",
     "Engagement",
   ],
   heroVisual: <SocialHero />,
@@ -113,15 +112,6 @@ const config: WorkPageConfig = {
         { src: "/images/work/social/youtube-analytics/mann-desai-shorts.png", alt: "Mann Desai YouTube Shorts views", w: 1280, h: 720 },
         { src: "/images/work/social/youtube-analytics/vsi.png", alt: "VSI YouTube analytics", w: 1912, h: 887 },
       ],
-    },
-    {
-      id: "top-performing-scripts",
-      title: "Top Performing Scripts",
-      description:
-        "The hooks, beats, and CTAs behind reels that broke the audience ceiling. The actual writing — not the case-study summary.",
-      layout: "scripts",
-      scriptCount: 4,
-      // scripts: [{ title, hook, metric, docUrl }]  ← add doc links for in-page reading
     },
   ],
   nextService: { label: "Meta Ads", href: "/work/meta-ads" },
