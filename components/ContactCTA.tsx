@@ -62,7 +62,7 @@ export default function ContactCTA() {
     const businessType = String(fd.get("businessType") || "");
     const message = String(fd.get("message") || "");
     const text =
-      `Hi Varion Media! I'd like to talk about growing my business.\n\n` +
+      `Hi Mann! I'd like to talk about growing my business.\n\n` +
       `Name: ${name}\nEmail: ${email}\nBusiness type: ${businessType}\n\n${message}`;
     window.open(whatsappHref(text), "_blank", "noopener,noreferrer");
   }

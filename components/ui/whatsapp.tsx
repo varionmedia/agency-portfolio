@@ -6,7 +6,7 @@
  */
 export const WHATSAPP_NUMBER = "919983890920";
 export const WHATSAPP_MESSAGE =
-  "Hi Varion Media — I found you online and I'd like to talk about growing my business.";
+  "Hi Mann — I found you online and I'd like to talk about growing my business.";
 
 export function whatsappHref(message: string = WHATSAPP_MESSAGE): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
