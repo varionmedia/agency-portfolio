@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FadeUp, WordReveal } from "@/components/ui/Reveal";
 import Magnetic from "@/components/ui/Magnetic";
 import Spotlight from "@/components/ui/Spotlight";
+import { whatsappHref, WhatsAppIcon } from "@/components/ui/whatsapp";
 
 const businessTypes = [
   "Coaching",
@@ -60,11 +61,10 @@ export default function ContactCTA() {
     const email = String(fd.get("email") || "");
     const businessType = String(fd.get("businessType") || "");
     const message = String(fd.get("message") || "");
-    const subject = encodeURIComponent(`Strategy call request — ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nBusiness type: ${businessType}\n\nMessage:\n${message}`
-    );
-    window.location.href = `mailto:hello@varionmedia.com?subject=${subject}&body=${body}`;
+    const text =
+      `Hi Varion Media! I'd like to talk about growing my business.\n\n` +
+      `Name: ${name}\nEmail: ${email}\nBusiness type: ${businessType}\n\n${message}`;
+    window.open(whatsappHref(text), "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -263,7 +263,8 @@ export default function ContactCTA() {
                         type="submit"
                         className="group w-full inline-flex items-center justify-center gap-2 rounded-full bg-cyan text-navy px-8 py-4 font-display font-bold text-sm uppercase tracking-[0.18em] hover:bg-white transition-colors shadow-[0_10px_40px_-10px_rgba(0,200,232,0.6)]"
                       >
-                        Book My Free Strategy Call
+                        <WhatsAppIcon size={18} />
+                        Connect on WhatsApp
                         <span
                           aria-hidden
                           className="transition-transform group-hover:translate-x-1"

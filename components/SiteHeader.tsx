@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { whatsappHref, WhatsAppIcon } from "@/components/ui/whatsapp";
 
 const nav = [
   { label: "Home", href: "/#top" },
@@ -39,13 +40,14 @@ export default function SiteHeader() {
             </a>
           ))}
         </nav>
-        {/* Plain <a> (not <Link>) so same-page hash scrolling works under Lenis. */}
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
-          href="/#contact"
-          className="hidden md:inline-flex items-center rounded-full border border-cyan/60 text-cyan px-4 py-2 text-xs uppercase tracking-[0.18em] font-display font-semibold hover:bg-cyan hover:text-navy transition-colors"
+          href={whatsappHref()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-2 rounded-full border border-cyan/60 text-cyan px-4 py-2 text-xs uppercase tracking-[0.18em] font-display font-semibold hover:bg-cyan hover:text-navy transition-colors"
         >
-          Book a Call
+          <WhatsAppIcon size={16} />
+          Connect on WhatsApp
         </a>
       </div>
     </header>

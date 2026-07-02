@@ -10,6 +10,7 @@ import {
   useTransform,
 } from "motion/react";
 import Magnetic from "@/components/ui/Magnetic";
+import { whatsappHref, WhatsAppIcon } from "@/components/ui/whatsapp";
 import { SeoScene, SocialScene, MetaScene, AiScene, type SceneProps } from "@/components/hero/HeroScenes";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -210,7 +211,9 @@ export default function Hero() {
         <div className="animate-fade-up mt-8 flex flex-wrap items-center gap-5 sm:gap-6" style={{ animationDelay: "0.3s" }}>
           <Magnetic>
             <a
-              href="#contact"
+              href={whatsappHref()}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 backgroundImage: `linear-gradient(100deg, ${accent}, ${accent2})`,
                 color: "#05060a",
@@ -218,7 +221,8 @@ export default function Hero() {
               }}
               className="group inline-flex items-center gap-2 rounded-full px-5 sm:px-7 py-3.5 sm:py-4 font-display font-bold text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] whitespace-nowrap transition-[filter,box-shadow] duration-300 hover:brightness-110"
             >
-              Book a Free Strategy Call
+              <WhatsAppIcon size={18} />
+              Connect on WhatsApp
               <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </a>
           </Magnetic>

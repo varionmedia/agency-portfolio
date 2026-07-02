@@ -1,15 +1,11 @@
 /**
  * Floating WhatsApp button — appears on every page (wired in app/layout.tsx).
- *
- * ⚠️ Set the real business number below. International format, digits only:
- *    no "+", spaces, or dashes. Example: India 98765 43210 → "919876543210".
+ * Number lives in components/ui/whatsapp.tsx.
  */
-const WHATSAPP_NUMBER = "910000000000"; // TODO: replace with Varion Media's WhatsApp number
-const PREFILLED_MESSAGE =
-  "Hi Varion Media — I found you online and I'd like to talk about growing my business.";
+import { whatsappHref } from "@/components/ui/whatsapp";
 
 export default function WhatsAppButton() {
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PREFILLED_MESSAGE)}`;
+  const href = whatsappHref();
 
   return (
     <a
