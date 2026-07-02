@@ -41,7 +41,7 @@ const config: WorkPageConfig = {
         { src: "/images/work/seo/gmb/1.png", alt: "Google Business Profile performance", w: 1594, h: 694 },
         { src: "/images/work/seo/gmb/3.png", alt: "Google Business Profile growth", w: 1638, h: 612 },
         { src: "/images/work/seo/gmb/2.png", alt: "Google Business Profile insights", w: 736, h: 402 },
-        { src: "/images/work/seo/gmb/4.png", alt: "300% traffic increase", w: 1000, h: 750 },
+        { src: "/images/work/seo/gmb/4.png", alt: "300% traffic increase", w: 1000, h: 425 },
       ],
     },
     {
@@ -54,8 +54,8 @@ const config: WorkPageConfig = {
       galleryMasonry: true,
       images: [
         { src: "/images/work/seo/search-console/1.png", alt: "Search Console traffic growth", w: 1485, h: 695 },
-        // { src: "/images/work/seo/search-console/2.png", alt: "Discover traffic comparison" }, // pending upload
-        { src: "/images/work/seo/search-console/3.png", alt: "Web traffic achievement", w: 922, h: 217 },
+        { src: "/images/work/seo/search-console/2.png", alt: "Discover traffic comparison", w: 810, h: 221 },
+        { src: "/images/work/seo/search-console/3.png", alt: "Web traffic achievement", w: 1500, h: 353 },
       ],
     },
     {
