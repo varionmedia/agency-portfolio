@@ -110,6 +110,7 @@ const config: WorkPageConfig = {
       images: [
         { src: "/images/work/social/youtube-analytics/ravi-taori.png", alt: "Ravi Taori YouTube analytics", w: 1456, h: 745 },
         { src: "/images/work/social/youtube-analytics/mann-desai.png", alt: "Mann Desai YouTube analytics", w: 1445, h: 687 },
+        { src: "/images/work/social/youtube-analytics/mann-desai-shorts.png", alt: "Mann Desai YouTube Shorts views", w: 1280, h: 720 },
         { src: "/images/work/social/youtube-analytics/vsi.png", alt: "VSI YouTube analytics", w: 1912, h: 887 },
       ],
     },
