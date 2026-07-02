@@ -269,6 +269,48 @@ export function VideoSection({ sub, accentHex }: { sub: WorkSubcategory; accentH
  * ────────────────────────────────────────────────────────── */
 export function GallerySection({ sub, accentHex }: { sub: WorkSubcategory; accentHex: string }) {
   const items: GraphicItem[] = sub.images ?? [];
+  const heading = (
+    <FadeUp>
+      <SectionHeading
+        accentHex={accentHex}
+        eyebrow={sub.eyebrow ?? "Selected work"}
+        title={sub.title}
+        description={sub.description}
+      />
+    </FadeUp>
+  );
+
+  // Masonry: each image at its true aspect ratio (best for mixed-size
+  // screenshots). Columns keep tall/short images gap-free.
+  if (sub.galleryMasonry) {
+    return (
+      <section id={sub.id} className="scroll-mt-28 relative">
+        {heading}
+        <div className="columns-1 sm:columns-2 gap-4 md:gap-5 [column-fill:_balance]">
+          {items.map((it, i) => (
+            <motion.figure
+              key={i}
+              {...tileMotion(i)}
+              className="mb-4 md:mb-5 break-inside-avoid rounded-2xl overflow-hidden border border-ink/[0.08] bg-white shadow-[0_12px_30px_-18px_rgba(2,5,22,0.22)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_22px_44px_-20px_rgba(2,5,22,0.3)]"
+            >
+              {it.src && it.w && it.h && (
+                <Image
+                  src={it.src}
+                  alt={it.alt ?? sub.title}
+                  width={it.w}
+                  height={it.h}
+                  sizes="(max-width:640px) 92vw, 46vw"
+                  className="block w-full h-auto"
+                />
+              )}
+            </motion.figure>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Fixed-ratio grid (uniform shots like 9:16 phone screenshots).
   const ratio: GraphicRatio = sub.galleryRatio ?? "16/9";
   const fit = sub.galleryFit ?? (ratio === "9/16" ? "cover" : "contain");
   const cols =
@@ -277,14 +319,7 @@ export function GallerySection({ sub, accentHex }: { sub: WorkSubcategory; accen
       : "grid-cols-1 sm:grid-cols-2";
   return (
     <section id={sub.id} className="scroll-mt-28 relative">
-      <FadeUp>
-        <SectionHeading
-          accentHex={accentHex}
-          eyebrow={sub.eyebrow ?? "Selected work"}
-          title={sub.title}
-          description={sub.description}
-        />
-      </FadeUp>
+      {heading}
       <div className={`grid ${cols} gap-4 md:gap-5`}>
         {items.map((it, i) => (
           <motion.figure

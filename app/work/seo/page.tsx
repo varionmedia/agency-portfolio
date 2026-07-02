@@ -36,12 +36,12 @@ const config: WorkPageConfig = {
         "Local visibility that turns “near me” searches into calls, directions, and walk-ins — profile growth and Maps performance.",
       layout: "gallery",
       eyebrow: "Proof · Local SEO",
-      galleryRatio: "16/9",
+      galleryMasonry: true,
       images: [
-        { src: "/images/work/seo/gmb/1.png", alt: "Google Business Profile performance" },
-        { src: "/images/work/seo/gmb/2.png", alt: "Google Business Profile insights" },
-        { src: "/images/work/seo/gmb/3.png", alt: "Google Business Profile growth" },
-        { src: "/images/work/seo/gmb/4.png", alt: "300% traffic increase" },
+        { src: "/images/work/seo/gmb/1.png", alt: "Google Business Profile performance", w: 1594, h: 694 },
+        { src: "/images/work/seo/gmb/3.png", alt: "Google Business Profile growth", w: 1638, h: 612 },
+        { src: "/images/work/seo/gmb/2.png", alt: "Google Business Profile insights", w: 736, h: 402 },
+        { src: "/images/work/seo/gmb/4.png", alt: "300% traffic increase", w: 1000, h: 750 },
       ],
     },
     {
@@ -51,11 +51,11 @@ const config: WorkPageConfig = {
         "Clicks, impressions, and organic-traffic trajectories straight from Search Console on accounts we run end-to-end.",
       layout: "gallery",
       eyebrow: "Proof · Organic traffic",
-      galleryRatio: "16/9",
+      galleryMasonry: true,
       images: [
-        { src: "/images/work/seo/search-console/1.png", alt: "Search Console traffic growth" },
+        { src: "/images/work/seo/search-console/1.png", alt: "Search Console traffic growth", w: 1485, h: 695 },
         // { src: "/images/work/seo/search-console/2.png", alt: "Discover traffic comparison" }, // pending upload
-        { src: "/images/work/seo/search-console/3.png", alt: "Web traffic achievement" },
+        { src: "/images/work/seo/search-console/3.png", alt: "Web traffic achievement", w: 922, h: 217 },
       ],
     },
     {
@@ -65,10 +65,10 @@ const config: WorkPageConfig = {
         "Showing up where the next generation of search happens — cited in ChatGPT answers and Google’s AI Overviews for client queries.",
       layout: "gallery",
       eyebrow: "Proof · AI search",
-      galleryRatio: "16/9",
+      galleryMasonry: true,
       images: [
-        { src: "/images/work/seo/ai-overview/1.jpeg", alt: "Cited in ChatGPT" },
-        { src: "/images/work/seo/ai-overview/2.png", alt: "Featured in Google AI Overview" },
+        { src: "/images/work/seo/ai-overview/2.png", alt: "Featured in Google AI Overview", w: 2334, h: 1292 },
+        { src: "/images/work/seo/ai-overview/1.jpeg", alt: "Cited in ChatGPT", w: 1600, h: 1352 },
       ],
     },
     {
@@ -78,20 +78,13 @@ const config: WorkPageConfig = {
         "Keyword positions and ranking distribution — the high-intent, commercial terms that actually convert.",
       layout: "gallery",
       eyebrow: "Proof · Keywords",
-      galleryRatio: "16/9",
+      galleryMasonry: true,
       images: [
-        { src: "/images/work/seo/rankings/1.png", alt: "SEO keyword ranking" },
-        { src: "/images/work/seo/rankings/2.png", alt: "Keyword ranking dashboard" },
-        { src: "/images/work/seo/rankings/3.png", alt: "Keyword rankings across cities" },
-        { src: "/images/work/seo/rankings/4.png", alt: "Organic keywords ranking" },
+        { src: "/images/work/seo/rankings/2.png", alt: "Keyword ranking dashboard", w: 1340, h: 696 },
+        { src: "/images/work/seo/rankings/1.png", alt: "SEO keyword ranking", w: 1280, h: 769 },
+        { src: "/images/work/seo/rankings/4.png", alt: "Organic keywords ranking", w: 666, h: 302 },
+        { src: "/images/work/seo/rankings/3.png", alt: "Keyword rankings across cities", w: 547, h: 338 },
       ],
-    },
-    {
-      id: "content-examples",
-      title: "Content Examples",
-      description:
-        "Pillar pages, cluster posts, and editorial work built to earn rankings and read like a real publication.",
-      kind: "script",
     },
   ],
   nextService: { label: "Social Media", href: "/work/social" },

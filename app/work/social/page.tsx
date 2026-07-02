@@ -20,10 +20,10 @@ const config: WorkPageConfig = {
   marqueeItems: [
     "Reels",
     "Video Editing",
-    "Meme Marketing",
     "Instagram Analytics",
+    "Meme Marketing",
+    "YouTube Analytics",
     "Personal Brand",
-    "Hooks",
     "Scripts",
     "Engagement",
   ],
@@ -59,25 +59,6 @@ const config: WorkPageConfig = {
       ],
     },
     {
-      id: "meme-marketing",
-      title: "Meme Marketing",
-      description:
-        "Culture-first meme content engineered for reach and shares — the format that lands brands in the feed and the group chat.",
-      layout: "gallery",
-      eyebrow: "Proof · Reach",
-      galleryRatio: "9/16",
-      images: [
-        { src: "/images/work/social/meme-marketing/1.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/2.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/3.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/4.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/5.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/6.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/7.png", alt: "Meme marketing reach" },
-        { src: "/images/work/social/meme-marketing/8.png", alt: "Meme marketing reach" },
-      ],
-    },
-    {
       id: "instagram-analytics",
       title: "Instagram Analytics",
       description:
@@ -97,6 +78,39 @@ const config: WorkPageConfig = {
         { src: "/images/work/social/instagram-analytics/9.png", alt: "Instagram analytics" },
         { src: "/images/work/social/instagram-analytics/10.png", alt: "Instagram analytics" },
         { src: "/images/work/social/instagram-analytics/11.png", alt: "Instagram analytics" },
+      ],
+    },
+    {
+      id: "meme-marketing",
+      title: "Meme Marketing",
+      description:
+        "Culture-first meme content engineered for reach and shares — the format that lands brands in the feed and the group chat.",
+      layout: "gallery",
+      eyebrow: "Proof · Reach",
+      galleryRatio: "9/16",
+      images: [
+        { src: "/images/work/social/meme-marketing/1.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/2.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/3.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/4.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/5.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/6.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/7.png", alt: "Meme marketing reach" },
+        { src: "/images/work/social/meme-marketing/8.png", alt: "Meme marketing reach" },
+      ],
+    },
+    {
+      id: "youtube-analytics",
+      title: "YouTube Analytics",
+      description:
+        "Long-form watch time, subscribers, and views — YouTube Studio analytics from the channels we produce for.",
+      layout: "gallery",
+      eyebrow: "Proof · Watch time",
+      galleryMasonry: true,
+      images: [
+        { src: "/images/work/social/youtube-analytics/ravi-taori.png", alt: "Ravi Taori YouTube analytics", w: 1456, h: 745 },
+        { src: "/images/work/social/youtube-analytics/mann-desai.png", alt: "Mann Desai YouTube analytics", w: 1445, h: 687 },
+        { src: "/images/work/social/youtube-analytics/vsi.png", alt: "VSI YouTube analytics", w: 1912, h: 887 },
       ],
     },
     {

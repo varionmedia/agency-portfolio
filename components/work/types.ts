@@ -10,6 +10,10 @@ export type VideoItem = {
 export type GraphicItem = {
   src?: string;
   alt?: string;
+  /** Intrinsic pixel dimensions — used by the masonry gallery to lay images
+   *  out at their true aspect ratio. */
+  w?: number;
+  h?: number;
 };
 
 export type GraphicGroup = {
@@ -46,6 +50,9 @@ export type WorkSubcategory = {
   /** How images fill their tile. "cover" crops to fill (uniform shots like 9:16),
    *  "contain" shows the whole image letterboxed (mixed-aspect screenshots). */
   galleryFit?: "cover" | "contain";
+  /** Masonry layout: render each image at its true dimensions (needs w/h per
+   *  image). Best for mixed-aspect screenshots. */
+  galleryMasonry?: boolean;
 
   // framed
   kind?: TileKind;
