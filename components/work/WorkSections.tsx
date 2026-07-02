@@ -265,6 +265,58 @@ export function VideoSection({ sub, accentHex }: { sub: WorkSubcategory; accentH
 }
 
 /* ──────────────────────────────────────────────────────────
+ * Gallery section — responsive grid of real images (proof / screenshots)
+ * ────────────────────────────────────────────────────────── */
+export function GallerySection({ sub, accentHex }: { sub: WorkSubcategory; accentHex: string }) {
+  const items: GraphicItem[] = sub.images ?? [];
+  const ratio: GraphicRatio = sub.galleryRatio ?? "16/9";
+  const fit = sub.galleryFit ?? (ratio === "9/16" ? "cover" : "contain");
+  const cols =
+    ratio === "9/16"
+      ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+      : "grid-cols-1 sm:grid-cols-2";
+  return (
+    <section id={sub.id} className="scroll-mt-28 relative">
+      <FadeUp>
+        <SectionHeading
+          accentHex={accentHex}
+          eyebrow={sub.eyebrow ?? "Selected work"}
+          title={sub.title}
+          description={sub.description}
+        />
+      </FadeUp>
+      <div className={`grid ${cols} gap-4 md:gap-5`}>
+        {items.map((it, i) => (
+          <motion.figure
+            key={i}
+            {...tileMotion(i)}
+            className={`group relative ${RATIO_CLASS[ratio]} rounded-2xl overflow-hidden border border-ink/[0.08] shadow-[0_12px_30px_-18px_rgba(2,5,22,0.22)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_22px_44px_-20px_rgba(2,5,22,0.3)] ${
+              fit === "contain" ? "bg-[#0b0f1e]" : "bg-white"
+            }`}
+          >
+            {it.src ? (
+              <Image
+                src={it.src}
+                alt={it.alt ?? sub.title}
+                fill
+                sizes={ratio === "9/16" ? "(max-width:640px) 45vw, 22vw" : "(max-width:640px) 90vw, 45vw"}
+                className={fit === "contain" ? "object-contain" : "object-cover"}
+              />
+            ) : (
+              <span
+                aria-hidden
+                className="absolute inset-0"
+                style={{ background: `radial-gradient(circle at 50% 40%, ${accentHex}1f 0%, transparent 65%)` }}
+              />
+            )}
+          </motion.figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
  * Graphics section — one carousel per ratio
  * ────────────────────────────────────────────────────────── */
 function GraphicRatioRow({ group, accentHex }: { group: GraphicGroup; accentHex: string }) {

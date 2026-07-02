@@ -35,7 +35,17 @@ export type WorkSubcategory = {
   title: string;
   description: string;
   /** Layout strategy. Defaults to "framed" (the medium-framed placeholder grid). */
-  layout?: "framed" | "video" | "graphics" | "scripts";
+  layout?: "framed" | "video" | "graphics" | "scripts" | "gallery";
+  /** Optional eyebrow override for the section heading. */
+  eyebrow?: string;
+
+  // gallery — a grid of real images (screenshots / analytics / proof)
+  images?: GraphicItem[];
+  /** Tile aspect ratio for the gallery grid. Defaults to "16/9". */
+  galleryRatio?: GraphicRatio;
+  /** How images fill their tile. "cover" crops to fill (uniform shots like 9:16),
+   *  "contain" shows the whole image letterboxed (mixed-aspect screenshots). */
+  galleryFit?: "cover" | "contain";
 
   // framed
   kind?: TileKind;

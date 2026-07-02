@@ -10,6 +10,7 @@ import {
   VideoSection,
   GraphicsSection,
   ScriptsSection,
+  GallerySection,
 } from "@/components/work/WorkSections";
 import type { WorkPageConfig, WorkSubcategory } from "@/components/work/types";
 
@@ -46,6 +47,8 @@ function WorkSection({ sub, accentHex }: { sub: WorkSubcategory; accentHex: stri
       return <GraphicsSection sub={sub} accentHex={accentHex} />;
     case "scripts":
       return <ScriptsSection sub={sub} accentHex={accentHex} />;
+    case "gallery":
+      return <GallerySection sub={sub} accentHex={accentHex} />;
     default:
       return <FramedSection sub={sub} accentHex={accentHex} />;
   }

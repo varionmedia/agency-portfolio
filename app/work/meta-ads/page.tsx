@@ -30,18 +30,30 @@ const config: WorkPageConfig = {
   heroVisual: <MetaAdsHero />,
   subcategories: [
     {
+      id: "campaign-results",
+      title: "Campaign Results",
+      description:
+        "Ads-manager dashboards, CPL/ROAS snapshots, and the unit economics behind the campaigns we shipped.",
+      layout: "gallery",
+      eyebrow: "Proof · Performance",
+      galleryRatio: "16/9",
+      images: [
+        { src: "/images/work/meta-ads/campaign-results/1.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/2.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/3.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/4.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/5.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/6.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/7.png", alt: "Meta Ads campaign results" },
+        { src: "/images/work/meta-ads/campaign-results/8.png", alt: "Meta Ads campaign results" },
+      ],
+    },
+    {
       id: "ad-creatives",
       title: "Ad Creatives",
       description:
         "Static, motion, and short-form video creatives — the variations that won the auctions on actual client accounts.",
       kind: "ad",
-    },
-    {
-      id: "campaign-results",
-      title: "Campaign Results",
-      description:
-        "Ads-manager dashboards, CPL/ROAS snapshots, and the unit economics behind the campaigns we shipped.",
-      kind: "dashboard",
     },
     {
       id: "funnel-performance",

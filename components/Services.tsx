@@ -671,7 +671,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
                 className="w-1.5 h-1.5 rounded-full"
                 style={{ backgroundColor: s.accentHex }}
               />
-              See the work
+              See results
             </span>
             <span
               className="inline-flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 group-hover:scale-110"

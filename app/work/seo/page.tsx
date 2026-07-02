@@ -30,25 +30,61 @@ const config: WorkPageConfig = {
   heroVisual: <SeoHero />,
   subcategories: [
     {
-      id: "rank-tracking",
-      title: "Rank Tracking",
+      id: "gmb",
+      title: "Google Business Profile",
       description:
-        "Live keyword positions and movement across client campaigns — from local-intent to commercial high-value terms.",
-      kind: "screenshot",
+        "Local visibility that turns “near me” searches into calls, directions, and walk-ins — profile growth and Maps performance.",
+      layout: "gallery",
+      eyebrow: "Proof · Local SEO",
+      galleryRatio: "16/9",
+      images: [
+        { src: "/images/work/seo/gmb/1.png", alt: "Google Business Profile performance" },
+        { src: "/images/work/seo/gmb/2.png", alt: "Google Business Profile insights" },
+        { src: "/images/work/seo/gmb/3.png", alt: "Google Business Profile growth" },
+        { src: "/images/work/seo/gmb/4.png", alt: "300% traffic increase" },
+      ],
     },
     {
-      id: "traffic-growth",
-      title: "Traffic Growth",
+      id: "search-console",
+      title: "Google Search Console",
       description:
-        "Search Console and analytics snapshots showing organic-traffic trajectories on accounts we've owned end-to-end.",
-      kind: "screenshot",
+        "Clicks, impressions, and organic-traffic trajectories straight from Search Console on accounts we run end-to-end.",
+      layout: "gallery",
+      eyebrow: "Proof · Organic traffic",
+      galleryRatio: "16/9",
+      images: [
+        { src: "/images/work/seo/search-console/1.png", alt: "Search Console traffic growth" },
+        // { src: "/images/work/seo/search-console/2.png", alt: "Discover traffic comparison" }, // pending upload
+        { src: "/images/work/seo/search-console/3.png", alt: "Web traffic achievement" },
+      ],
     },
     {
-      id: "keywords-won",
-      title: "Keywords Won",
+      id: "ai-overview",
+      title: "ChatGPT & AI Overviews",
       description:
-        "Top-5 and top-3 wins for high-intent commercial keywords — the queries that actually convert.",
-      kind: "graphic",
+        "Showing up where the next generation of search happens — cited in ChatGPT answers and Google’s AI Overviews for client queries.",
+      layout: "gallery",
+      eyebrow: "Proof · AI search",
+      galleryRatio: "16/9",
+      images: [
+        { src: "/images/work/seo/ai-overview/1.jpeg", alt: "Cited in ChatGPT" },
+        { src: "/images/work/seo/ai-overview/2.png", alt: "Featured in Google AI Overview" },
+      ],
+    },
+    {
+      id: "rankings",
+      title: "Rankings",
+      description:
+        "Keyword positions and ranking distribution — the high-intent, commercial terms that actually convert.",
+      layout: "gallery",
+      eyebrow: "Proof · Keywords",
+      galleryRatio: "16/9",
+      images: [
+        { src: "/images/work/seo/rankings/1.png", alt: "SEO keyword ranking" },
+        { src: "/images/work/seo/rankings/2.png", alt: "Keyword ranking dashboard" },
+        { src: "/images/work/seo/rankings/3.png", alt: "Keyword rankings across cities" },
+        { src: "/images/work/seo/rankings/4.png", alt: "Organic keywords ranking" },
+      ],
     },
     {
       id: "content-examples",
